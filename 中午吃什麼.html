@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>中午吃什麼</title>
+    <link href="css/whatToEat.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+	<div class = "header">
+	<h1>中午吃什麼?</h1>
+	</div>
+
+	<h2 id = "nowWeHave">1.先選幾個吧</h2>
+
+	<button type = "button" onclick="arrPush('韓式')">韓式</button>
+
+	<button type = "button" onclick="arrPush('越式')">越式</button>
+
+	<button type = "button" onclick="arrPush('牛丼')">牛丼</button>
+
+	<button type = "button" onclick="arrPush('拉麵')">拉麵</button>
+
+	<button type = "button" onclick="arrPush('對面的意麵')">對面的意麵</button>
+
+	<button type = "button" onclick="arrPush('米粉湯')">米粉湯</button>
+
+	<button type = "button" onclick="arrPush('雞帶排骨飯')">雞帶排骨飯</button>
+
+	<button type = "button" onclick="arrPush('番茄麵')">番茄麵</button>
+
+	<br><br>
+
+	<button type = "button" onclick="arrPush('隨便麵')">隨便麵</button>
+
+	<button type = "button" onclick="arrPush('豬血湯')">豬血湯</button>
+
+	<button type = "button" onclick="arrPush('雞肉飯')">雞肉飯</button>
+
+	<button type = "button" onclick="arrPush('燒臘')">燒臘</button>
+
+	<button type = "button" onclick="clearArr()">....清除重選</button>
+
+
+    <br><br>
+
+    <h3>--------------------</h3>
+
+    <h2>2.以上都沒有在這裡加入</h2>
+
+    <input type="text" id="input" placeholder="還有啥想吃的?" />
+
+    <input type="button" onclick="record()" value="加入"/>
+
+    <br><br>
+
+
+    <h3>--------------------</h3>
+
+    <h2>3.開始選吧!</h2>
+
+    <button type = "button" onclick="chooseOne()">幫我選一個!</button>
+    <button type = "button" onclick="whatever()">...隨便啦!</button>
+
+    <br><br>
+	<h2 id = "lunch"></h2>
+	<br><br><br><br>
+
+	<script src = "whatTOEat.js"></script>
+</body>
+</html>
