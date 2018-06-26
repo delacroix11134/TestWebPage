@@ -191,10 +191,13 @@
         .footer-black-left li {
         	display: inline-block;
         }
+        .footer-black-left li:not(:last-child):after {
+            content: '|';
+        }
         .footer-black-left a {
-        	text-decoration: none;
-        	color: white;
-        	margin-right: 10px;
+            text-decoration: none;
+            color: white;
+            margin-right: 5px;
         }
         .footer-black-left a:hover {
         	color: gray;
@@ -335,6 +338,8 @@
     				<li><a href="CSS_Lesson2.html">CSS Lesson2</a></li>
     				<li><a href="coffee.html">Coffee</a></li>
                     <li><a href="中午吃什麼.html">WhatToEat</a></li>
+                    <li><a href="CSS_Align.html">CSS_Align</a></li>
+                    <li><a href="CSS_Flexbox.html">CSS_Flexbox</a></li>
     			</ul>
     		</div>
     		<div class="footer-black-middle">
