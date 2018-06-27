@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>CSS_Animation</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
+    <link rel="stylesheet" href="css/victorsWork_Shared.css">
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            margin: 0;
+        }
+        /*header*/
+        .title-text{
+            color:rgb(50, 52, 78)
+        }
+        /*main*/
+        main{
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            align-content: flex-start;
+            flex-wrap: wrap;
+        }
+        .container{
+            width: 30%;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .cube{
+            width: 100px;
+            height: 100px;
+            margin: 60px 60px;
+            display: inline-block;
+            vertical-align: top;
+            background: #aaa;
+        }
+        /*boxes*/
+        .box1{
+            background: rgb(92, 124, 121);
+            transition: 0.5s ease-in-out;
+        }
+        .container1:hover .box1, .container1:active .box1{
+            width: 200px;
+            height: 200px;
+            background: rgb(124, 92, 119);
+        }
+        /*c2*/
+        .box2{
+            transition: width 0.2s ease-in-out, height 0.5s ease-in-out;
+        }
+        .container2:hover .box2, .container2:active .box2{
+            width: 200px;
+            height: 200px;
+            background: rgb(113, 158, 175)
+        }
+        /*c3*/
+        .box3{
+            transform-origin: bottom right;
+            transition: 0.5s ease-in;
+            pointer-events: none;
+        }
+        .container3:hover .box3, .container3:active .box3{
+            transform: rotate( 90deg );
+        }
+        /*c4*/
+        .btn{
+            margin: 40px 40px;
+            width: 120px;
+            height: 60px;
+            border-radius: 40px;
+            display: inline-block;
+            background: rgb(82, 82, 82);
+            position: relative;
+            transition: 0.3s ease;
+        }
+        .btn::before{
+            content: '';
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #aaa;
+            position: absolute;
+            top: 5px;
+            left: 5px; 
+            transition: 0.3s ease;
+        }
+        .check{
+            display: none;
+        }
+        .check:checked + .btn {
+            background: rgb(206, 206, 206);
+        }
+        .check:checked + .btn::before{
+            left: 65px;
+            background: rgb(93, 158, 231);
+        }
+        /*c5*/
+        .outLine{
+            width: 70%;
+            height: 50px;
+            border: 5px solid rgb(66, 66, 66);
+        }
+        .progress-bar{
+            height: 100%;
+            width: 0%;
+            background: rgb(194, 93, 155);
+            transition: 5s ease;
+        }
+        .container5:hover .progress-bar, .container5:active .progress-bar{
+            width:100%;
+        }
+
+        /*media querry*/
+        @media (max-width: 1200px){
+            .container{
+                width: 50%;
+            }
+        }
+        @media (max-width: 500px){
+            .container{
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="bar">
+            <div class="logo"><img src="pic/logo.png" ></div>
+        </div>
+        <div class="title-pic"></div>
+        <h1 class="title-text">CSS Animation Practices</h1>
+    </header>
+    <main>
+        <div class="container container1">
+            <div class="cube box1"></div>
+        </div>
+        <div class="container container2">
+            <div class="cube box2"></div>
+        </div>
+        <div class="container container3">
+            <div class="cube box3"></div>
+        </div>
+        <div class="container container4">
+            <label for="check" class="label">
+                <input type="checkbox" name="check" id="check" class="check">
+                <span class="btn"></span>
+            </label>
+        </div>
+        <div class="container container5">
+            <div class="outLine">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+        <div class="container container6">
+                
+        </div>
+
+    </main>
+    <footer>
+            <div class="footer-green"></div>
+            <div class="footer-black">
+                <div class="footer-black-left">
+                    <div><h1>A Victor's Work</h1></div>
+                    <div>Only for study & practices.<br>
+                    Visit my other practices:</div>
+                    <ul>
+                        <li><a href="CSS_Animation.html">CSS Animation</a></li>
+                        <li><a href="CSS_Lesson2.html">CSS Lesson2</a></li>
+                        <li><a href="coffee.html">Coffee</a></li>
+                        <li><a href="中午吃什麼.html">WhatToEat</a></li>
+                        <li><a href="CSS_Align.html">CSS_Align</a></li>
+                        <li><a href="CSS_Flexbox.html">CSS_Flexbox</a></li>
+                    </ul>
+                </div>
+                <div class="footer-black-middle">
+                    <div><h1>All rights reserved</h1></div>
+                    <div>Only for study & practices.<br>
+                    </div>
+                </div>
+                <div class="footer-black-right">
+                    <div><h1>Contact me</h1></div>
+                    <div>Please contact me on the internet.</div>
+                    <div class="links">
+                        <a href=""><img src="pic/facebook.png" ></a>
+                        <a href=""><img src="pic/instagram.png" ></a>
+                        <a href=""><img src="pic/behance.png" ></a>
+                        <a href=""><img src="pic/pen.png" ></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+</body>
+</html>
