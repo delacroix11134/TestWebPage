@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DOM_Test</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Shrikhand" rel="stylesheet">
+	<link rel="stylesheet" href="css/victorsWork_Shared.css">
+	<style>
+		*{
+			box-sizing: border-box;
+			line-height: 1.5;
+			letter-spacing: 0.1em;
+		}
+		body{
+			margin: 0;
+    		background: #f0f0f0;
+			/*font-family: 'Shrikhand', cursive;*/
+			font-family: 'Open Sans', sans-serif;
+		}
+		#partOne{
+			margin: 60px auto;
+			width: 80%;
+			height: 300px;			
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		}
+		#canvas{
+			width: 100%;
+			height: 300px;
+			border-radius: 10px;
+			box-shadow: 2px 2px 12px rgba(0,0,0,0.5);
+			display: inline-block;
+			text-align: center;
+			background: white;
+		}
+		.container{
+			display: inline-block;
+			vertical-align: middle;
+		}
+		#canvas::before{
+			content: '';
+			display: inline-block;
+			height: 100%;
+			vertical-align: middle;
+		}
+		.text{
+			color: black;
+			font-size: 20px;
+		}
+		.link{
+			font-size: 20px;
+			text-decoration: none;
+		}
+		/*part2*/
+		#part2{
+			margin: 20px auto;
+			width: 80%;
+            height: 100px;
+            display: flex;
+		    justify-content: center;
+		    align-items: flex-start;
+		}
+		.btn{
+			display: inline-block;
+			margin: 0 20px;
+		}
+	</style>
+	
+</head>
+<body>
+	<header>
+		<div class="bar">
+			<div class="logo"><img src="pic/logo.png" ></div>
+		</div>
+		<img class="title-pic" src="pic/header2.jpg">
+		<h1 class="title-text">DOM基本操作</h1>
+		<p class="title-sub-text">用下拉式選單更改元素樣式</p>
+	</header>
+	<article id="partOne">
+		<section id="canvas">
+			<div class="container">
+				<div id="text">DOM Text Test</div>
+				<a id="link"href="#">DOM Link Test</a>
+			</div>	
+		</section>
+	</article>
+	<article id="part2">
+		<section id="controlPad">
+			<div class="btns">
+				<div class="btn">
+					<p>BG Color</p>
+					<select name="selectBGcolor" id="selectBGcolor">
+						<option value="white">White</option>
+						<option value="red">Red</option>
+						<option value="blue">Blue</option>
+						<option value="pic">Pic</option>
+					</select>
+			    </div>
+			    <div class="btn">
+					<p>Font Color</p>
+					<select name="selectFontColor" id="selectFontColor">
+						<option value="black">Black</option>
+						<option value="white">White</option>
+						<option value="gray">Gray</option>
+					</select>
+			    </div>
+			</div>
+		</section>
+	</article>
+
+	<script>
+		//change BG color
+		var color = document.getElementById("selectBGcolor");
+		var canvas = document.getElementById("canvas");
+		color.addEventListener("change",changeBGcolor);
+		function changeBGcolor(){
+			if( color.value == 'blue'){
+				canvas.style.background = 'blue';
+			} else if(color.value == 'red') {
+				canvas.style.background = 'red';
+			} else if(color.value == 'pic') {
+                canvas.style.background = ' url("pic/header3.jpg") ';
+			} else {
+				canvas.style.background = 'white';
+			}
+			console.log(canvas.style.background);
+		}
+		//change font color
+		var text = document.getElementById("text");
+		var selectFontColor = document.getElementById("selectFontColor");
+		selectFontColor.addEventListener("change",changeFontColor);
+		function changeFontColor(){
+			switch(selectFontColor.value) {
+				case 'white':
+					text.style.color = 'white';
+					break;
+				case 'gray':
+					text.style.color = 'gray';
+					break;
+			    default: 
+					text.style.color = 'black';
+					break;
+			}		
+		}
+	</script>
+</body>
+</html>
