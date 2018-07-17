@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>CSS_Animation</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js">
+    </script>
+    <script>
+    $(function(){
+        $('.bg1 .btn1').click(function(){
+            $(this).parents('.container7').toggleClass('is-transitioned');
+        });
+        $('.bg2 .btn1').click(function(){
+            $(this).parents('.container7').toggleClass('is-transitioned');
+        });
+    })
+    </script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
     <link rel="stylesheet" href="css/victorsWork_Shared.css">
     <style>
@@ -29,10 +41,15 @@
         }
         .container{
             width: 30%;
-            height: 300px;
+            position:relative;
+            margin: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        .container::before{
+            content:'';
+            padding-top: 100%;
         }
         .cube{
             width: 100px;
@@ -112,16 +129,155 @@
             height: 100%;
             width: 0%;
             background: rgb(194, 93, 155);
-            transition: 5s ease;
+            transition: 1s ease;
         }
         .container5:hover .progress-bar, .container5:active .progress-bar{
             width:100%;
         }
-
+        /*c6*/
+        .ball-ground{
+            width: 80%;
+            height: 100px;
+        }
+        .ball{
+            width: 100px;
+            height: 100px;
+            transition: 2s ease;
+        }
+        .ball > img {
+            width: 100%;
+            height: 100%;
+        }
+        .container6:hover .ball{
+            transform: translateX(500px) rotate(720deg) ;
+        }
+        /*c7*/
+        .container7 {
+            overflow: hidden;
+            
+            position: relative;
+        }
+        .belt {
+            width: 100%;
+            height: 300px; 
+            transition: 0.8s ease-in-out;
+        }
+        .bg1, .bg2{
+            width: 100%;
+            height: 300px;
+            background: rgb(75, 75, 75);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.6s ease-in-out;
+        }
+        .bg1{
+            transform-origin: center right;
+            z-index: 2;
+        }
+        .bg2{ 
+            background: rgb(82, 82, 82);
+            position: absolute;
+            top: 0px;
+            left: 100%;
+        }
+        .btn1{
+            width: 150px;
+            height: 50px;
+            color: black;
+            font-weight: bold;
+            background: #aaa;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            box-shadow: 0 15px 10px -10px rgba(0,0,0,0.5);
+            transition: 0.2s cubic-bezier(0.75, 0.01, 0.25, 1);
+        }
+        .btn1:hover{
+            transform: scale(1.05);
+            box-shadow: 0 25px 15px -15px rgba(0,0,0,0.5);
+        }
+        .is-transitioned .bg1{
+            transform: scale(0.5) rotateY(-120deg);
+            z-index: -1;
+        }
+        .is-transitioned .belt{
+            transform: translateX(-100%);
+        }
+        /*c8*/
+        .card1{
+            width: 80%;
+            height: 300px;
+            border-radius: 5px;
+            box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+            transition: 0.2s ease;
+        }
+        .pic1{
+            background-image: url("pic/kyoto.jpg");
+            width: 110%;
+            height: 60%; 
+            background-size: 120%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            transition: opacity 0.4s ease-in, background-size 0.5s ease-in-out;
+        }
+        .heart1{
+            background-image: url("pic/heart1.png");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 28%;
+            right: 46%;
+            opacity: 0;
+            transition: 0.2s ease;
+        }
+        .heart2{
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background-image: url("pic/heart2.png");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            transition: 0.2s ease;
+        }
+        .text-box{
+            margin: 5px 20px;
+            text-align: left;
+        }
+        .card1 h2 {
+            font-size: 1.2em;
+            margin: 5px 0;
+        }
+        .card1 p {
+            font-size: 0.8em;
+            margin: 5px 0;
+        }
+        .pic1:hover {
+            background-size: 130%;
+            opacity: 0.5;
+        }
+        .pic1:hover .heart1{
+            opacity: 1;
+        }
+        .heart2:hover, .heart2:active{
+            opacity: 1;
+        }
+        .card1:hover {
+            transform: translate( -1px, -1px);
+            box-shadow:3px 3px 10px rgba(0,0,0,0.5);
+        }
         /*media querry*/
         @media (max-width: 1200px){
             .container{
-                width: 50%;
+                width: 40%;
+            }
+            .card1{
+                width: 90%;
             }
         }
         @media (max-width: 500px){
@@ -161,9 +317,35 @@
             </div>
         </div>
         <div class="container container6">
-                
+            <div class="ball-ground">
+                <div class="ball">
+                    <img src="pic/ball.png" alt="ball">
+                </div>
+            </div>
         </div>
-
+        <div class="container container7">
+            <div class="belt">
+                <div class="bg1">
+                    <div class="btn1">NEXT</div>
+                </div>
+                <div class="bg2">
+                    <div class="btn1">BACK</div>
+                </div>
+            </div>
+        </div>
+        <div class="container container8">
+            <div class = "card1">
+                <div class="pic1">
+                    <div class="heart1">
+                        <div class="heart2"></div>
+                    </div>
+                </div>
+                <div class="text-box">
+                    <h2>The Tourist</h2>
+                    <p>Kyoto (京都, Kyōto) served as Japan's capital and the emperor's residence from 794 until 1868.</p>
+                </div>
+            </div>
+        </div>
     </main>
     <footer>
             <div class="footer-green"></div>
