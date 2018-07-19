@@ -6,16 +6,6 @@
     <title>CSS_Animation</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js">
     </script>
-    <script>
-    $(function(){
-        $('.bg1 .btn1').click(function(){
-            $(this).parents('.container7').toggleClass('is-transitioned');
-        });
-        $('.bg2 .btn1').click(function(){
-            $(this).parents('.container7').toggleClass('is-transitioned');
-        });
-    })
-    </script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
     <link rel="stylesheet" href="css/victorsWork_Shared.css">
     <style>
@@ -222,7 +212,7 @@
             background-size: 120%;
             background-position: center center;
             background-repeat: no-repeat;
-            transition: opacity 0.4s ease-in, background-size 0.5s ease-in-out;
+            transition: opacity 0.4s ease-in-out, background-size 0.5s ease-in-out;
         }
         .heart1{
             background-image: url("pic/heart1.png");
@@ -234,7 +224,7 @@
             top: 28%;
             right: 46%;
             opacity: 0;
-            transition: 0.2s ease;
+            transition: 0.2s ease-in-out;
         }
         .heart2{
             width: 100%;
@@ -243,7 +233,10 @@
             background-image: url("pic/heart2.png");
             background-size: 100%;
             background-repeat: no-repeat;
-            transition: 0.2s ease;
+            transition: 0.2s ease-in-out;
+        }
+        .heart2-click{
+            opacity:1;
         }
         .text-box{
             margin: 5px 20px;
@@ -258,18 +251,172 @@
             margin: 5px 0;
         }
         .pic1:hover {
-            background-size: 130%;
-            opacity: 0.5;
+            background-size: 125%;
+            opacity: 0.6;
         }
         .pic1:hover .heart1{
             opacity: 1;
         }
-        .heart2:hover, .heart2:active{
-            opacity: 1;
+       /*c9*/
+        .shadow{
+            background: rgb(105, 105, 105);
+            border-radius: 50%;
+            width: 100px;
+            height: 30px;
+            transform: translateX(50px) translateY(150px);
+            animation: shadow 0.5s ease-in-out infinite alternate;
         }
-        .card1:hover {
-            transform: translate( -1px, -1px);
-            box-shadow:3px 3px 10px rgba(0,0,0,0.5);
+        .ball2{
+            width: 100px;
+            height: 100px;
+            background: rgb(93, 95, 185);
+            border-radius: 50%;
+            z-index: 1;
+            animation: bounce 0.5s ease-in infinite alternate;
+            transform: translateX(-50px) translateY(100px);
+        }
+        .ball-spacular {
+            width: 20px;
+            height:20px;
+            background: rgb(130, 132, 228);
+            border-radius: 50%;
+            transform: translateX(20px) translateY(20px)
+        }
+        @keyframes bounce{
+            0% { transform: translateX(-50px) translateY(-110px) scale(1.05, 0.95);}
+            80% { transform: translateX(-50px) translateY(100px);}
+            100%{ transform: translateX(-50px) translateY(120px) scale(1.2, 0.8);}
+        }
+        @keyframes shadow{
+            0% {transform: translateX(50px) translateY(150px) scale(0.6,0.6);}
+            100% {transform: translateX(50px) translateY(150px) scale(1,1);}
+        }
+        /*c10*/
+        .nav{
+            width: 90%;
+            height: 70px;
+            background: rgb(100, 100, 100);
+            border-radius: 5px;
+            position: relative;
+            top: -100px;
+            cursor: pointer;
+        }
+        .nav-list{
+            list-style: none;
+            margin: 0 auto;
+            padding: 0;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-list-item {
+            margin: 0;
+            text-align: center;
+            width: 33.33%;
+            height: 70px;
+            line-height: 70px;
+            vertical-align: top;
+        }
+        .nav-list > li:first-child{
+            border-radius: 5px 0 0 5px;
+        }
+        /*子物件hover圓角*/
+        .nav-list-item:last-child{
+            border-radius: 0 5px 5px 0;
+        }
+        .nav-list-item:hover{
+            background: rgb(120,120,120)
+        }
+        /*hover animation要寫在hover裡*/
+        /*分別套用不同的動畫*/
+        .nav-list-item:hover .drop-menu1 li{
+            display: block;
+            opacity: 0;
+            animation: menu-1 0.3s ease forwards;
+        }
+        .nav-list-item:hover .drop-menu2 li{
+            display: block;
+            opacity: 0;
+            animation: menu-2 0.3s ease forwards;
+        }
+        .nav-list-item:hover .drop-menu3 li{
+            display: block;
+            opacity: 0;
+            animation: menu-3 0.3s linear forwards;
+        }
+        .drop-menu{
+            padding: 0;
+            list-style: none;
+            /*加上3D透視*/
+            perspective: 1000px;
+        }
+        .drop-menu > li{
+            display:none;
+            color: white;
+            line-height: 60px;
+            width: 100%;
+            height: 60px;
+            background: rgb(70,70,70);
+        }
+        .drop-menu > li:last-child{
+            border-radius: 0 0 5px 5px;
+        }
+        /*子物件的軸心*/
+        .drop-menu1 > li{
+            transform-origin: center;
+        }
+        .drop-menu2 > li{
+            transform-origin: top center;
+        }
+        .drop-menu3 > li{
+            transform-origin: center;
+        }
+        /*nth-child是寫在子物件上*/
+        .nav-list-item:hover li:nth-child(2){
+            animation-delay: 0.1s;
+        }
+        .nav-list-item:hover li:nth-child(3){
+            animation-delay: 0.2s;
+        }
+        .nav-list-item:hover li:nth-child(4){
+            animation-delay: 0.3s;
+        }
+        .drop-menu > li:hover{
+            background: rgb(90,90,90)
+        }
+        @keyframes menu-1{
+            0% { 
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes menu-2{
+            0% { 
+                opacity: 0;
+                transform: rotateX(100deg);
+            }
+            100% {
+                opacity: 1;
+                transform: rotateX(0deg);
+            }
+        }
+        @keyframes menu-3{
+            0% { 
+                opacity: 0;
+                transform: scale(0) translateY(0px);
+            }
+            75% {
+                transform: scale(1.2) translateY(5px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0px);
+            }
         }
         /*media querry*/
         @media (max-width: 1200px){
@@ -336,9 +483,9 @@
         <div class="container container8">
             <div class = "card1">
                 <div class="pic1">
-                    <div class="heart1">
-                        <div class="heart2"></div>
-                    </div>
+                    <buttom id="heart1" class="heart1">
+                        <div id="heart2" class="heart2"></div>
+                    </buttom>
                 </div>
                 <div class="text-box">
                     <h2>The Tourist</h2>
@@ -346,7 +493,42 @@
                 </div>
             </div>
         </div>
+        <div class="container container9">
+            <div class="shadow"></div>
+            <div class="ball2"><div class="ball-spacular"></div></div>
+        </div>
+        <div class="container container10">
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li class="nav-list-item">list1
+                        <ul class="drop-menu drop-menu1">
+                            <li>item1</li>
+                            <li>item2</li>
+                            <li>item3</li>
+                            <li>item4</li>
+                        </ul>
+                    </li>
+                    <li class="nav-list-item">list2
+                        <ul class="drop-menu drop-menu2">
+                            <li>item1</li>
+                            <li>item2</li>
+                            <li>item3</li>
+                            <li>item4</li>
+                        </ul>
+                    </li>
+                    <li class="nav-list-item">list3
+                        <ul class="drop-menu drop-menu3">
+                            <li>item1</li>
+                            <li>item2</li>
+                            <li>item3</li>
+                            <li>item4</li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </main>
+    <!-- footer -->
     <footer>
             <div class="footer-green"></div>
             <div class="footer-black">
@@ -355,7 +537,7 @@
                     <div>Only for study & practices.<br>
                     Visit my other practices:</div>
                     <ul>
-                        <li><a href="CSS_Animation.html">CSS Animation</a></li>
+                        <li><a href="Dom_Test.html">Dom_Test</a></li>
                         <li><a href="CSS_Lesson2.html">CSS Lesson2</a></li>
                         <li><a href="coffee.html">Coffee</a></li>
                         <li><a href="中午吃什麼.html">WhatToEat</a></li>
@@ -380,5 +562,23 @@
                 </div>
             </div>
         </footer>
+        <script>
+            //jQuery toggle
+            $(function(){
+                $('.bg1 .btn1').click(function(){
+                    $(this).parents('.container7').toggleClass('is-transitioned');
+                });
+                $('.bg2 .btn1').click(function(){
+                    $(this).parents('.container7').toggleClass('is-transitioned');
+                });
+            })
+            //js toggle
+            const heart1 = document.getElementById("heart1");
+            const heart2 = document.getElementById("heart2");
+            heart1.addEventListener("click",like);
+            function like(){
+                heart2.classList.toggle("heart2-click");
+            }
+        </script>
 </body>
 </html>
