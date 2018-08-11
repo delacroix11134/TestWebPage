@@ -229,15 +229,13 @@
             color: #191919ed;
             text-align: center;
             width: 33.33%;
-            font-size: 200px;
+            font-size: 150px;
             /*強制不換行*/
             white-space: nowrap;
             cursor: default;
             transition: 1.6s cubic-bezier(0.52, 0, 0.25, 1);    
         }
-        .text:nth-child(2){
-            font-size: 160px;
-        }
+        
         .text-dark{
             color: rgba(255, 255, 255, 0.2);
         }
@@ -505,6 +503,9 @@
             align-items: center;
             justify-content: space-between;
         }
+        .links-hide{
+            visibility: hidden;
+        }
         .link-bright{
             width: 25px;
             height: 25px;
@@ -524,9 +525,66 @@
             transition: .2s ease;
             filter: brightness(1);
         }
+        /*Media query*/
+        @media(max-width: 500px){
+            .header-logo{
+                left: 0;
+                background: none;
+            }
+            .header-contact{
+                right: 0;
+            }
+            #text-box{
+                display: none;
+            }
+            .box{
+                width: 100%;
+                left: 0;
+            }
+            .arrow-box{
+                width: 90%;
+                right: 5%;
+                bottom: 40%;
+                z-index: 20;
+            }
+            .arrow{
+                height: 30px;
+                filter: brightness(0.8);
+            }
+            .arrow:hover{
+                filter: brightness(1);
+            }
+            .links{
+                flex-direction: row;
+                width: 140px;
+                left: 58%;
+                bottom: -3%;
+                z-index: -1
+            }
+            .contact-info{
+                margin-top: 50%;
+            }
+            .text-large-container{
+                left: 5%;
+                top: 50%;
+                z-index: 20;
+            }
+            .text-large-title{
+                color: white;
+                line-height: 1;
+            }
+            .text-large-sub{
+                color: rgba(255, 255, 255, 0.8);
+            }
+            .text-large-btn{
+                color: rgba(255, 255, 255, 0.8);
+                border-color: rgba(255, 255, 255, 0.8);
+            }
+        }
     </style>
 </head>
 <body id="body" class="body">
+    <input type="checkbox" name="check-contact" id="check-contact">
     <div class="contact-back">
         <div class="contact-info">
             <div class="contact-title"><h1>Tnanks for visit my work!</h1></div>
@@ -535,7 +593,7 @@
         </div>
     </div>
     <header>
-        <input type="checkbox" name="check-contact" id="check-contact">
+        
         <div class="header-logo"><img src="pic/icon-white.png" alt="Victor's Work"></div>
         <label for="check-contact" class="header-contact">contact &#8801;</div>
     </header>
@@ -870,6 +928,9 @@
             body.classList.toggle('body-contact');
             contactBack[0].classList.toggle('contact-back-show');
             lineContact.classList.toggle('lines-contact');
+            pre.classList.toggle('arrow-hide');
+            next.classList.toggle('arrow-hide');
+            toggleClass(links,'links-hide');
             toggleClass(lines,'line-dark');
             sliderTextOutAnyway();
         }
