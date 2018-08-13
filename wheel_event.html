@@ -108,6 +108,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
         }
         header img{
             height: 40px;
@@ -244,6 +245,7 @@
             position: absolute;
             left: 14%;
             top: 37%;
+            pointer-events: none;
         }
         .text-large-title{
             color:rgb(49, 49, 49);
@@ -706,6 +708,19 @@
                 isTransEnd = true;
             },2000)
         }
+        //按下logo時
+        var backToFirstPage = function(){
+            if(isBoxOpen){
+                openBox();
+                gotoPage(1);
+            } else {
+                gotoPage(1);
+            }
+            textLargeShow();
+            
+            
+        }
+        logo.addEventListener('click',backToFirstPage)
         //事件處理函式(要寫在事件註冊前面)
         var gotoPage = function(page){
             switch(page){
