@@ -173,6 +173,9 @@
             animation-delay: 4s;
         }
         @keyframes glow{
+            0%{
+                background: rgba(255, 255, 255, 0);
+            }
             50%{
                 background: rgba(255, 255, 255, 0.3)
             }
@@ -359,7 +362,16 @@
         @media(max-width: 500px){
             .canvas{
                 width: 90%;
+                height: 98%;
                 left: 5%;
+            }
+            .title{
+                height: 60px;
+                line-height: 60px;
+            }
+            .glow{
+                width: 0.5px;
+                height: 0.5px;
             }
             .letter{
                 width: 30px;
