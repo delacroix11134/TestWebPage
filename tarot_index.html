@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="pic/icon.png">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
+    <link rel="stylesheet" href="css/victorsWork_Shared.css">
+    <script src="script/jquery-3.3.1.js"></script>
+    <title>Tarot</title>
+    <style>
+        body{
+            background: rgb(102, 102, 102);
+        }
+        main{
+            margin: 0 auto;
+            margin-top: 50px;
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        main button{
+            color: rgb(31, 204, 175);
+            width: 200px;
+            height: 180px;
+            margin: 20px;
+            border-radius: 10px;
+            background: transparent;
+            border: 1px solid rgb(31, 204, 175);
+            cursor: pointer;
+        }
+        main button:hover{
+            background: rgba(255,255,255,0.1)
+        }
+        .black{
+            display: none;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 10;
+        }
+        .black-exit{
+            width: 80px;
+            height: 80px;
+            color: white;
+            background: rgba(255,255,255,0.2);
+            font-size: 60px;
+            text-align: center;
+            line-height: 80px;
+            position: absolute;
+            top: 70px;
+            right: 40px;
+            cursor: pointer;
+        }
+        .cards{
+            width:80%;
+            height: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+        }
+        .card{
+            display: none;
+            width: 20%;
+            margin: 20px;
+            transition: 0.3s ease;
+            position: relative;
+            opacity: 0;
+            animation: card-in 0.5s ease-out forwards;
+        }
+        .card:nth-child(2){
+            animation-delay: 0.1s;
+        }
+        .card:nth-child(3){
+            animation-delay: 0.2s;
+        }
+        .card:nth-child(4){
+            animation-delay: 0.3s;
+        }
+        .card:nth-child(5){
+            animation-delay: 0.4s;
+        }
+        .card:hover{
+            transform: matrix3d(0.87,0,0.50,-0.0002,0.00,1,0.00,0,-0.5,0,0.87,0,0,0,0,1);
+        }
+        @keyframes card-in{
+            0%{
+                left: 40px;
+                opacity: 0;
+            }
+            100%{
+                left: 0;
+                opacity: 1;
+            }
+        }
+        .card img{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="black">
+        <div class="black-exit">X</div>
+        <div class="cards">
+            <div id="card1" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""></div>
+            <div id="card2" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""></div>
+            <div id="card3" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""></div>
+            <div id="card4" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""></div>
+            <div id="card5" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""></div>
+        </div>
+    </div>
+    <!-- header -->
+    <header>
+        <div class="bar">
+            <div class="logo"><img src="pic/logo.png" ></div>
+        </div>
+        <img class="title-pic" src="pic/header3.jpg">
+        <h1 class="title-text">塔羅抽排程式</h1>
+        <p class="title-sub-text">線上簡易版抽排</p>
+    </header>
+    <main>
+        <button class="oneCard">
+            <img src="porject_tarot/pic/icon/icon1.png" alt="">
+            <div>一張牌</div>
+        </button>
+        <button class="threeCards">
+            <img src="porject_tarot/pic/icon/icon2.png" alt="">
+            <div>三張牌</div>
+        </button>
+        <button class="fiveCards">
+            <img src="porject_tarot/pic/icon/icon3.png" alt="">
+            <div>五張牌</div>
+        </button>
+    </main>
+    <!-- footer -->
+    <footer>
+        <div class="footer-green"></div>
+        <div class="footer-black">
+            <div class="footer-black-left">
+                <div><h1>A Victor's Work</h1></div>
+                <div>Only for study & practices.<br>
+                Visit my other practices:</div>
+                <ul>
+                    <li><a href="CSS_Animation.html">CSS Animation</a></li>
+                    <li><a href="CSS_Lesson2.html">CSS Lesson2</a></li>
+                    <li><a href="coffee.html">Coffee</a></li>
+                    <li><a href="中午吃什麼.html">WhatToEat</a></li>
+                    <li><a href="CSS_Align.html">CSS_Align</a></li>
+                    <li><a href="CSS_Flexbox.html">CSS_Flexbox</a></li>
+                </ul>
+            </div>
+            <div class="footer-black-middle">
+                <div><h1>All rights reserved</h1></div>
+                <div>Only for study & practices.<br>
+                </div>
+            </div>
+            <div class="footer-black-right">
+                <div><h1>Contact me</h1></div>
+                <div>Please contact me on the internet.</div>
+                <div class="links">
+                    <a href=""><img src="pic/facebook.png" ></a>
+                    <a href=""><img src="pic/instagram.png" ></a>
+                    <a href=""><img src="pic/behance.png" ></a>
+                    <a href=""><img src="pic/pen.png" ></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+<script>
+    //基本處理DOM的函式工廠 可以鍊式呼叫
+    var $ = function(selector){
+        var elements = document.querySelectorAll(selector);
+        return{
+            elements,
+            html(newHTML){
+                this.elements.forEach(function(ele){
+                    ele.innerHTML = newHTML;
+                })
+                return this;
+            },
+            css(newCSS){
+                this.elements.forEach(function(ele){
+                    Object.assign(ele.style,newCSS);
+                })
+                return this;
+            },
+            on(event,handler){
+                this.elements.forEach(function(ele){
+                    ele.addEventListener(event,handler);
+                })
+                return this;
+            },
+            remove(event,handler){
+                this.elements.forEach(function(ele){
+                    ele.removeEventListener(event,handler);
+                })
+                return this;
+            },
+            addClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.add(className);
+                })
+                return this;
+            },
+            removeClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.remove(className);
+                })
+                return this;
+            },
+            toggleClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.toggle(className);
+                })
+                return this;
+            },
+            hide(){
+                this.elements.forEach(function(ele){
+                    ele.style.display = 'none';
+                })
+            },
+            show(){
+                this.elements.forEach(function(ele){
+                    ele.style.display = 'block';
+                })
+            },
+            changePic(path){
+                this.elements.forEach(function(ele){
+                    ele.src = path;
+                })
+            }
+    }}
+    //按鈕功能
+    $('.oneCard').on('click',function(){
+        $('.black').show();
+        $('#card1').show();
+        pickCrads(1);
+    })
+    $('.threeCards').on('click',function(){
+        $('.black').show();
+        $('#card1').show();
+        $('#card2').show();
+        $('#card3').show();
+        pickCrads(3);
+    })
+    $('.fiveCards').on('click',function(){
+        $('.black').show();
+        $('.card').show();
+        pickCrads(5);
+    })
+    $('.black-exit').on('click',function(){
+        $('.black').hide();
+        $('.card').hide();
+    });
+
+    var deck = [];
+    var pick = [];
+    var init = function(){
+        deck.length = 0;
+        pick.length = 0;
+        for(i=0;i<=77;i++){
+            deck.push(i);
+        }
+        $('.card img').changePic('porject_tarot/pic/images/t_back.png')
+    }
+    var pickCrads = function(number){
+        init();
+        for(i=0;i<number;i++){
+            var picked =Math.abs(Math.floor(Math.random()*(78-i)));
+            var ifReverse = Math.floor(Math.random()*2)
+            
+            if(ifReverse){
+                pick.push([deck[picked]]);
+            }else{
+                pick.push([deck[picked],'reverse'])
+            }
+            deck.splice(picked,1);
+        }
+        //var tempCard = `#card${i+1} img`;
+        var tempPic = function(i){
+            if(pick[i-1]){
+                return 'porject_tarot/pic/images/t'+ pick[i-1][0] + '.png'
+            }
+        }
+        document.querySelector('#card1 img').addEventListener('click',function(){this.src = tempPic(1)});
+        document.querySelector('#card2 img').addEventListener('click',function(){this.src = tempPic(2)});
+        document.querySelector('#card3 img').addEventListener('click',function(){this.src = tempPic(3)});
+        document.querySelector('#card4 img').addEventListener('click',function(){this.src = tempPic(4)});
+        document.querySelector('#card5 img').addEventListener('click',function(){this.src = tempPic(5)});
+        console.log(pick);
+
+    };
+</script>
+</html>
