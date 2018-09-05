@@ -13,7 +13,7 @@
         body{
             background: rgb(102, 102, 102);
         }
-        main{
+        main, section{
             margin: 0 auto;
             margin-top: 50px;
             width: 80%;
@@ -22,7 +22,7 @@
             align-items: flex-start;
             flex-wrap: wrap;
         }
-        main button{
+        main button, section button{
             color: rgb(31, 204, 175);
             width: 200px;
             height: 180px;
@@ -31,6 +31,7 @@
             background: transparent;
             border: 1px solid rgb(31, 204, 175);
             cursor: pointer;
+            text-align: center;
         }
         main button:hover{
             background: rgba(255,255,255,0.1)
@@ -39,7 +40,7 @@
             display: none;
             height: 100%;
             width: 100%;
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             background: rgba(0,0,0,0.7);
@@ -60,11 +61,14 @@
         }
         .cards{
             width:80%;
-            height: 100%;
-            margin: 0 auto;
+            height: 50%;
             display: flex;
             justify-content: center;
             align-items: center; 
+            flex-wrap: wrap;
+            position:absolute;
+            top: 25%;
+            left: 10%;
         }
         .card{
             display: none;
@@ -74,6 +78,9 @@
             position: relative;
             opacity: 0;
             animation: card-in 0.5s ease-out forwards;
+        }
+        .card-big{
+            width: 40% !important;
         }
         .card:nth-child(2){
             animation-delay: 0.1s;
@@ -103,17 +110,39 @@
         .card img{
             width: 100%;
         }
+        .name{
+            width: 100%;
+            height: 20px;
+            color: white;
+            text-align: center;
+        }
+        /*media query*/
+        @media(max-width:500px){
+            main button, section button{
+                width: 80%;
+                height: 250px;
+                font-size: 20px;
+            }
+            .cards{
+                width: 95%;
+                left: 2.5%;
+            }
+            .card{
+                width: 25%;
+                margin: 10px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="black">
         <div class="black-exit">X</div>
         <div class="cards">
-            <div id="card1" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""></div>
-            <div id="card2" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""></div>
-            <div id="card3" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""></div>
-            <div id="card4" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""></div>
-            <div id="card5" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""></div>
+            <div id="card1" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name1"class="name"></div></div>
+            <div id="card2" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name2"class="name"></div></div>
+            <div id="card3" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name3"class="name"></div></div>
+            <div id="card4" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name4"class="name"></div></div>
+            <div id="card5" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name5"class="name"></div></div>
         </div>
     </div>
     <!-- header -->
@@ -125,7 +154,17 @@
         <h1 class="title-text">塔羅抽排程式</h1>
         <p class="title-sub-text">線上簡易版抽排</p>
     </header>
-    <main>
+    <section>
+        <button class="22cards">
+            <img src="porject_tarot/pic/icon/icon1.png" alt="">
+            <div>22張牌</div>
+        </button>
+        <button class="78cards">
+            <img src="porject_tarot/pic/icon/icon1.png" alt="">
+            <div>78張牌</div>
+        </button>
+    </section>
+    <main id="main">
         <button class="oneCard">
             <img src="porject_tarot/pic/icon/icon1.png" alt="">
             <div>一張牌</div>
@@ -226,22 +265,25 @@
                 this.elements.forEach(function(ele){
                     ele.style.display = 'none';
                 })
+                return this;
             },
             show(){
                 this.elements.forEach(function(ele){
                     ele.style.display = 'block';
                 })
+                return this;
             },
             changePic(path){
                 this.elements.forEach(function(ele){
                     ele.src = path;
                 })
+                return this;
             }
     }}
     //按鈕功能
     $('.oneCard').on('click',function(){
         $('.black').show();
-        $('#card1').show();
+        $('#card1').show().addClass('card-big');
         pickCrads(1);
     })
     $('.threeCards').on('click',function(){
@@ -258,44 +300,65 @@
     })
     $('.black-exit').on('click',function(){
         $('.black').hide();
-        $('.card').hide();
+        $('.card').hide().removeClass('card-big');
     });
-
+    var mode = 78;
+    var cardNameArr = [];
     var deck = [];
     var pick = [];
+    var pickName = [];
     var init = function(){
         deck.length = 0;
         pick.length = 0;
-        for(i=0;i<=77;i++){
+        pickName.length = 0;
+        cardNameArr = ['0愚者','I魔術師','II女祭司','III皇后','IV皇帝','V教宗','VI戀人','VII戰車','VIII正義','IX隱者','X命運之輪','XI力量','XII倒吊人','XIII死神','XIV節制','XV惡魔','XVI塔','XVII星星','XVIII月亮','XIX太陽','XX審判','XXI世界',
+        '權杖1','權杖2','權杖3','權杖4','權杖5','權杖6','權杖7','權杖8','權杖9','權杖10','權杖侍者','權杖騎士','權杖皇后','權杖國王',
+        '寶劍1','寶劍2','寶劍3','寶劍4','寶劍5','寶劍6','寶劍7','寶劍8','寶劍9','寶劍10','寶劍侍者','寶劍騎士','寶劍皇后','寶劍國王',
+        '聖杯1','聖杯2','聖杯3','聖杯4','聖杯5','聖杯6','聖杯7','聖杯8','聖杯9','聖杯10','聖杯侍者','聖杯騎士','聖杯皇后','聖杯國王',
+        '錢幣1','錢幣2','錢幣3','錢幣4','錢幣5','錢幣6','錢幣7','錢幣8','錢幣9','錢幣10','錢幣侍者','錢幣騎士','錢幣皇后','錢幣國王',]
+        for(i=0;i<=mode;i++){
             deck.push(i);
         }
-        $('.card img').changePic('porject_tarot/pic/images/t_back.png')
+        $('.card img').css({transform:'rotate(0)'}).changePic('porject_tarot/pic/images/t_back.png');
+        $('.name').html('');
     }
     var pickCrads = function(number){
         init();
+        //從deck隨機牌並加入陣列pick
         for(i=0;i<number;i++){
-            var picked =Math.abs(Math.floor(Math.random()*(78-i)));
-            var ifReverse = Math.floor(Math.random()*2)
+            var picked =Math.abs(Math.floor(Math.random()*(mode-i)));
+            var ifReverse = Math.floor(Math.random()*2);
             
             if(ifReverse){
                 pick.push([deck[picked]]);
+                pickName.push(cardNameArr[picked]);
             }else{
-                pick.push([deck[picked],'reverse'])
+                //隨機正逆位
+                pick.push([deck[picked],'reverse']);
+                pickName.push(cardNameArr[picked]+' 逆位');
             }
             deck.splice(picked,1);
+            cardNameArr.splice(picked,1)
         }
-        //var tempCard = `#card${i+1} img`;
         var tempPic = function(i){
             if(pick[i-1]){
                 return 'porject_tarot/pic/images/t'+ pick[i-1][0] + '.png'
             }
         }
-        document.querySelector('#card1 img').addEventListener('click',function(){this.src = tempPic(1)});
-        document.querySelector('#card2 img').addEventListener('click',function(){this.src = tempPic(2)});
-        document.querySelector('#card3 img').addEventListener('click',function(){this.src = tempPic(3)});
-        document.querySelector('#card4 img').addEventListener('click',function(){this.src = tempPic(4)});
-        document.querySelector('#card5 img').addEventListener('click',function(){this.src = tempPic(5)});
-        console.log(pick);
+        var reverse = function(i){
+            if(pick[i-1][1]){
+                $('#card'+i +' img').css({transform:'rotate(180deg)'});
+            }
+        }
+        var showName = function(i){
+            $(`#name${i}`).html(pickName[i-1])
+        }
+        document.querySelector('#card1 img').addEventListener('click',function(){this.src = tempPic(1);reverse(1);showName(1)});
+        document.querySelector('#card2 img').addEventListener('click',function(){this.src = tempPic(2);reverse(2);showName(2)});
+        document.querySelector('#card3 img').addEventListener('click',function(){this.src = tempPic(3);reverse(3);showName(3)});
+        document.querySelector('#card4 img').addEventListener('click',function(){this.src = tempPic(4);reverse(4);showName(4)});
+        document.querySelector('#card5 img').addEventListener('click',function(){this.src = tempPic(5);reverse(5);showName(5)});
+        console.log(pickName);
 
     };
 </script>
