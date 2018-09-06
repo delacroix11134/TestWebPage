@@ -2,7 +2,13 @@
 *{
     line-height: 1.5;
     letter-spacing: 0.1em;
+    box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+}
+body{
+    margin: 0;
+    background: #f0f0f0;
+    /* font-family: 'Open Sans', sans-serif; */
 }
 header {
     text-align: center;
@@ -16,6 +22,7 @@ header {
     width: 100%;
     height: 50px;
     z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 .logo img{
     height: 45px;
@@ -86,12 +93,16 @@ footer {
     margin: 20px 0;
 }
 .links a {
+    width: 30px;
+    height: 30px;
     margin-right: 10px;
 }
 .links img{
     width: 30px;
 }
-
+.links img:hover{
+    filter: brightness(0.8);
+}
 @media(max-width: 1200px){
 
 }
