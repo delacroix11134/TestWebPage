@@ -11,16 +11,28 @@
     <title>Tarot</title>
     <style>
         body{
-            background: rgb(102, 102, 102);
+            background:url('pic/header3.jpg');
+            background-position-y: 0;
+            background-attachment:fixed; 
+            text-align: center;
+        }
+        .title-pic{
+            background: transparent;
         }
         main, section{
             margin: 0 auto;
             margin-top: 50px;
-            width: 80%;
+            width: 100%;
+            height: 500px;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             flex-wrap: wrap;
+            background: rgba(27, 27, 27, 1);
+            position: relative;
+        }
+        main{
+            margin-top: 20px;
         }
         main button, section button{
             color: rgb(31, 204, 175);
@@ -33,7 +45,7 @@
             cursor: pointer;
             text-align: center;
         }
-        main button:hover{
+        main button:hover, section button:hover{
             background: rgba(255,255,255,0.1)
         }
         .black{
@@ -59,6 +71,25 @@
             right: 40px;
             cursor: pointer;
         }
+        .arrow{
+            margin: 30px auto;
+        }
+        .sec-title{
+            width: 100%;
+            color: white;
+            position: absolute;
+            top: 100px;
+        }
+        .allCards img{
+            width: 80%;
+        }
+        .bigCards img{
+            width: 70px;
+        }
+        .allCards > div, .bigCards > div{
+            position: relative;
+            top: 12px;
+        }
         .cards{
             width:80%;
             height: 50%;
@@ -80,7 +111,7 @@
             animation: card-in 0.5s ease-out forwards;
         }
         .card-big{
-            width: 40% !important;
+            width: 20%;
         }
         .card:nth-child(2){
             animation-delay: 0.1s;
@@ -116,8 +147,21 @@
             color: white;
             text-align: center;
         }
+        /*footer*/
+        .footer-black{
+            background: rgba(27, 27, 27, 1);
+        }
         /*media query*/
         @media(max-width:500px){
+            main{
+                height: 1100px;
+            }
+            section{
+                height: 800px;
+            }
+            .sec-title{
+                top: 60px;
+            }
             main button, section button{
                 width: 80%;
                 height: 250px;
@@ -130,6 +174,12 @@
             .card{
                 width: 25%;
                 margin: 10px;
+            }
+            .card-big{
+                width: 40% !important;
+            }
+            .card:hover{
+            transform: none;
             }
         }
     </style>
@@ -150,33 +200,40 @@
         <div class="bar">
             <div class="logo"><img src="pic/logo.png" ></div>
         </div>
-        <img class="title-pic" src="pic/header3.jpg">
+        <div class="title-pic"></div>
         <h1 class="title-text">塔羅抽排程式</h1>
         <p class="title-sub-text">線上簡易版抽排</p>
     </header>
     <section>
-        <button class="22cards">
-            <img src="porject_tarot/pic/icon/icon1.png" alt="">
-            <div>22張牌</div>
-        </button>
-        <button class="78cards">
-            <img src="porject_tarot/pic/icon/icon1.png" alt="">
-            <div>78張牌</div>
-        </button>
+        <div class="sec-title">請先選擇牌組</div>
+        <div class="buttons">
+            <button class="bigCards">
+                <img src="porject_tarot/pic/icon/icon4.png" alt="">
+                <div>22張牌</div>
+            </button>
+            <button class="allCards">
+                <img src="porject_tarot/pic/icon/icon5.png" alt="">
+                <div>78張牌</div>
+            </button>
+        </div>
     </section>
+    <div class="arrow"><img src="porject_tarot/pic/icon/arrow1.png" alt=""></div>
     <main id="main">
-        <button class="oneCard">
-            <img src="porject_tarot/pic/icon/icon1.png" alt="">
-            <div>一張牌</div>
-        </button>
-        <button class="threeCards">
-            <img src="porject_tarot/pic/icon/icon2.png" alt="">
-            <div>三張牌</div>
-        </button>
-        <button class="fiveCards">
-            <img src="porject_tarot/pic/icon/icon3.png" alt="">
-            <div>五張牌</div>
-        </button>
+        <div class="sec-title">選擇抽排方式</div>
+        <div class="buttons">
+            <button class="oneCard">
+                <img src="porject_tarot/pic/icon/icon1.png" alt="">
+                <div>一張牌</div>
+            </button>
+            <button class="threeCards">
+                <img src="porject_tarot/pic/icon/icon2.png" alt="">
+                <div>三張牌</div>
+            </button>
+            <button class="fiveCards">
+                <img src="porject_tarot/pic/icon/icon3.png" alt="">
+                <div>五張牌</div>
+            </button>
+        </div>
     </main>
     <!-- footer -->
     <footer>
@@ -215,7 +272,7 @@
 </body>
 <script>
     //基本處理DOM的函式工廠 可以鍊式呼叫
-    var $ = function(selector){
+    var $$ = function(selector){
         var elements = document.querySelectorAll(selector);
         return{
             elements,
@@ -281,27 +338,31 @@
             }
     }}
     //按鈕功能
-    $('.oneCard').on('click',function(){
-        $('.black').show();
-        $('#card1').show().addClass('card-big');
+    $$('.bigCards').on('click',function(){mode=22;});
+    $$('.allCards').on('click',function(){mode=78;});
+    $$('.oneCard').on('click',function(){
+        $$('.black').show();
+        $$('#card1').show().addClass('card-big');
         pickCrads(1);
     })
-    $('.threeCards').on('click',function(){
-        $('.black').show();
-        $('#card1').show();
-        $('#card2').show();
-        $('#card3').show();
+    $$('.threeCards').on('click',function(){
+        $$('.black').show();
+        $$('#card1').show();
+        $$('#card2').show();
+        $$('#card3').show();
         pickCrads(3);
     })
-    $('.fiveCards').on('click',function(){
-        $('.black').show();
-        $('.card').show();
+    $$('.fiveCards').on('click',function(){
+        $$('.black').show();
+        $$('.card').show();
         pickCrads(5);
     })
-    $('.black-exit').on('click',function(){
-        $('.black').hide();
-        $('.card').hide().removeClass('card-big');
+    $$('.black-exit').on('click',function(){
+        $$('.black').hide();
+        $$('.card').hide().removeClass('card-big');
     });
+
+    //宣告
     var mode = 78;
     var cardNameArr = [];
     var deck = [];
@@ -319,8 +380,8 @@
         for(i=0;i<=mode;i++){
             deck.push(i);
         }
-        $('.card img').css({transform:'rotate(0)'}).changePic('porject_tarot/pic/images/t_back.png');
-        $('.name').html('');
+        $$('.card img').css({transform:'rotate(0)'}).changePic('porject_tarot/pic/images/t_back.png');
+        $$('.name').html('');
     }
     var pickCrads = function(number){
         init();
@@ -347,11 +408,11 @@
         }
         var reverse = function(i){
             if(pick[i-1][1]){
-                $('#card'+i +' img').css({transform:'rotate(180deg)'});
+                $$('#card'+i +' img').css({transform:'rotate(180deg)'});
             }
         }
         var showName = function(i){
-            $(`#name${i}`).html(pickName[i-1])
+            $$(`#name${i}`).html(pickName[i-1])
         }
         document.querySelector('#card1 img').addEventListener('click',function(){this.src = tempPic(1);reverse(1);showName(1)});
         document.querySelector('#card2 img').addEventListener('click',function(){this.src = tempPic(2);reverse(2);showName(2)});
