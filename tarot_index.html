@@ -8,6 +8,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
     <link rel="stylesheet" href="css/victorsWork_Shared.css">
     <script src="script/jquery-3.3.1.js"></script>
+    <script src="script/jquery.scrolling-parallax.js"></script>
     <title>Tarot</title>
     <style>
         body{
@@ -80,6 +81,19 @@
             position: absolute;
             top: 100px;
         }
+        .start{
+            color: rgb(31, 204, 175);
+            width: 200px;
+            height: 60px;
+            margin: 0 auto;
+            border-radius: 30px;
+            position: absolute;
+            bottom: 100px;
+            background: transparent;
+            border: 1px solid rgb(31, 204, 175);
+            cursor: pointer;
+            text-align: center;
+        }
         .allCards img{
             width: 80%;
         }
@@ -100,6 +114,7 @@
             position:absolute;
             top: 25%;
             left: 10%;
+            z-index: 10;
         }
         .card{
             display: none;
@@ -128,6 +143,9 @@
         .card:hover{
             transform: matrix3d(0.87,0,0.50,-0.0002,0.00,1,0.00,0,-0.5,0,0.87,0,0,0,0,1);
         }
+        .card-open:hover{
+            transform: none;
+        }
         @keyframes card-in{
             0%{
                 left: 40px;
@@ -148,6 +166,9 @@
             text-align: center;
         }
         /*footer*/
+        footer{
+            margin-top: 210px;
+        }
         .footer-black{
             background: rgba(27, 27, 27, 1);
         }
@@ -158,6 +179,9 @@
             }
             section{
                 height: 800px;
+            }
+            .sec1{
+                height: 700px;
             }
             .sec-title{
                 top: 60px;
@@ -180,6 +204,12 @@
             }
             .card:hover{
             transform: none;
+            }
+            .black-exit{
+                width: 60px;
+                height: 60px;
+                font-size: 50px;
+                line-height: 60px;
             }
         }
     </style>
@@ -204,7 +234,13 @@
         <h1 class="title-text">塔羅抽排程式</h1>
         <p class="title-sub-text">線上簡易版抽排</p>
     </header>
-    <section>
+    <section class="sec1">
+        <div class="sec-title">首先在心中默想你的問題</div>
+        <img src="porject_tarot/pic/icon/icon6.png" alt="">
+        <button class="start">好了!</button>
+    </section>
+    <div class="arrow"><img src="porject_tarot/pic/icon/arrow1.png" alt=""></div>
+    <section class="sec2">
         <div class="sec-title">請先選擇牌組</div>
         <div class="buttons">
             <button class="bigCards">
@@ -244,11 +280,11 @@
                 <div>Only for study & practices.<br>
                 Visit my other practices:</div>
                 <ul>
-                    <li><a href="CSS_Animation.html">CSS Animation</a></li>
-                    <li><a href="CSS_Lesson2.html">CSS Lesson2</a></li>
-                    <li><a href="coffee.html">Coffee</a></li>
-                    <li><a href="中午吃什麼.html">WhatToEat</a></li>
-                    <li><a href="CSS_Align.html">CSS_Align</a></li>
+                    <li><a href="Hangman.html">Hangman game</a></li>
+                    <li><a href="wheel_event.html">Wheel Event</a></li>
+                    <li><a href="DOM_Test.html">DOM Test</a></li>
+                    <li><a href="CSS_Animation.html">CSS_Animation</a></li>
+                    <li><a href="CSS_Grid.html">CSS_Grid</a></li>
                     <li><a href="CSS_Flexbox.html">CSS_Flexbox</a></li>
                 </ul>
             </div>
@@ -338,8 +374,17 @@
             }
     }}
     //按鈕功能
-    $$('.bigCards').on('click',function(){mode=22;});
-    $$('.allCards').on('click',function(){mode=78;});
+    $('.start').on('click', function () {
+        $('html,body').animate({scrollTop:$('.sec2').offset().top},500);
+    });
+    $('.bigCards').on('click', function () {
+        $('html,body').animate({scrollTop:$('#main').offset().top},500);
+        mode = 22;
+    });
+    $('.allCards').on('click', function () {
+        $('html,body').animate({scrollTop:$('#main').offset().top},500);
+        mode = 78;
+    });
     $$('.oneCard').on('click',function(){
         $$('.black').show();
         $$('#card1').show().addClass('card-big');
@@ -359,9 +404,10 @@
     })
     $$('.black-exit').on('click',function(){
         $$('.black').hide();
-        $$('.card').hide().removeClass('card-big');
+        $$('.card').hide().removeClass('card-big').removeClass('card-open');
     });
-
+    //視差滾動外掛(http://rettamkrad.blogspot.com/2013/05/blog-post.html)
+    $('body').parallax({offsetY:-200,speedDactor:0.15}); 
     //宣告
     var mode = 78;
     var cardNameArr = [];
@@ -383,6 +429,7 @@
         $$('.card img').css({transform:'rotate(0)'}).changePic('porject_tarot/pic/images/t_back.png');
         $$('.name').html('');
     }
+    //抽卡
     var pickCrads = function(number){
         init();
         //從deck隨機牌並加入陣列pick
@@ -414,7 +461,8 @@
         var showName = function(i){
             $$(`#name${i}`).html(pickName[i-1])
         }
-        document.querySelector('#card1 img').addEventListener('click',function(){this.src = tempPic(1);reverse(1);showName(1)});
+        //顯示牌面圖案
+        document.querySelector('#card1 img').addEventListener('click',function(){this.src = tempPic(1);reverse(1);showName(1);$$('#card1').addClass('card-open')});
         document.querySelector('#card2 img').addEventListener('click',function(){this.src = tempPic(2);reverse(2);showName(2)});
         document.querySelector('#card3 img').addEventListener('click',function(){this.src = tempPic(3);reverse(3);showName(3)});
         document.querySelector('#card4 img').addEventListener('click',function(){this.src = tempPic(4);reverse(4);showName(4)});
