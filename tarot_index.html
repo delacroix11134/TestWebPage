@@ -22,7 +22,6 @@
         }
         main, section{
             margin: 0 auto;
-            margin-top: 50px;
             width: 100%;
             height: 500px;
             display: flex;
@@ -34,6 +33,7 @@
         }
         main{
             margin-top: 20px;
+            height: 750px;
         }
         main button, section button{
             color: rgb(31, 204, 175);
@@ -79,7 +79,7 @@
             width: 100%;
             color: white;
             position: absolute;
-            top: 100px;
+            top: 80px;
         }
         .start{
             color: rgb(31, 204, 175);
@@ -125,6 +125,9 @@
             opacity: 0;
             animation: card-in 0.3s ease-out forwards;
         }
+        .card-other{
+            animation: card-in-2 0.5s ease-out forwards;
+        }
         .card-big{
             width: 16%;
         }
@@ -139,6 +142,15 @@
         }
         .card:nth-child(5){
             animation-delay: 0.4s;
+        }
+        .card:nth-child(7){
+            animation-delay: 0.1s;
+        }
+        .card:nth-child(8){
+            animation-delay: 0.2s;
+        }
+        .card:nth-child(9){
+            animation-delay: 0.3s;
         }
         .card:hover{
             transform: matrix3d(0.87,0,0.50,-0.0002,0.00,1,0.00,0,-0.5,0,0.87,0,0,0,0,1);
@@ -156,6 +168,14 @@
                 opacity: 1;
             }
         }
+        @keyframes card-in-2{
+            0%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
         @keyframes glow{
             0%{
                 filter: brightness(3);
@@ -164,6 +184,54 @@
                 filter: brightness(1);
             }
         }
+        /*牌陣*/
+        .other{
+            position: absolute;
+            width: 14%;
+        }
+        #card6{
+            top: -30%;
+            left: 33%;
+        }
+        #card7{
+            top: -30%;
+            right: 33%;
+        }
+        #card8{
+            top: 52%;
+            left: 33%;
+        }
+        #card9{
+            top: 52%;
+            right: 33%;
+        }
+        /*十字*/
+        #card10{
+            width:10%;
+            top: 22%;
+            right: 60%;
+        }
+        #card11{
+            width:10%;
+            top: -38%;
+            right: 45%;
+        }
+        #card12{
+            width:10%;
+            top: 22%;
+            right: 30%;
+        }
+        #card13{
+            width:10%;
+            top: 83%;
+            right: 45%;
+        }
+        #card14{
+            width:10%;
+            top: 22%;
+            right: 45%;
+        }
+        /*img*/
         .card img{
             width: 100%;
         }
@@ -204,10 +272,16 @@
             .sec1 .sec-title{
                 top: 100px;
             }
-            main button, section button{
+            section button{
                 width: 80%;
                 height: 250px;
                 font-size: 20px;
+            }
+            main button{
+                width: 38%;
+                height: 200px;
+                font-size: 16px;
+                margin: 10px;
             }
             .cards{
                 width: 95%;
@@ -217,6 +291,49 @@
                 width: 25%;
                 margin: 10px;
             }
+            /*牌陣*/
+            #card6{
+                top: -5%;
+                left: 18%;
+            }
+            #card7{
+                top: -5%;
+                right: 18%;
+            }
+            #card8{
+                top: 53%;
+                left: 18%;
+            }
+            #card9{
+                top: 53%;
+                right: 18%;
+            }
+            #card10{
+                width:18%;
+                top: 32%;
+                right: 65%;
+            }
+            #card11{
+                width:18%;
+                top: -17%;
+                right: 40%;
+            }
+            #card12{
+                width:18%;
+                top: 32%;
+                right: 15%;
+            }
+            #card13{
+                width:18%;
+                top: 81%;
+                right: 40%;
+            }
+            #card14{
+                width:18%;
+                top: 32%;
+                right: 40%;
+            }
+            /*調整*/
             .card-big{
                 width: 45% !important;
             }
@@ -244,6 +361,17 @@
             <div id="card3" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name3"class="name"></div></div>
             <div id="card4" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name4"class="name"></div></div>
             <div id="card5" class="card"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name5"class="name"></div></div>
+            <!-- 4 elements -->
+            <div id="card6" class="card other"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name6"class="name"></div></div>
+            <div id="card7" class="card other"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name7"class="name"></div></div>
+            <div id="card8" class="card other"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name8"class="name"></div></div>
+            <div id="card9" class="card other"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name9"class="name"></div></div>
+            <!-- cross -->
+            <div id="card10" class="card other"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name10"class="name"></div></div>
+            <div id="card11" class="card other"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name11"class="name"></div></div>
+            <div id="card12" class="card other"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name12"class="name"></div></div>
+            <div id="card13" class="card other"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name13"class="name"></div></div>
+            <div id="card14" class="card other"><img src="porject_tarot/pic/images/t_back.png" alt=""><div id="name14"class="name"></div></div>
         </div>
     </div>
     <!-- header -->
@@ -290,6 +418,26 @@
                 <img src="porject_tarot/pic/icon/icon3.png" alt="">
                 <div>五張牌</div>
             </button>
+            <button class="threeCards">
+                <img src="porject_tarot/pic/icon/icon2.png" alt="">
+                <div>時間之箭占卜法</div>
+            </button>
+            <button class="fourCards">
+                <img src="porject_tarot/pic/icon/icon2.png" alt="">
+                <div>四要素占卜法</div>
+            </button>
+            <button class="cross">
+                <img src="porject_tarot/pic/icon/icon2.png" alt="">
+                <div>大十字占卜法</div>
+            </button>
+            <button class="starCards">
+                <img src="porject_tarot/pic/icon/icon2.png" alt="">
+                <div>六芒星占卜法</div>
+            </button>
+            <button class="celticCards">
+                <img src="porject_tarot/pic/icon/icon2.png" alt="">
+                <div>塞爾特十字占卜法</div>
+            </button>
         </div>
     </main>
     <!-- footer -->
@@ -328,7 +476,7 @@
     </footer>
 </body>
 <script>
-    //基本處理DOM的函式工廠 可以鍊式呼叫
+    // 基本處理DOM的函式工廠 可以鍊式呼叫
     var $$ = function(selector){
         var elements = document.querySelectorAll(selector);
         return{
@@ -394,7 +542,7 @@
                 return this;
             }
     }}
-    //按鈕功能
+    // 按鈕功能
     $('.start').on('click', function () {
         $('html,body').animate({scrollTop:$('.sec2').offset().top},500);
     });
@@ -420,21 +568,52 @@
     })
     $$('.fiveCards').on('click',function(){
         $$('.black').show();
-        $$('.card').show();
+        $$('#card1').show();
+        $$('#card2').show();
+        $$('#card3').show();
+        $$('#card4').show();
+        $$('#card5').show();
         pickCrads(5);
     })
+    //牌陣按鈕
+    $$('.fourCards').on('click',function(){
+        $$('.black').show();
+        $$('.card').css({animationName:'card-in-2'});
+        $$('#card6').show();
+        $$('#card7').show();
+        $$('#card8').show();
+        $$('#card9').show();
+        pickCrads(9);
+    })
+    $$('.cross').on('click',function(){
+        $$('.black').show();
+        $$('.card').css({animationName:'card-in-2'});
+        $$('#card10').show();
+        $$('#card11').show();
+        $$('#card12').show();
+        $$('#card13').show();
+        $$('#card14').show();
+        pickCrads(14);
+    })
+    // 離開按鈕
     $$('.black-exit').on('click',function(){
         $$('.black').hide();
-        $$('.card').hide().removeClass('card-big').removeClass('card-open');
+        $$('.card').hide().removeClass('card-big').removeClass('card-open').css({animationName:'card-in'});
     });
-    //視差滾動外掛(http://rettamkrad.blogspot.com/2013/05/blog-post.html)
+    // 視差滾動外掛(http://rettamkrad.blogspot.com/2013/05/blog-post.html)
     $('body').parallax({offsetY:-200,speedDactor:0.15}); 
-    //宣告
+    // 宣告
     var mode = 78;
     var cardNameArr = [];
     var deck = [];
     var pick = [];
     var pickName = [];
+    var isMobile = function(){
+        if(window.screen.width>500){
+            return false;
+        }else{
+            return true;
+    }}
     var init = function(){
         deck.length = 0;
         pick.length = 0;
@@ -449,11 +628,12 @@
         }
         $$('.card img').css({transform:'rotate(0)'}).changePic('porject_tarot/pic/images/t_back.png').removeClass('img-glow');
         $$('.name').html('').removeClass('show-name');
+        $$('.card').removeClass('card-other');
     }
-    //抽卡
+    // 抽卡
     var pickCrads = function(number){
         init();
-        //從deck隨機牌並加入陣列pick
+        // 從deck隨機牌並加入陣列pick
         for(i=0;i<number;i++){
             var picked =Math.abs(Math.floor(Math.random()*(mode-i)));
             var ifReverse = Math.floor(Math.random()*2);
@@ -461,7 +641,7 @@
                 pick.push([deck[picked]]);
                 pickName.push(cardNameArr[picked]);
             }else{
-                //隨機正逆位
+                // 隨機正逆位
                 pick.push([deck[picked],'reverse']);
                 pickName.push(cardNameArr[picked]+' 逆位');
             }
@@ -482,7 +662,7 @@
         var showName = function(i){
             $$(`#name${i}`).addClass('show-name');
         };
-        //顯示牌面圖案
+        // 顯示牌面圖案
         document.querySelector('#card1 img').addEventListener('click',function(){
             this.src = tempPic(1);
             this.classList.add('img-glow');
@@ -518,8 +698,71 @@
             showName(5);
             $$('#card5').addClass('card-open')
         });
+        document.querySelector('#card6 img').addEventListener('click',function(){
+            this.src = tempPic(6);
+            this.classList.add('img-glow');
+            reverse(6);
+            showName(6);
+            $$('#card6').addClass('card-open')
+        });
+        document.querySelector('#card7 img').addEventListener('click',function(){
+            this.src = tempPic(7);
+            this.classList.add('img-glow');
+            reverse(7);
+            showName(7);
+            $$('#card7').addClass('card-open')
+        });
+        document.querySelector('#card8 img').addEventListener('click',function(){
+            this.src = tempPic(8);
+            this.classList.add('img-glow');
+            reverse(8);
+            showName(8);
+            $$('#card8').addClass('card-open')
+        });
+        document.querySelector('#card9 img').addEventListener('click',function(){
+            this.src = tempPic(9);
+            this.classList.add('img-glow');
+            reverse(9);
+            showName(9);
+            $$('#card9').addClass('card-open')
+        });
+        document.querySelector('#card10 img').addEventListener('click',function(){
+            this.src = tempPic(10);
+            this.classList.add('img-glow');
+            reverse(10);
+            showName(10);
+            $$('#card10').addClass('card-open')
+        });
+        document.querySelector('#card11 img').addEventListener('click',function(){
+            this.src = tempPic(11);
+            this.classList.add('img-glow');
+            reverse(11);
+            showName(11);
+            $$('#card11').addClass('card-open')
+        });
+        document.querySelector('#card12 img').addEventListener('click',function(){
+            this.src = tempPic(12);
+            this.classList.add('img-glow');
+            reverse(12);
+            showName(12);
+            $$('#card12').addClass('card-open')
+        });
+        document.querySelector('#card13 img').addEventListener('click',function(){
+            this.src = tempPic(13);
+            this.classList.add('img-glow');
+            reverse(13);
+            showName(13);
+            $$('#card13').addClass('card-open')
+        });
+        document.querySelector('#card14 img').addEventListener('click',function(){
+            this.src = tempPic(14);
+            this.classList.add('img-glow');
+            reverse(14);
+            showName(14);
+            $$('#card14').addClass('card-open')
+        });
+        
         console.log(pickName);
-
     };
 </script>
 </html>
