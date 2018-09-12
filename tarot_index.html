@@ -24,6 +24,7 @@
             margin: 0 auto;
             width: 100%;
             height: 500px;
+            text-align: center;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -75,13 +76,26 @@
         .arrow{
             margin: 30px auto;
         }
+        .blank{
+            width: 100%;
+            height: 80px;
+        }
         .sec-title{
             width: 100%;
             color: white;
             position: absolute;
             top: 80px;
         }
-        .start{
+        .sec-text{
+            color: #1fccaf;
+            text-align: left;
+            margin: 28px;
+        }
+        .sec-img{
+            position: absolute;
+            bottom: 100px;
+        }
+        .start, .back{
             color: rgb(31, 204, 175);
             width: 200px;
             height: 60px;
@@ -252,28 +266,28 @@
         /*十字*/
         #card10{
             width:10%;
-            top: 22%;
-            right: 60%;
-        }
-        #card11{
-            width:10%;
             top: -38%;
-            right: 45%;
+            right: 59%;
         }
         #card12{
             width:10%;
+            top: 82%;
+            right: 45%;
+        }
+        #card11{
+            width:10%;
             top: 22%;
-            right: 30%;
+            right: 52%;
         }
         #card13{
             width:10%;
-            top: 83%;
-            right: 45%;
+            top: 22%;
+            right: 38%;
         }
         #card14{
             width:10%;
-            top: 22%;
-            right: 45%;
+            top: -38%;
+            right: 31%;
         }
         /*star*/
         #card15{
@@ -411,13 +425,17 @@
             section{
                 height: 800px;
             }
-            .sec1{
-                height: 700px;
+            .sec1, .sec4{
+                height: 600px;
             }
             .sec-title{
                 top: 60px;
             }
-            .sec1 .sec-title{
+            .sec-img{
+                position: relative;
+                bottom: 200px;
+            }
+            .sec1 .sec-title,.sec4 .sec-title,.sec5 .sec-title{
                 top: 100px;
             }
             section button{
@@ -463,28 +481,28 @@
             /*十字*/
             #card10{
                 width:18%;
-                top: 32%;
-                right: 65%;
+                top: -12%;
+                right: 60%;
             }
             #card11{
                 width:18%;
-                top: -17%;
-                right: 40%;
+                top: 38%;
+                right: 52%;
             }
             #card12{
                 width:18%;
-                top: 32%;
-                right: 15%;
+                top: 88%;
+                right: 40%;
             }
             #card13{
                 width:18%;
-                top: 81%;
-                right: 40%;
+                top: 38%;
+                right: 28%;
             }
             #card14{
                 width:18%;
-                top: 32%;
-                right: 40%;
+                top: -12%;
+                right: 20%;
             }
             /*star*/
             #card15{
@@ -539,7 +557,7 @@
             }
             #name23{
                 width: 22px;
-                transform: rotate(90deg) translate(-10px,-65px);
+                transform: rotate(90deg) translate(-33px,-40px);
             }
             #card24{
                 width:16%;
@@ -658,8 +676,35 @@
         <h1 class="title-text">塔羅抽排程式</h1>
         <p class="title-sub-text">線上簡易版抽排</p>
     </header>
+    <!-- mian -->
+    <section class="sec5">
+        <div class="sec-title">塔羅牌是什麼?</div>
+        <div class="sec-text">塔羅牌在傳統上由78張牌組成的牌組，集合了神秘學、基督教、猶太教、埃及神話、星座符號、象徵學等的占卜體系<br>
+            除了用於占卜，現代人更傾向於將塔羅牌作爲一種自我探索和發展的工具</div>
+        <div class="sec-img"><img src="porject_tarot/pic/icon/icon12.png" alt=""></div>
+    </section>
+    <div class="blank"></div>
+    <section class="sec5">
+        <div class="sec-title">塔羅牌的組成</div>
+        <div class="sec-text">塔羅牌由22張「大秘儀」和56張「小秘儀」組成<br>
+            大秘儀用來解釋事物的背景與原因，可以獨自占卜<br>
+            小秘儀包含權杖、聖杯、寶劍、錢幣四個牌組，各組中更細分為十張數字牌<br>
+            和國王、王后、騎士、侍者四張宮廷牌，常表示事件的細節與單獨的表徵
+        </div>
+    </section>
+    <div class="blank"></div>
+    <section class="sec5">
+        <div class="sec-title">占卜的原理</div>
+        <div class="sec-text">
+            塔羅牌的圖像包含神秘學、卡巴拉數字學、占星術等象徵符號，但儘管塔羅擁有豐富的內涵<br>
+            它仍然只是一種好用的「工具」，本身並不帶有任何神秘的力量<br>
+            塔羅之所以神準，係因為問題的解答都存在於人類的潛意識之中，而塔羅牌的22張大牌，正是集體潛意識之中原型的圖像<br>
+            解牌者只須做出忠實的解讀，即可獲得許多的啟發，並做出準確的預測
+        </div>
+    </section>
+    <div class="blank"></div>
     <section class="sec1">
-        <div class="sec-title">首先在心中默想你的問題</div>
+        <div class="sec-title">馬上來抽牌吧！首先在心中默想你的問題</div>
         <img src="porject_tarot/pic/icon/icon6.png" alt="">
         <button class="start">好了!</button>
     </section>
@@ -703,18 +748,30 @@
             </button>
             <button class="cross">
                 <img src="porject_tarot/pic/icon/icon9.png" alt="">
-                <div>大十字占卜法</div>
+                <div>二擇一占卜法</div>
             </button>
             <button class="star">
                 <img src="porject_tarot/pic/icon/icon10.png" alt="">
                 <div>六芒星占卜法</div>
             </button>
             <button class="celtic">
-                <img src="porject_tarot/pic/icon/icon2.png" alt="">
+                <img src="porject_tarot/pic/icon/icon11.png" alt="">
                 <div>塞爾特十字占卜法</div>
             </button>
         </div>
     </main>
+    <div class="arrow"><img src="porject_tarot/pic/icon/arrow1.png" alt=""></div>
+    <section class="sec4">
+        <div class="sec-title">得到結果了嗎?</div>
+        <button class="back">重新抽牌</button>
+    </section>
+    <div class="blank"></div>
+    <section class="sec5">
+        <div class="sec-title">解牌</div>
+        <div class="sec-text">
+            請找專業的占卜師或自行研究牌義
+        </div>
+    </section>
     <!-- footer -->
     <footer>
         <div class="footer-green"></div>
@@ -819,7 +876,11 @@
     }}
     // 按鈕功能
     $('.start').on('click', function () {
+        // jQuery頁面滑動
         $('html,body').animate({scrollTop:$('.sec2').offset().top},500);
+    });
+    $('.back').on('click', function () {
+        $('html,body').animate({scrollTop:$('.sec1').offset().top},1000);
     });
     $('.bigCards').on('click', function () {
         $('html,body').animate({scrollTop:$('#main').offset().top},500);
