@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>中二ID產生器</title>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:300" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            letter-spacing: 0.1em;
+        }
+        body{
+            font-family: 'Noto Sans TC', sans-serif;
+            width: 100%;
+            /* height: 1080px; */
+            /* overflow: hidden; */
+            background-color: rgb(85, 85, 85);
+        }
+        #bg{
+            width: 100%;
+            height: 1080px;
+            position: fixed;
+            z-index: -10;
+            background-image: url(../pic/miku.jpg);
+            background-size: cover;
+            background-position: center -150px;
+            filter: blur(10px);
+            -webkit-filter: blur(10px);
+            /* opacity: 0.9;*/
+        }
+        header{
+            width: 100%;
+            height: 50px;
+            background-color: rgba(0,0,0,0.8);
+            box-shadow: 0px 2px 5px;
+        }
+        #container-header{
+            width: 90%;
+            height: 100%;
+            margin: 0 auto;
+            position: relative;
+        }
+        #logo{
+            width: 200px;
+            height: 100%;
+            display: inline-block;
+        }
+        #logo img{
+            height: 40px;
+            margin: 10px 
+        }
+        #title{
+            color: white;
+            display: inline-block;
+            position: absolute;
+            top: 15px;
+        } 
+        header ul{
+            position: absolute;
+            display: inline-flex;
+            right: 0;
+        }
+        header li{
+            width: 150px;
+            margin: 0 10px;
+            cursor: pointer;
+            text-align: center;
+        }
+        header li:hover{
+            background-color: rgba(255,255,255,0.1);
+        }
+        header li a{
+            color: white;
+            text-decoration: none;
+            line-height: 50px;
+        }
+        #vue{
+            width: 90%;
+            margin: 0 auto;
+        }
+        #main{
+            width: 100%;
+            height: 500px;
+            margin-top: 100px;
+            text-align: center;
+            color: white;
+            display:flex;
+            align-content: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        #slot-name{
+            width: 100%;
+            height: 100px;
+            font-size: 60px;
+            margin: 0;
+        }
+        .btns{
+            width: 30%;
+            height: 100px;
+            margin-top: 50px;
+        }
+        .btns-m{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        #btn-copy-m,#btn-share-m{
+            width: 49%;
+        }
+        .btn-ghost{
+            height: 36px;
+            color: white;
+            border-radius: 5px;
+            border: 1px solid white;
+            background: transparent;
+            outline: none;
+            cursor: pointer;
+        }
+        .btn-ghost:hover{
+            color: rgb(70, 70, 70);
+            background: white;
+        }
+        #pannel{
+            width: 100%;
+            height: 200px;
+            border-radius: 5px;
+            background-color: rgba(0,0,0,0.8);
+            box-shadow: 1px 2px 5px;
+            position: relative;
+        }
+        .container-pannel{
+            width: 80%;
+            height: 80%;
+            margin: 0 auto;
+            position: absolute;
+            top: 25px;
+            left: 10%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .block-history{
+            width: 40%;
+            height: 100%;
+        }
+        .history{
+            color: white;
+            height: 30px;
+            width: 100%;
+            cursor: pointer;
+            position: relative;
+        }
+        .btn-copy-s{
+            display: inline-block;
+            width: 60px;
+            height: 25px;
+            position: absolute;
+            top: 2.5px;
+            right: 75px;
+            visibility: hidden;
+        }
+        .btn-share-s{
+            display: inline-block;
+            width: 60px;
+            height: 25px;
+            position: absolute;
+            top: 2.5px;
+            right: 10px;
+            visibility: hidden;
+        }
+        .history:hover{
+            background-color: rgba(255,255,255,0.05)
+        }
+        .history:hover .btn-ghost{
+            visibility: visible;
+        }
+        .block-control{
+            width: 40%;
+            height: 100%;
+        }
+        .input{
+            text-align: end;
+        }
+        .input>div{
+            height: 36px;
+        }
+        .input>div div{
+            text-align: right;
+            margin-right: 10px;
+            display:inline-block;
+            width: 150px;
+            color: white; 
+            vertical-align: bottom;
+        }
+        .input select{
+            width: 200px;
+            height: 30px;
+            font-size: 18px;
+            color: white;
+            background-color: transparent;
+            border: transparent;
+            border-bottom: 1px solid white;
+            outline: none;
+        }
+        .input option{
+            color: black;
+            border: none;
+            height: 30px;
+        }
+        .input input{
+            width: 200px;
+            height: 30px;
+            font-size: 18px;
+            color: white;
+            outline: none;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid white;
+        }
+        .input input::placeholder{
+            font-size: 18px;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .btns-input{
+            text-align: end;
+            margin-top: 20px;
+        }
+        .btn-solid{
+            width: 45%;
+            height: 36px;
+            border-radius: 5px;
+            color: white;
+            background-color: gray;
+            border: none;
+            display: inline-block;
+            cursor: pointer;
+            outline: none;
+        }
+        #btn-generate{
+            background-color: #094cd5;
+        }
+        #btn-clear{
+            background-color: #64b447;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="bg"></div>
+    <header>
+        <div id="container-header">
+            <div id="logo"><img src="../pic/logo.png" alt=""></div>
+            <div id="title">| 中二ID產生器</div>
+            <ul>
+                <li><a href="#">MY WORKS</a></li>
+                <li><a href="#">CONTACT ME</a></li>
+            </ul>
+        </div>
+    </header>
+    <div id="vue">
+        <div id = "main">
+            <p>{{text}}</p>
+            <div id="slot-name">{{result}}</div>
+            <div class="btns">
+                <div class="btns-m">
+                    <button id="btn-copy-m"class="btn-ghost"@click="copy">複製文字</button>
+                    <button id="btn-share-m"class="btn-ghost">分享至Facebook</button>
+                </div>
+            </div>
+        </div>
+        <div id="pannel">
+            <div class="container-pannel">
+                <div class="block-history">
+                    <div class="history" v-for="(item,index) in resultArr">
+                        <div>{{index + 1}}. {{item}}</div>
+                        <button class="btn-copy-s btn-ghost">複製</button>
+                        <button class="btn-share-s btn-ghost">分享</button>
+                    </div>
+                </div>
+                <div class="block-control">
+                    <div class="input">
+                        <div>
+                            <div>你的性別</div>
+                            <select name="gender" id="gender" v-model="gender">
+                                <option value="none">隨意</option>
+                                <option value="male">男</option>
+                                <option value="female">女</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div>想要填入的字</div>
+                            <input type="text"placeholder="請輸入文字"v-model="name">
+                        </div>
+                    </div>
+                    <div class="btns-input">
+                        <button id="btn-clear"class="btn-solid"@click="clear">清除紀錄</button>
+                        <button id="btn-generate" class="btn-solid" @click="generate">產生ID</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+</body>
+<script>
+    var url=window.location.toString();
+    var vue = new Vue({
+        el: '#vue',
+        data:{
+            title: '中二ID產生器',
+            text: '你的ID是....',
+            result: '',
+            resultArr: [],
+            name:'',
+            gender:'none',
+            dicLetter:['獅','斬','星','爆','黯','黑','王','天','地','閃','電','帝',
+            '雷','鬪','神','夜','翔','鬼','獄','蒼','焱','言','闇','血','霸','傲','絕',
+            '聖','滅','魔','凰','龍','威','噬','弒','羅','毀','毒','魂','煞','敵','狼',
+            '冰','霜','雪','雨','冷','夏','風','炎','暴','熾','凜','颯','嵐','漾','戀',
+            '愛','殤','幻','異','情','玥','月','楓','花','語','姬','極','樂','刃','影',
+            '羽','劍','魂','夢','龍','貓','豪','軒','志','鈞','凱','傑','輝','銘','毅',
+            '宇','宸','吉'
+            ],
+            dicLetterF:['婷','媛','雪','羽','漾','萌','戀','薰','嬡','晞','夏','冷','淚','瞳','玥',
+            '蜜','棠','蓓','若','蕾','紫','戀','晴','音','彩','霞','蝶','喵','優','音','冬','兔','唯'
+            ,'傻','貓','咩','汪','戀','妍','夢','莎','櫻','薇','依','莓','姬','娘','玹','湘','璃','靜'
+            ,'夜','露','妙','沁','薔','琦','淇','葵','蘊','真','詩','瑄','雁','萩','芷','白','瑤','烟'
+            ,'芃','珞','曼','翎','菱','柔','子','宛','卉','苡','筱','霜','藍','嵐','巧'
+            ],
+            dicWord:['煞氣','霸王','南宮','慕容','斬佛','滅世','闇夜','癡情','墮獄','邪眼',
+            '聖月','修羅','紅蓮','漆黑','瞬殺','孤獨','霸氣','天地','邪王','弒神','義氣','傲天',
+            '傻氣','慈悲','稚氣','罪曖','涅槃','破滅','幻凜','寂寞','龍虎','炎煌','葬花','凜月',
+            '星爆','神威','狂嵐','滅殺','無敵','古錐','戀空','慟哭','混沌','咆哮','覺醒','終焉',
+            '審判','剎那','正義','陽炎','蒼穹','死神','疾風','輪迴','深淵','聖粉','放火','聖冥',
+            '靈武','魔煞','惡鬼','楓颯','寂寞','傲天','狂氣','幻煌','流星','天誅','天魔','冰雪',
+            '超星','尊爵','清新',
+            ], 
+            dicWordF:['戀艾','夢幻','夢想','口愛','戀芯','粉色','彩虹','水漾','玥兔','寶貝',
+            '淚痕','冰楓','甜心','閃亮','羽戀','回憶','星星','緻噯','焦糖','奶糖','時尚','夢紫',
+            '夢伊','曖昧','天堂','罪惡','嵐玥','玥月','優雅','華麗','天使','咘咘','迷心','璇律',
+            '迷喵','唯一','紫戀','蔚藍','楓夜','癒心','芯愛','淚光','永恆','凝噯','烟花','寂寞',
+            '冰藍','念念','蜜棠','任性','繽紛','遺忘','茴憶','雲烟','優音','陽玥','咘懂','豬豬',
+            '雨若','萌濛','微熱','觴心','漾雪','傾城','飄流','戀玥','孤單','魅影','微薰','暖暖',
+            '雨濛','妖孽','妖豔','紫魅','萌沐','緋雪','冰綺','雪花','愛哭','爛漫','回憶','迷糊',
+            '透明','灰色','夢蝶','浮生','布丁','果果','凋零','初戀','綻放','默默','動感','晶螢',
+            '公主','女王','雪戀','幽幽','水晶','柳玫','萌萌','氣質','絕殤','阡陌','恬羽','暮光',
+            '日系','理科','蝶舞','傻靚','雨彤','稚氣','獨愛','湘晴','夏語','吹雪','戀痕','璘櫻',
+            '紫韻','祈野','萌戀'
+            ],
+            dicN:['凱蒂貓','佛地魔','孤狼','夜叉','惡鬼','黑龍','神劍','巨神','聖騎','龍騎',
+            '霸天','天尊','帝王','惡魔','屁孩','聖粉','八嘎囧','寶貝','糖果','舞月','墮天使',
+            '薔薇','孤星','妖花','女王','天使','拳婦','野獸','戰神','括約肌','豪哥','姊夫','臨演',
+            '眼鏡','鼻子','聖光','馬英丸','金正恩','肥宅','傑','鬥神','金城武','血花','不知火','泡泡',
+            '隊長','暗殺者','憂鬱','癡情','聖尊','神魔','王子','殺手','殺神','總裁','大俠','天尊','陳浩南',
+            '總舵主','修羅','阿姨','騎士','盜賊','法師','旅團','狂神','武士','伐木工','羽翼','會長',
+            '學姊','學長','老師','教官','巨龍','掠奪者','孤桃','公子','康妮','女孩','蔡英文','阿伯',
+            '星辰','浪子','囡仔','魯蛇','鳳凰','哥吉拉','大香菇','凱蒂','芭比','唐伯虎','神射手','狂風',
+            '神豬','聖魰','乳婦','笨','妞','呆','肛門','洨蹦蹦','懶蛋','香港腳','痔瘡','王仁甫','台客',
+            '前列腺','膀胱','老媽','凱仔','地中海','大報社','夜煞','黑嵐嬌','ㄦ','貴公子','武勇','基多拉'
+            ],
+            dicPP:['a','a','o','@','★','卍','の','の','de','~~','°','i','*','&','＊','♥','x','❤','♀','♂',
+                'δ','ε','φ','〃','ω','ⓒⓤⓣⓔ','†','☆｡oﾟ'
+            ],
+            dicDeco:[['卍'],['乂'],['屮'],['★'],['~'],['ㄨ'],['†'],['✞'],['♪'],['♡'],['◇◆'],
+            ['々'],['§'],['┆'],['灬'],['↙','↗'],['=*^~','~^*='],['Oo','oO'],['㊣~','~㊣'],['↖★乂','乂★↘'],
+            ['Ww','wW'],['↘㊣','㊣↖'],['╰☆','☆╮'],['←','→'],['','ゝ'],['〆','°'],['','√'],['','°'],
+            ['＊°','°★ '],['╭☆､','〞'],['ε','δ'],['+° ','× °'],['･:*:･','･:*:･'],['╭☆ﾟ',' 〞']
+            ],
+            dicMisc:['狠狠愛','愛重來','卡娃伊','5566','很愛玩','噯太深','太難懂','咘懂噯','しovё ','100% ',
+            '赤裸裸','罪琉璃','熱戀中 ','甜心北鼻 ','LoVe ','BaD ','Smile',' QueenA','Kitty','Belle'
+            ],
+            
+            
+        },
+        methods:{
+            // 隨機選擇0~num間的數字
+            randomNum : function(num){
+                return Math.floor(Math.random()*num);
+            },
+            // 隨機選擇一個填入的引數
+            selector: function(){
+                return arguments[this.randomNum(arguments.length)]
+            },
+            // 從陣列中選機選擇一項
+            arrSelector: function(arr){
+                return arr[this.randomNum(arr.length)]
+            },
+            addDeco: function(arr,borderOrNot){
+                var deco
+                if(!borderOrNot){
+                    deco = this.dicDeco[this.randomNum(10)]
+                    arr.push(deco[0]);
+                    arr.unshift(deco[0]);
+                }else{
+                    deco = this.arrSelector(this.dicDeco)
+                    deco[1] ? ( arr.push(deco[1]) , arr.unshift(deco[0]) ):( arr.push(deco[0]) , arr.unshift(deco[0]) )
+                }
+            },
+            addDecoWord: function(arr){
+                var deco = this.selector(this.dicWord,this.dicWordF)
+                var decoWord = deco[this.randomNum(deco.length)]
+                arr.unshift(decoWord[0])
+                arr.push(decoWord[1])
+            },
+            // 產生第一種句型的結果
+            generateType1: function(){
+                var result = []
+                if(!this.name){
+                    var num = this.randomNum(3) + 3
+                    for(i=0;i<num;i++){
+                        result.push(this.arrSelector(this.dicLetter))
+                    }
+                } else {
+                    var num = this.randomNum(3) + 1
+                    for(i=0;i<num;i++){
+                        result.push(this.arrSelector(this.dicLetter))
+                    }
+                    result.push(this.name)
+                }
+                this.addDeco(result,true)
+                this.result = result.join('')
+                console.log('type1: '+ result.join(' '))
+            },
+            //產生第二種句型的結果
+            generateType2: function(){
+                var result = []
+                var ifDecoWord = this.selector(true,false)
+                var ifBorderDeco = this.selector(true,false)
+                result.push(this.arrSelector(this.selector(this.dicWord,this.dicWordF)))
+                result.push(this.arrSelector(this.dicPP))
+                !this.name?result.push(this.arrSelector(this.selector(this.dicN,this.dicLetter))):result.push(this.name)
+                this.addDeco(result,false)
+                ifDecoWord ? this.addDecoWord(result):'';
+                ifDecoWord ? (ifBorderDeco ? this.addDeco(result,true) : '' ): '';
+                this.result = result.join('')
+                console.log('type2: '+ result.join(' '))
+            },
+            //產生第三種句型的結果
+            generateType3: function(){
+                var result = []
+                result.push(this.arrSelector(this.dicWord))
+                this.addDeco(result,false)
+                result.unshift(this.arrSelector(this.selector(this.dicWord,this.dicWordF)))
+                !this.name?result.push(this.arrSelector(this.selector(this.dicLetter,this.dicN))):result.push(this.name)
+                this.addDeco(result,true)
+                this.result = result.join('')
+                console.log('type3: '+ result.join(' '))
+            },
+            //產生第四種句型的結果
+            generateType4: function(){
+                var result = []
+                result.push(this.arrSelector(this.dicMisc))
+                result.push(this.arrSelector(this.dicPP))
+                !this.name?result.push(this.arrSelector(this.dicWordF)):result.push(this.name)
+                this.addDeco(result,true)
+                this.result = result.join('')
+                console.log('type4: '+ result.join(' '))
+            },
+            //產生第五種句型的結果
+            generateType5: function(){
+                var result = []
+                var ifPP = this.selector(true,true,false)
+                var ifTwoWords = this.selector(true,false)
+                result.push(this.arrSelector(this.dicWordF))
+                ifPP ? result.push(this.arrSelector(this.dicPP)) : ''
+                this.name?result.push(this.name):ifTwoWords?(result.push(this.arrSelector(this.dicLetterF)),result.push(this.arrSelector(this.dicLetterF))):result.push(this.arrSelector(this.dicLetterF))
+                this.addDeco(result,true)
+                this.result = result.join('')
+                console.log('type5: '+ result.join(' '))
+            },
+            generate: function(){
+                if(this.gender == 'none'){
+                    this.selector(this.generateType1,this.generateType2,this.generateType3,this.generateType4,this.generateType5)()
+                } else if(this.gender == 'male') {
+                    this.selector(this.generateType1,this.generateType2,this.generateType3)()
+                } else {
+                    this.selector(this.generateType4,this.generateType5)()
+                }
+                this.resultArr.length<5 ? this.resultArr.unshift(this.result) : (this.resultArr.pop(),this.resultArr.unshift(this.result))
+                document.getElementById('btn-copy-m').innerHTML = '複製文字'
+            },
+            clear: function(){
+                var children = document.querySelectorAll('.history')
+                for(i=0;i<children.length;i++){
+                    children[i].innerHTML = '';
+                }
+                this.resultArr = [];
+                document.getElementById('btn-copy-m').innerHTML = '複製文字'
+            },
+            copy: function(){
+                var clip = document.createElement('textarea')
+                clip.textContent = this.result
+                document.body.appendChild(clip)
+                clip.select()
+                document.execCommand('copy')
+                clip.remove()
+                document.getElementById('btn-copy-m').innerHTML = '已複製至剪貼簿!'
+                console.log('copy')
+            }
+        }
+    })
+
+</script>
+</html>
