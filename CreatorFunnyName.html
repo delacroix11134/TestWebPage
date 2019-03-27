@@ -286,6 +286,25 @@
     </style>
 </head>
 <body>
+        <div id="fb-root"></div>
+        <script>
+                window.fbAsyncInit = function() {
+                    FB.init({
+                    appId            : '593668021112283',
+                    autoLogAppEvents : true,
+                    xfbml            : true,
+                    version          : 'v3.2'
+                    });
+                };
+                
+                (function(d, s, id){
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) {return;}
+                    js = d.createElement(s); js.id = id;
+                    js.src = "https://connect.facebook.net/en_US/sdk.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
+            </script>
     <div id="bg"></div>
     <header>
         <div id="container-header">
@@ -310,7 +329,7 @@
             <div class="btns">
                 <div class="btns-m">
                     <button id="btn-copy-m"class="btn-ghost"@click="copy">複製文字</button>
-                    <button id="btn-share-m"class="btn-ghost">分享至Facebook</button>
+                    <button id="btn-share-m"class="btn-ghost"@click="share">分享至Facebook</button>
                 </div>
             </div>
         </div>
@@ -350,13 +369,17 @@
     </div>
 </body>
 <script>
-    document.getElementById('btn-share-m').onclick = function() {
-        FB.ui({
-            method: 'share',
-            display: 'popup',
-            href: 'https://developers.facebook.com/docs/',
-        }, function(response){});
-        }
+    
+    // document.querySelector('#btn-share-m').onclick = function() {
+    //     console.log('FB')
+    //     // FB.ui({
+    //     //     method: 'share',
+    //     //     display: 'popup',
+    //     //     href: 'https://developers.facebook.com/docs/',
+    //     // }, function(response){
+    //     //     console.log()
+    //     // });
+    //     }
     var url=window.location.toString();
     var vue = new Vue({
         el: '#vue',
@@ -550,6 +573,16 @@
                 clip.remove()
                 document.getElementById('btn-copy-m').innerHTML = '已複製至剪貼簿!'
                 console.log('copy')
+            },
+            share: function(){
+                console.log('FB')
+                FB.ui({
+                method: 'share',
+                display: 'popup',
+                href: 'https://developers.facebook.com/docs/',
+            }, function(response){
+                console.log()
+            });
             }
             
         }
