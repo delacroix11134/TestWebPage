@@ -79,6 +79,39 @@
             text-decoration: none;
             line-height: 50px;
         }
+        #nav-works:hover ~ .block-works{
+            visibility: visible;
+            top: 50px;
+            transition: 0.5s ease-out;
+            opacity: 1;
+        }
+        .block-works{
+            visibility: hidden;
+            width: 150px;
+            position: absolute;
+            top: 40px;
+            left: 10px;
+            background-color: rgba(0,0,0,0.9);
+            box-shadow: 1px 1px 3px;
+            opacity: 0;
+        }
+        .works:hover{
+            background-color: rgba(255,255,255,0.1);
+        }
+        .block-works:hover{
+            visibility: visible;
+            top: 50px;
+            opacity: 1;
+        }
+        .works{
+            width: 100%;
+            height: 50px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            line-height: 50px;
+            display: block;
+        }
         #vue{
             width: 90%;
             margin: 0 auto;
@@ -97,7 +130,7 @@
         #slot-name{
             width: 100%;
             height: 100px;
-            font-size: 60px;
+            font-size: 80px;
             margin: 0;
         }
         .btns{
@@ -209,7 +242,8 @@
             outline: none;
         }
         .input option{
-            color: black;
+            background-color: white;
+            color: rgb(196, 196, 196);
             border: none;
             height: 30px;
         }
@@ -258,7 +292,13 @@
             <div id="logo"><img src="pic/logo.png" alt=""></div>
             <div id="title">| 中二ID產生器</div>
             <ul>
-                <li><a href="#">MY WORKS</a></li>
+                <li id="nav-works"><a href="#">MY WORKS</a></li>
+                <div class="block-works">
+                    <a href="https://delacroix11134.github.io/TestWebPage/Hangman.html"class="works">Hangman小遊戲</a>
+                    <a href="https://delacroix11134.github.io/TestWebPage/tarot_index.html"class="works">塔羅抽排程式</a>
+                    <a href="https://delacroix11134.github.io/TestWebPage/DOM_Test.html"class="works">動態網頁元素</a>
+                    <a href="https://delacroix11134.github.io/TestWebPage/wheel_event.html"class="works">動態版面設計</a>
+                </div>
                 <li><a href="#">CONTACT ME</a></li>
             </ul>
         </div>
@@ -310,6 +350,13 @@
     </div>
 </body>
 <script>
+    document.getElementById('btn-share-m').onclick = function() {
+        FB.ui({
+            method: 'share',
+            display: 'popup',
+            href: 'https://developers.facebook.com/docs/',
+        }, function(response){});
+        }
     var url=window.location.toString();
     var vue = new Vue({
         el: '#vue',
@@ -362,7 +409,7 @@
             '總舵主','修羅','阿姨','騎士','盜賊','法師','旅團','狂神','武士','伐木工','羽翼','會長',
             '學姊','學長','老師','教官','巨龍','掠奪者','孤桃','公子','康妮','女孩','蔡英文','阿伯',
             '星辰','浪子','囡仔','魯蛇','鳳凰','哥吉拉','大香菇','凱蒂','芭比','唐伯虎','神射手','狂風',
-            '神豬','聖魰','乳婦','笨','妞','呆','肛門','洨蹦蹦','懶蛋','香港腳','痔瘡','王仁甫','台客',
+            '神豬','聖魰','','笨','妞','呆','肛門','洨蹦蹦','懶蛋','香港腳','痔瘡','王仁甫','台客',
             '前列腺','膀胱','老媽','凱仔','地中海','大報社','夜煞','黑嵐嬌','ㄦ','貴公子','武勇','基多拉'
             ],
             dicPP:['a','a','o','@','★','卍','の','の','de','~~','°','i','*','&','＊','♥','x','❤','♀','♂',
@@ -504,6 +551,7 @@
                 document.getElementById('btn-copy-m').innerHTML = '已複製至剪貼簿!'
                 console.log('copy')
             }
+            
         }
     })
 
