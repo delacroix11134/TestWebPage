@@ -46,13 +46,12 @@
             position: relative;
         }
         #logo{
-            width: 200px;
             height: 100%;
             display: inline-block;
         }
         #logo img{
-            height: 40px;
-            margin: 10px 
+            height: 80%;
+            margin: 5% 
         }
         #title{
             color: white;
@@ -155,6 +154,7 @@
             background: transparent;
             outline: none;
             cursor: pointer;
+            align-self: center;
         }
         .btn-ghost:hover{
             color: rgb(70, 70, 70);
@@ -227,35 +227,25 @@
             text-align: right;
             margin-right: 10px;
             display:inline-block;
-            width: 150px;
+            width: 120px;
             color: white; 
             vertical-align: bottom;
         }
-        .input select{
+        .input-area{
             width: 200px;
             height: 30px;
             font-size: 18px;
             color: white;
             background-color: transparent;
-            border: transparent;
-            border-bottom: 1px solid white;
             outline: none;
+            border: none;
+            border-bottom: 1px solid white;
         }
         .input option{
             background-color: white;
             color: rgb(196, 196, 196);
             border: none;
             height: 30px;
-        }
-        .input input{
-            width: 200px;
-            height: 30px;
-            font-size: 18px;
-            color: white;
-            outline: none;
-            background-color: transparent;
-            border: none;
-            border-bottom: 1px solid white;
         }
         .input input::placeholder{
             font-size: 18px;
@@ -283,6 +273,119 @@
             background-color: #64b447;
             margin-right: 10px;
         }
+        @media(max-height:1400px){
+            #main{
+                height: 800px;
+            }
+            .block-control,.block-history{
+                width: 50%;
+            }
+        }
+        @media(max-height:1100px){
+            #main{
+                height: 500px;
+            }
+        }
+        @media(max-height:900px){
+            #main{
+                height: 350px;
+            }
+        }
+        @media(max-height:700px){
+            #main{
+                height: 300px;
+            }
+        }
+        @media(max-width: 900px){
+            #title{
+                font-size: 14px;
+            }
+            header li{
+                margin: 0;
+                width: 110px;
+            }
+            header li a{
+                font-size: 14px;
+            } 
+            .btns{
+                width: 70%;
+                margin-top: 5%;
+            }
+            .container-pannel{
+                width: 90%;
+                left: 5%;
+            }
+            #slot-name{
+                font-size: 50px;
+            }
+            .block-control{
+                width: 60%;
+            }
+            .block-works{
+                width: 110px;
+                left: 0;
+            }
+            .block-works a{
+                font-size: 12px;
+            }
+            .input-area{
+                width: 120px;
+            }
+            #btn-clear{
+                margin-right: 5px;
+            }
+            .history{
+                font-size: 16px;
+            }
+            .history:hover .btn-ghost{
+                visibility:hidden;
+            }
+        }
+        @media(max-width: 500px){
+            header{
+                height: 40px;
+            }
+            #container-header{
+                width: 95%;
+            }
+            header ul li:last-child{
+                display: none;
+            }
+            #nav-works:hover ~ .block-works{
+                top: 40px;
+            }
+            #main{
+                height: 300px;
+            }
+            .btns{
+                width: 90%;
+            }
+            .btns-m{
+                text-align: center;
+                flex-direction: column;
+                justify-items: center;
+            }
+            #slot-name{
+                font-size: 30px;
+            }
+            #btn-copy-m, #btn-share-m{
+                margin-top: 10px;
+                width: 60%;
+            }
+            .block-history{
+                display: none;
+            }
+            .block-control{
+                width: 100%;
+            }
+            .input{
+                text-align: center;
+            }
+            .btns-input{
+                text-align: center;
+            }
+        }
+        
     </style>
 </head>
 <body>
@@ -346,7 +449,7 @@
                     <div class="input">
                         <div>
                             <div>你的性別</div>
-                            <select name="gender" id="gender" v-model="gender">
+                            <select name="gender" id="gender" class="input-area" v-model="gender">
                                 <option value="none">隨意</option>
                                 <option value="male">男</option>
                                 <option value="female">女</option>
@@ -354,7 +457,7 @@
                         </div>
                         <div>
                             <div>想要填入的字</div>
-                            <input type="text"placeholder="請輸入文字"v-model="name">
+                            <input class="input-area" type="text"placeholder="請輸入文字"v-model="name">
                         </div>
                     </div>
                     <div class="btns-input">
@@ -548,9 +651,9 @@
             clear: function(){
                 var children = document.querySelectorAll('.history')
                 for(i=0;i<children.length;i++){
-                    children[i].innerHTML = '';
-                }
+                    children[i].innerHTML = '';}
                 this.resultArr = [];
+                this.result = '';
                 document.getElementById('btn-copy-m').innerHTML = '複製文字'
             },
             copy: function(){
