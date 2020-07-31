@@ -37,7 +37,7 @@
 		width: 100%;
 		height: 100%;
 		margin: 0 auto;
-		background-image: url(Project_RandomPic/puggy.png);
+		
 		background-size: cover;
 		background-position: center center;
 		animation-name: showImage;
@@ -111,14 +111,15 @@
 			</div>
 		</div>
 		<button id = "start" class="btn">
-			Random Picture!
+			隨機圖片
 		</button><button id = "clear" class="btn">
-			Clear
+			清除
 		</button>
 		<div class = "blank"></div>
 	</main>
 </body>
 <script>
+	// 函數工廠
 	var $$ = function(selector){
         var elements = document.querySelectorAll(selector);
         return{
@@ -178,28 +179,34 @@
                 return this;
             }
     }}
-	var ImageNumber = 5;
+
+	// 圖片總數量
+	var ImageNumber = 65;
+	// 目前沒功能
 	var pickName = [];
 
 	var init = function(){
 		pickName = [];
 	}
-
+	// 隨機選出圖片
 	var pickImage = function(){
 		init();
+		// 為了讓圖片重新選擇時會跑animation 先把他hide 再setTimeOut讓它出現
 		$$('.pic').hide();
 		setTimeout(function(){$$('.pic').show();},100)
+		// 隨機數字
 		var picked =Math.abs(Math.floor(Math.random()*ImageNumber))+1;
-		document.querySelector('.pic').style.backgroundImage = 'url(Project_RandomPic/'+ picked + '.png)'
+		// 把圖片換成指定url
+		document.querySelector('.pic').style.backgroundImage = 'url(Project_RandomPic/'+ picked + '.jpg)'
 		console.log(picked)
 	}
-
+	// 清除圖片
 	var clear = function(){
 		init();
-		//document.querySelector('.pic').style.backgroundImage = 'url(Project_RandomPic/'+ 'puggy' + '.png)'
 		$$('.pic').hide()
 	}
 
+	// 按鈕功能
 	$$('#start').on('click',function(){
         pickImage();
     })
