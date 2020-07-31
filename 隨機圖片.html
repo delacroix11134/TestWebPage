@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
+	<title>Random Image</title>
+</head>
+<style>
+	*{
+		box-sizing: border-box;
+		margin: 0;
+    	line-height: 1.5;
+    	letter-spacing: 0.1em;
+	}
+	body{
+		width: 100%;
+    	background: #fccc31;
+    	font-family: 'Montserrat', sans-serif;
+		text-align: center;
+		
+	}
+	main{
+		width: 60%;
+		margin: 50px auto;
+		background: rgb(233, 233, 233);
+		border-radius: 50px;
+		box-shadow: 4px 4px 50px 2px rgba(0,0,0,0.35);
+	}
+	main > div{
+		width: 60%;
+		height: 35vw;
+		padding: 50px 50px 30px 50px;
+		margin: 0 auto;
+	}
+	.pic {
+		width: 100%;
+		height: 100%;
+		margin: 0 auto;
+		background-image: url(Project_RandomPic/puggy.png);
+		background-size: cover;
+		background-position: center center;
+		animation-name: showImage;
+		animation-duration:2s;
+	}
+
+	@keyframes showImage {
+		from{
+			opacity: 0;
+		}
+		to{
+			opacity: 1;
+		}
+	}
+
+	#start , #clear{
+		display: block;
+		margin: 10px auto;
+	}
+	.btn{
+		width: 40%;
+		height: 50px;
+		font-size: 18px;
+		font-weight: bold;
+		line-height: 1;
+		background-color: #fccc31;
+		border-radius: 15px;
+		border: none;
+		outline: none;
+	}
+	.btn:active{
+		background-color: #e09e22;
+	}
+	.blank{
+		height:0;
+		padding: 30px;
+	}
+	@media (max-width: 1025px){
+		main {
+			width: 90%;
+			margin-top: 15vw;
+		}
+		
+		main > div{
+			width: 85%;
+			height: 75vw;
+		}
+		.btn{
+			width: 60%;
+		}
+	}
+	@media (max-width: 550px){
+		main {
+			width: 95%;
+			margin-top: 20vw;
+			}
+		main > div{
+			width: 95%;
+			height: 85vw;
+			}
+		.btn{
+			width: 60%;
+		}
+	}
+</style>
+<body>
+	<main>
+		<div>
+			<div class="pic">
+
+			</div>
+		</div>
+		<button id = "start" class="btn">
+			Random Picture!
+		</button><button id = "clear" class="btn">
+			Clear
+		</button>
+		<div class = "blank"></div>
+	</main>
+</body>
+<script>
+	var $$ = function(selector){
+        var elements = document.querySelectorAll(selector);
+        return{
+            elements,
+            html(newHTML){
+                this.elements.forEach(function(ele){
+                    ele.innerHTML = newHTML;
+                })
+                return this;
+            },
+            css(newCSS){
+                this.elements.forEach(function(ele){
+                    Object.assign(ele.style,newCSS);
+                })
+                return this;
+            },
+            on(event,handler){
+                this.elements.forEach(function(ele){
+                    ele.addEventListener(event,handler);
+                })
+                return this;
+            },
+            remove(event,handler){
+                this.elements.forEach(function(ele){
+                    ele.removeEventListener(event,handler);
+                })
+                return this;
+            },
+            addClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.add(className);
+                })
+                return this;
+            },
+            removeClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.remove(className);
+                })
+                return this;
+            },
+            toggleClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.toggle(className);
+                })
+                return this;
+            },
+			hide(){
+                this.elements.forEach(function(ele){
+                    ele.style.display = 'none';
+                })
+                return this;
+            },
+            show(){
+                this.elements.forEach(function(ele){
+                    ele.style.display = 'block';
+                })
+                return this;
+            }
+    }}
+	var ImageNumber = 5;
+	var pickName = [];
+
+	var init = function(){
+		pickName = [];
+	}
+
+	var pickImage = function(){
+		init();
+		$$('.pic').hide();
+		setTimeout(function(){$$('.pic').show();},100)
+		var picked =Math.abs(Math.floor(Math.random()*ImageNumber))+1;
+		document.querySelector('.pic').style.backgroundImage = 'url(Project_RandomPic/'+ picked + '.png)'
+		console.log(picked)
+	}
+
+	var clear = function(){
+		init();
+		//document.querySelector('.pic').style.backgroundImage = 'url(Project_RandomPic/'+ 'puggy' + '.png)'
+		$$('.pic').hide()
+	}
+
+	$$('#start').on('click',function(){
+        pickImage();
+    })
+
+	$$('#clear').on('click',function(){
+        clear();
+    })
+</script>
+</html>
