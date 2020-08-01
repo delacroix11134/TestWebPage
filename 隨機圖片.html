@@ -37,13 +37,22 @@
 		width: 100%;
 		height: 100%;
 		margin: 0 auto;
-		
+		position: relative;
 		background-size: cover;
 		background-position: center center;
 		animation-name: showImage;
 		animation-duration:2s;
 	}
-
+	.name{
+		color: white;
+		font-size: 50px;
+		font-weight: bold;
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		text-align: center;
+		background-color: rgba(0, 0, 0, 0.7);
+	}
 	@keyframes showImage {
 		from{
 			opacity: 0;
@@ -107,7 +116,7 @@
 	<main>
 		<div>
 			<div class="pic">
-
+				<div class = "name"></div>
 			</div>
 		</div>
 		<button id = "start" class="btn">
@@ -184,25 +193,44 @@
 	var ImageNumber = 65;
 	// 目前沒功能
 	var pickName = [];
-
+	var nameList = ["Arie","Elsa","How How","PSY大叔","Shine","YoYo","一休和尚","小吳","川普","月野兔","木村拓哉","加藤鷹","史巴克","白癡公主","如花","安心亞","成龍","艾倫","佐助","吳宗憲","李小龍","李奧納多","李榮浩","李蒨蓉","沈玉琳","貝克漢","周子瑜","周杰倫","呱吉(邱威傑)","咕嚕","奇異博士","林宥嘉","阿迪(弟)","阿滴","哈利波特","春麗","柯南","美國隊長","貞子","孫悟空","神眉","素還真","索隆","馬力歐","郭富城","麥克傑克森","麥可喬丹","費玉清","聖元","雷神索爾","漩渦鳴人","瑪麗蓮夢露","甄子丹","蜘蛛人","蔡阿嘎","蔡哥","蔡康永","鄧紫棋","魯夫","蕭敬騰","鋼鐵人","館長","薩諾斯","羅志祥","蠟筆小新"];
+	var pickList = [];
 	var init = function(){
 		pickName = [];
 	}
+
 	// 隨機選出圖片
 	var pickImage = function(){
 		init();
 		// 為了讓圖片重新選擇時會跑animation 先把他hide 再setTimeOut讓它出現
 		$$('.pic').hide();
 		setTimeout(function(){$$('.pic').show();},100)
+		
+		// 檢查已出過的題目總數是否超過60 到達60就清空
+		if(pickList.length == 60){
+			pickList.length = 0;
+		}
+
 		// 隨機數字
-		var picked =Math.abs(Math.floor(Math.random()*ImageNumber))+1;
-		// 把圖片換成指定url
-		document.querySelector('.pic').style.backgroundImage = 'url(Project_RandomPic/'+ picked + '.jpg)'
-		console.log(picked)
+		var picked = Math.abs(Math.floor(Math.random()*ImageNumber))+1;
+
+		// 判斷是否重複
+		if(pickList.indexOf(picked)<0){
+			// 把圖片換成指定url
+			document.querySelector('.pic').style.backgroundImage = 'url(Project_RandomPic/'+ picked + '.jpg)'
+			pickList.push(picked);
+			// 顯示名字
+			$$('.name').html(nameList[picked-1]);
+			console.log("編號: " + picked );
+			console.log("出過題數: " + pickList.length);
+		} else {
+			pickImage()
+		}
 	}
 	// 清除圖片
 	var clear = function(){
 		init();
+		pickList.length = 0;
 		$$('.pic').hide()
 	}
 
