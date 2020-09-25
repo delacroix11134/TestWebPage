@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
+	<title>Random Image</title>
+</head>
+<style>
+	*{
+		box-sizing: border-box;
+		margin: 0;
+    	line-height: 1.5;
+    	letter-spacing: 0.1em;
+	}
+	body{
+		width: 100%;
+    	background: #e4e4e4;
+    	font-family: 'Montserrat', sans-serif;
+		text-align: center;
+	}
+	main{
+		width: 90%;
+		margin: 20px auto;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+	}
+	.card{
+		width: 130px;
+		height: 200px;
+		margin: 10px;
+		background: rgb(238, 238, 238);
+		border-radius: 10px;
+		box-shadow: 2px 2px 20px 2px rgba(0,0,0,0.1);
+		background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        transition: ease-in-out 0.2s;
+	}
+	.card:hover{
+		transform: rotate3d(0, 1, -0.1, 20deg);
+	}
+    .card:hover .cover{
+        background-color:  rgb(255, 255, 255);
+    }
+    .cover{
+        width: 100%;
+        height: 100%;
+        background-color:  rgb(238, 238, 238);
+        transition: ease-in-out 0.2s;
+        opacity: 1;
+    }
+    .openCard{
+        opacity: 0;
+    }
+	#timer{
+        width: 100%;
+        margin: 20px auto;
+        font-size: 24px;
+        color:rgb(122, 122, 122)
+    }
+    #checkBox{
+        color:rgb(122, 122, 122);
+        font-size: 24px;
+        width: 30%;
+        height: 100px;
+        margin: 20px auto;
+        background:  rgb(238, 238, 238);
+        border-radius: 10px;
+		box-shadow: 2px 2px 20px 2px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: ease-in-out 0.2s;
+        position: fixed;
+        left: 35%;
+        top: 40%;
+        visibility: hidden;
+    }
+</style>
+<body>
+    <div id="timer">00 : 00 : 00</div>
+	<main>
+      
+    </main>
+    <div id="checkBox">
+        <div>Congratulations!</div>
+
+    </div>
+	
+</body>
+<script>
+	// 函數工廠
+	var $$ = function(selector){
+        var elements = document.querySelectorAll(selector);
+        return{
+            elements,
+            html(newHTML){
+                this.elements.forEach(function(ele){
+                    ele.innerHTML = newHTML;
+                })
+                return this;
+            },
+            css(newCSS){
+                this.elements.forEach(function(ele){
+                    Object.assign(ele.style,newCSS);
+                })
+                return this;
+            },
+            on(event,handler){
+                this.elements.forEach(function(ele){
+                    ele.addEventListener(event,handler);
+                })
+                return this;
+            },
+            remove(event,handler){
+                this.elements.forEach(function(ele){
+                    ele.removeEventListener(event,handler);
+                })
+                return this;
+            },
+            addClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.add(className);
+                })
+                return this;
+            },
+            removeClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.remove(className);
+                })
+                return this;
+            },
+            toggleClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.toggle(className);
+                })
+                return this;
+            },
+			hide(){
+                this.elements.forEach(function(ele){
+                    ele.style.display = 'none';
+                })
+                return this;
+            },
+            show(){
+                this.elements.forEach(function(ele){
+                    ele.style.display = 'block';
+                })
+                return this;
+            }
+    }}
+
+    let arr = []
+    let num = 30
+    let flipCount = 0
+    let flipCard = []
+    let flipAnswer = []
+    let clear = 0
+    let ifStartGame = false
+
+    window.onload = function(){
+        // 生成dom元素(卡片)
+        // 首先創建dom fragment
+        let fragment = document.createDocumentFragment()
+        
+        // 把內容填進fragment裡面
+        for(i=0;i<num;i++){
+            // 生成card的div
+            let tempNode = document.createElement('div')
+            // 生成cover的div
+            let tempChildNode = document.createElement('div')
+            // 設定card的id和class
+            tempNode.setAttribute('id',`card${i+1}`)
+            tempNode.setAttribute('class','card')
+            // 設定cover的id和class
+            tempChildNode.setAttribute('id',`cover${i+1}`)
+            tempChildNode.setAttribute('class','cover')
+            // 把cover塞到card下面
+            tempNode.appendChild(tempChildNode)
+            // 把card塞到fragment裡
+            fragment.appendChild(tempNode)
+        }
+        // 最後把fragment塞到main底下
+        document.querySelector('main').appendChild(fragment)
+
+        // 生成一組同一數字各兩個的陣列arr(1,1,2,2...)
+        for(i=1; i<=num/2; i++){
+            // 把i隨機加上數字 讓圖庫隨機
+            var randomNum = parseInt(Math.random()*(30 - num))
+            arr.push(i + randomNum)
+            arr.push(i + randomNum)
+        }
+
+        // 把arr隨機排序 隨機產生圖片位置
+        for(i = 0; i < num; i++){
+            let j = parseInt(Math.random()*num - 1)
+            let tmp = arr[i]
+            arr[i] = arr[j]
+            arr[j] = tmp
+        }
+        console.log(arr)
+
+        // 把圖片根據arr隨機出來的編號貼上card
+        for(i = 1; i<=num; i++){
+            $$(`#card${i}`).css({backgroundImage: `url(Project_Puggy/${arr[i-1]}.png)`})
+        }
+
+        // 翻牌: 把蓋在上面的cover透明度設成0
+        $$('.cover').on('click',function(){
+            var id = +(this.getAttribute('id')).slice(5)
+            
+            ifStartGame = true
+            flipCount++
+            flipCard.push(id)
+            flipAnswer.push(arr[id-1])
+            console.log('翻牌次數: '+ flipCount + '翻到: ' + flipCard)
+            
+            // 翻到偶數次的時候 確認答案
+            if(flipCount%2 == 0){
+                this.classList.add('openCard')
+                // 正確時把card整個隱藏
+                if(flipAnswer[0]==flipAnswer[1]){
+                    setTimeout(()=>{
+                        $$(`#card${flipCard[0]}`).addClass('openCard')
+                        $$(`#card${flipCard[1]}`).addClass('openCard')
+                        flipCard.length = 0
+                        flipAnswer.length = 0
+                    },500)
+                    clear += 2
+                    // 勝利判斷
+                    if(clear == num){
+                        ifStartGame = false
+                        console.log('clear')
+                        $$('#checkBox').css({visibility:'visible'})
+                    }
+                }
+                // 錯誤時把cover回復
+                else{
+                    setTimeout(()=>{
+                        $$(`#cover${flipCard[0]}`).removeClass('openCard')
+                        $$(`#cover${flipCard[1]}`).removeClass('openCard')
+                        flipCard.length = 0
+                        flipAnswer.length = 0
+                    },500)
+                }
+            }else{
+                this.classList.add('openCard')
+            }
+        })
+    }
+
+    // 計時器
+    var SetMinute = 0;
+    function Check_Time() {
+        if( ifStartGame == true ){
+            SetMinute += 1;
+            var timer = $$('#timer')
+            // 處理顯示的文字
+            var Cal_Hour = Math.floor(SetMinute / 3600) < 10 ? '0' + Math.floor(SetMinute / 3600) : Math.floor(SetMinute / 3600);
+            var Cal_Minute = Math.floor(Math.floor(SetMinute % 3600) / 60) < 10 ?  '0' + Math.floor(Math.floor(SetMinute % 3600) / 60) : Math.floor(Math.floor(SetMinute % 3600) / 60);
+            var Cal_Second = SetMinute % 60 < 10 ? '0' + SetMinute % 60 : SetMinute % 60;
+            // 貼上顯示的文字
+            timer.html(Cal_Hour + " : " + Cal_Minute + " : " + Cal_Second )
+        }
+    }
+    window.setInterval("Check_Time()", 1000);
+
+
+    
+
+   
+	
+</script>
+</html>
