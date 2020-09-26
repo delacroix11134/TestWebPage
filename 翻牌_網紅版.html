@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
-	<title>翻牌遊戲</title>
+	<title>翻牌 網紅版</title>
 </head>
 <style>
 	*{
@@ -238,7 +238,7 @@
         document.querySelector('main').appendChild(fragment)
 
         // 把i隨機加上數字 讓圖庫隨機
-        var randomNum = parseInt(Math.random()*(30 - num/2))
+        var randomNum = parseInt(Math.random()*(44 - num/2))
         // 生成一組同一數字各兩個的陣列arr(1,1,2,2...)
         for(i=1; i<=num/2; i++){
             arr.push(i + randomNum)
@@ -256,7 +256,7 @@
 
         // 把圖片根據arr隨機出來的編號貼上card
         for(i = 1; i<=num; i++){
-            $$(`#card${i}`).css({backgroundImage: `url(Project_Puggy/${arr[i-1]}.png)`})
+            $$(`#card${i}`).css({backgroundImage: `url(Project_RandomPic/${arr[i-1]}.jpg)`})
         }
 
         // 翻牌: 把蓋在上面的cover透明度設成0
