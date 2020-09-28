@@ -204,7 +204,7 @@
     }}
 
     let arr = []
-    let num = 24
+    let num = 30
     let flipCount = 0
     let flipCard = []
     let flipAnswer = []
@@ -290,14 +290,11 @@
                 }
                 // 錯誤時把cover回復
                 else{
-                    setTimeout(()=>{
-                        $$('.cover').removeClass('openCard')
-                        //$$(`#cover${flipCard[1]}`).removeClass('openCard')
-                        flipCard.length = 0
-                        flipAnswer.length = 0
-                    },600)
+                    flipCard.length = 0
+                    flipAnswer.length = 0
                 }
             }else{
+                $$('.cover').removeClass('openCard')
                 this.classList.add('openCard')
             }
         })
