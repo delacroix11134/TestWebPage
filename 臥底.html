@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed&display=swap" rel="stylesheet">
+	<title>臥底</title>
+</head>
+<style>
+	*{
+		box-sizing: border-box;
+		margin: 0;
+    	line-height: 1.5;
+    	letter-spacing: 0.1em;
+        outline: none;
+	}
+	body{
+		width: 100%;
+    	background: #e2e2e2;
+    	font-family: 'Montserrat', sans-serif;
+		text-align: center;
+	}
+    /* 設定頁 */
+    #setting, #check, #answer{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .settingText{
+        margin-top: 20px;
+    }
+    #startButton{
+        color:  rgb(100, 100, 100);
+        background-color: #e2e2e2;
+        width: 120px;
+        height: 30px;
+        margin: 20px auto;
+        border-radius: 10px;
+        border: 1px solid  rgb(100, 100, 100);
+        line-height: 2;
+        cursor: pointer;
+        transition: ease-in-out 0.2s;
+    }
+    #startButton:hover{
+        color: #e2e2e2;
+        background-color:  rgb(48, 48, 48);
+    }
+    .number{
+        display: inline-block;
+        width: 100px;
+        margin: 5px;
+    }
+    .settingButton{
+        text-align: center;
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        margin: 5px;
+        border-radius: 10px;
+        border: 1px solid rgb(100, 100, 100);
+        line-height: 2;
+        cursor: pointer;
+        transition: ease-in-out 0.2s;
+    }
+	.settingButton:hover{
+        color: #e2e2e2;
+        background-color:  rgb(48, 48, 48);
+    }
+
+    /* 確認身分 */
+    #card{
+        width: 180px;
+        height: 300px;
+        border-radius: 20px;
+        border: 1px solid rgb(100, 100, 100);
+        overflow: hidden;
+        transition: ease-in-out 0.2s;
+        cursor: pointer;
+    }
+    #card:hover{
+        transform: rotate3d(0, 1, -0.1, 20deg);
+    }
+    #playerTag{
+        width:100%;
+        height:100%;
+        color: rgb(207, 207, 207);
+        font-family: 'Sansita Swashed', cursive;
+        font-size: 180px;
+        overflow: hidden;
+    }
+    #cardText{
+        position: relative;
+        bottom: 150px;
+        transition: ease-in-out .4s;
+    }
+    /* 解答頁 */    
+    #cards{
+        width: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+    
+    .answerCard{
+        width: 100px;
+        height: 160px;
+        border-radius: 15px;
+        border: 1px solid rgb(100, 100, 100); 
+        line-height: 9.5;
+        cursor: pointer;
+        transition: ease-in-out 0.2s;
+        margin: 10px;
+    }
+    .answerCard:hover{
+        transform: rotate3d(0, 1, -0.1, 20deg);
+    }
+    /* 其他 */
+    .showPage{
+        visibility: visible;
+    }
+    .hidePage{
+        visibility: hidden;
+    }
+
+	
+    @media (max-width: 1024px){
+		
+	}
+    @media (max-width: 550px){
+        #cards{
+        width: 90%;
+        }
+        .answerCard{
+        width: 90px;
+        height: 120px;
+        margin: 5px;
+        line-height: 7.5;
+        }
+	}
+</style>
+
+<body>
+    <!-- 設定頁 -->
+    <div id="setting" class="showPage">
+        <div id="logo">臥底遊戲</div>
+        <div id="player">
+            <div class="settingText">人數</div>
+            <span id="lessPlayer"class="settingButton">-</span>
+            <span id="playerNumber"class="number">4</span>
+            <span id="morePlayer"class="settingButton">+</span>
+        </div>
+        <div id="spy">
+            <div class="settingText">臥底</div>
+            <span id="lessSpy"class="settingButton">-</span>
+            <span id="spyNumber"class="number">1</span>
+            <span id="moreSpy"class="settingButton">+</span>
+        </div>
+        <div id="blank">
+            <div class="settingText">白板</div>
+            <span id="lessBlank"class="settingButton">-</span>
+            <span id="blankNumber"class="number">0</span>
+            <span id="moreBlank"class="settingButton">+</span>
+        </div>
+        <div id="startButton">START!</div>
+    </div>
+    <!-- 確認題目 -->
+    <div id="check" class="hidePage">
+        <div id="card">
+            <div id="playerTag">9</div>
+            <div id="cardText">點擊看題目</div>
+        </div>
+    </div>
+    <!-- 解答頁 -->
+    <div id="answer" class="hidePage">
+        <div id="cards">
+        </div>
+    </div>
+
+    
+	
+</body>
+
+<script>
+	// 函數工廠
+	var $$ = function(selector){
+        var elements = document.querySelectorAll(selector);
+        return{
+            elements,
+            html(newHTML){
+                this.elements.forEach(function(ele){
+                    ele.innerHTML = newHTML;
+                })
+                return this;
+            },
+            css(newCSS){
+                this.elements.forEach(function(ele){
+                    Object.assign(ele.style,newCSS);
+                })
+                return this;
+            },
+            on(event,handler){
+                this.elements.forEach(function(ele){
+                    ele.addEventListener(event,handler);
+                })
+                return this;
+            },
+            remove(event,handler){
+                this.elements.forEach(function(ele){
+                    ele.removeEventListener(event,handler);
+                })
+                return this;
+            },
+            addClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.add(className);
+                })
+                return this;
+            },
+            removeClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.remove(className);
+                })
+                return this;
+            },
+            toggleClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.toggle(className);
+                })
+                return this;
+            },
+			hide(){
+                this.elements.forEach(function(ele){
+                    ele.style.display = 'none';
+                })
+                return this;
+            },
+            show(){
+                this.elements.forEach(function(ele){
+                    ele.style.display = 'block';
+                })
+                return this;
+            }
+    }}
+    window.onload=()=>{
+        let lib = [['龍蝦','鮑魚','螃蟹','生蠔'],['中秋節','端午節','聖誕節','萬聖節'],['生煎包','雞排','臭豆腐','豬血糕'],['火鍋','麻辣鍋','臭臭鍋','起司鍋'],['薑母鴨','羊肉爐','麻辣鍋'],['A片','Gay片','動畫片','偶像劇','鄉土劇'],
+        ['啤酒','紅酒','梅酒','雞尾酒'],['接吻','牽手','喇機','告白'],['美國隊長','鋼鐵人','蜘蛛人','超人','蝙蝠俠'],['燒餅','蛋餅','漢堡','吐司'],['麥當勞','肯德基','漢堡王','摩斯'],
+        ['臉書','IG','推特','Youtube','Line'],['熊貓','斑馬','馬來貘'],['老人','女人','小孩'],['汽車','機車','捷運','火車'],['胸毛','腿毛','鼻毛','眉毛','鬍子'],['情敵','前任','小三'],['處女','水瓶','獅子'], 
+        ['尼姑','乞丐','剩女','處女'],['吸血鬼','狼人','殭屍'],['睡美人','白雪公主','灰姑娘'],['貓','狗','獅子','老虎','狼'],['初戀','初夜','初吻'],['日本','韓國','泰國','新加坡','台灣'],
+        ['禿頭','發福','駝背'],['狐臭','腳臭','老人臭','口臭'] ]
+        
+        let playerNumber = 4
+        let spyNumber = 1
+        let blankNumber = 0
+        let clickCount = 0
+        let questionArr = []
+        let spy = ''
+
+        let init = function(){
+            playerNumber = 4
+            spyNumber = 1
+            blankNumber = 0
+            clickCount = 0
+            questionArr.length = 0
+            spy = ''
+            $$('#playerNumber').html(playerNumber)
+            $$('#spyNumber').html(spyNumber)
+            $$('#blankNumber').html(blankNumber)
+            $$('#playerTag').html(1)
+        }
+        init()
+
+        // 出題
+        let pickQuestion = function(){
+            // 從題庫取出子題庫
+            let temp = lib[Math.floor(Math.random()*lib.length)]
+            // 從子題庫取出兩項作為題目
+            for(i=0;i<2;i++){
+                let seq = Math.floor(Math.random()*temp.length)
+                questionArr.push(temp[seq])
+                temp.splice(seq,1)
+            }
+            spy = questionArr[0]
+            // 把題目根據人數複製
+            for(i=0;i<spyNumber-1;i++){
+                questionArr.unshift(questionArr[0])
+            }
+            for(i=0;i<(playerNumber-spyNumber-blankNumber-1);i++){
+                questionArr.push(questionArr[questionArr.length-1])
+            }
+            if(blankNumber) questionArr.push('你是白板<br>請自由發揮')
+            // 把順序打亂
+            for(i=0;i<questionArr.length;i++){
+                let j = Math.floor(Math.random()*questionArr.length)
+                let temp
+                temp = questionArr[i]
+                questionArr[i] = questionArr[j]
+                questionArr[j] = temp
+            }
+            
+            console.log(questionArr)
+        }
+        // 處理顯示牌面
+        let showQuestion = function(){
+            let question = questionArr[Math.ceil(clickCount/2)-1]
+            $$('#cardText').html(`題目:${question}<br>再點一下換人`)
+        }
+        let hideQuestion = function(){
+            $$('#playerTag').html(1 + Math.floor(clickCount/2))
+            $$('#cardText').html('點擊看題目')
+        }
+
+        // 設定頁按鈕功能
+        $$('#lessPlayer').on('click',()=>{
+            playerNumber > 4 ? playerNumber-- : ''
+            $$('#playerNumber').html(playerNumber)
+            if(spyNumber > Math.ceil(playerNumber/2)-1) spyNumber--
+            $$('#spyNumber').html(spyNumber)
+        })
+        $$('#morePlayer').on('click',()=>{
+            playerNumber < 18 ? playerNumber++ : ''
+            $$('#playerNumber').html(playerNumber)
+        })
+        $$('#lessSpy').on('click',()=>{
+            if(spyNumber > 1) spyNumber--
+            $$('#spyNumber').html(spyNumber)
+        })
+        $$('#moreSpy').on('click',()=>{
+            if(spyNumber < playerNumber/2-1-blankNumber) spyNumber++
+            $$('#spyNumber').html(spyNumber)
+        })
+        $$('#moreBlank').on('click',()=>{
+            if(playerNumber>4 && blankNumber<1){
+                if(spyNumber == Math.floor(playerNumber/2)){
+                    spyNumber--
+                    blankNumber++
+                } else {
+                    blankNumber++
+                }
+            }
+            $$('#spyNumber').html(spyNumber)
+            $$('#blankNumber').html(blankNumber)
+        })
+        $$('#lessBlank').on('click',()=>{
+            if(blankNumber>0){
+                blankNumber--
+            }
+            $$('#blankNumber').html(blankNumber)
+        })
+        $$('#startButton').on('click',()=>{
+            $$('#setting').addClass('hidePage')
+            setTimeout(()=>{
+                $$('#check').removeClass('hidePage')
+                $$('#check').addClass('showPage')
+            },200)
+            pickQuestion()
+            createAnswerCard()
+            console.log(`人數: ${playerNumber}, 間諜: ${spyNumber}, 白板: ${blankNumber}`)
+        })
+
+        // 卡片頁功能
+        let goAnswerPage =()=>{
+            $$('#check').removeClass('showPage')
+            $$('#check').addClass('hidePage')
+            $$('#answer').removeClass('hidePage')
+            $$('#answer').addClass('showPage')
+        }
+        $$('#card').on('click',()=>{
+            clickCount++
+            clickCount == playerNumber*2 ? goAnswerPage() : ''
+            clickCount % 2 > 0 ? showQuestion() : hideQuestion()
+        })
+
+        // 解答頁功能
+        let fragment = document.createDocumentFragment()
+        let createAnswerCard=()=>{
+            for(i=0;i<playerNumber;i++){
+                let tempNode = document.createElement('div')
+                tempNode.setAttribute('id',`card${i+1}`)
+                tempNode.setAttribute('class','answerCard')
+                tempNode.innerHTML = i+1
+                fragment.appendChild(tempNode)
+            }
+            document.querySelector('#cards').appendChild(fragment)
+            $$('.answerCard').on('click',function(){
+                var id = +(this.getAttribute('id')).slice(4)
+                if(questionArr[id-1] == spy){
+                    this.innerHTML = `${id}是...臥底`
+                }else if(questionArr[id-1].length > 6){
+                    this.innerHTML = `${id}是...白板`
+                }else{
+                    this.innerHTML = `${id}是...平民`
+                }
+            })
+        }
+        
+    }
+
+</script>
+</html>
