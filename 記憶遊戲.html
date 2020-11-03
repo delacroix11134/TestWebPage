@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="pic/icon.png">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
+	<title>記憶遊戲copy</title>
+</head>
+<style>
+	*{
+		box-sizing: border-box;
+		margin: 0;
+    	line-height: 1.5;
+    	letter-spacing: 0.1em;
+	}
+	body{
+		width: 100%;
+		color:rgb(30, 30, 30);
+    	background: #e0e0e0;
+    	font-family: 'Montserrat', sans-serif;
+		text-align: center;
+		overflow: hidden;
+	}
+	.mainPage{
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+		flex-direction: column;
+	}
+	#title{
+		font-size: 24px;
+		margin-bottom: 20px;
+	}
+	.levelButton{
+		width: 200px;
+		height: 40px;
+		margin: 6px;
+		border-radius: 10px;
+		background-color: rgb(250, 250, 250);
+		line-height: 2.5;
+		cursor: pointer;
+		transition: ease-in-out 0.1s;
+	}
+	.levelButton:hover{
+		transform: scale(1.05,1.1);
+	}
+	#start{
+		margin-bottom: 15px;
+	}
+	#main svg{
+		position: absolute;
+		top: 35%;
+		width: 200px;
+		height: 200px;
+		cursor: pointer;
+	}
+	.card{
+		width: 300px;
+		height: 300px;
+		border-radius: 20px;
+		background-color:gray;
+		border: 10px solid darkgray;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer; 
+	}
+	#text{
+		color: rgb(46, 196, 96);
+		font-size: 40px;
+		font-weight: bolder;
+		z-index: 1;
+	}
+	#timeBar{
+		background-color: rgb(250, 250, 250);
+		width: 300px;
+		height: 10px;
+		border-radius: 10px; 
+		margin: 30px;
+	}
+	#quiz, #pop{
+		width: 500px;
+		height: 100px;
+		margin: 20px;
+		background-color: white;
+		border-radius: 10px; 
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.answer{
+		width: 240px;
+		height: 40px;
+		margin: 10px;
+		background-color: white;
+		border-radius: 10px; 
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+		transition: ease-in-out 0.1s;
+	}
+	.answer:hover{
+		transform: scale(1.05,1.1);
+	}
+	.sample{
+		width: 20px;
+		height: 20px;
+		border-radius: 15px;
+		margin-left: 5px;
+		background-color: blue;
+		display: inline-block;
+	}
+	#sample1{
+		background-color: #f7b3a2;
+	}
+	#sample2{
+		background-color: #ffee93;
+	}
+	#sample3{
+		background-color: #f7f3da;
+	}
+	#sample4{
+		background-color: #a0ced9;
+	}
+	#sample5{
+		background-color: #a7f0af;
+	}
+	@media (max-width: 1025px){
+		
+	}
+	@media (max-width: 550px){
+		#quiz, #pop{
+			width: 85%;
+		}
+		#main svg{
+			top: 37%;
+			width: 100px;
+			height: 100px;
+		}
+		.card{
+			width: 200px;
+			height: 200px;
+		}
+		.levelButton, .answer{
+			margin: 5px;
+		}
+	}
+</style>
+<body>
+	<div id="setting"class="mainPage">
+		<div id="samples">
+			<div id="sample1" class="sample"></div>
+			<div id="sample2" class="sample"></div>
+			<div id="sample3" class="sample"></div>
+			<div id="sample4" class="sample"></div>
+			<div id="sample5" class="sample"></div>
+		</div>
+		<div id="title">記憶遊戲</div>
+		<div id="record">Best score:0</div>
+		<div id="start" class="levelButton">Start game</div>
+		<div id="setLevel1" class="levelButton">Level 1</div>
+		<div id="setLevel2" class="levelButton">Level 2</div>
+		<div id="setLevel3" class="levelButton">Level 3</div>
+	</div>
+	<div id="main"class="mainPage ">
+		<!-- svg -->
+		<svg id="image1" viewBox="0 0 16 16"  fill="gray" class="images">
+			<path d="M5.602 14.153C6.272 13.136 7.348 11.28 8 9c.652 2.28 1.727 4.136 2.398 5.153.231.35-.02.847-.438.847H6.04c-.419 0-.67-.497-.438-.847z"/>
+ 			<path d="M4.5 12.5A3.5 3.5 0 0 0 8 9a3.5 3.5 0 1 0 7 0c0-3-4-4-7-9-3 5-7 6-7 9a3.5 3.5 0 0 0 3.5 3.5z"/>
+		</svg>
+		<svg id="image2" viewBox="0 0 16 16"  fill="gray" class="images">
+			<path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+		</svg>
+		<svg id="image3" viewBox="0 0 16 16"  fill="gray" class="images">
+			<path d="M2.45 7.4L7.2 1.067a1 1 0 0 1 1.6 0L13.55 7.4a1 1 0 0 1 0 1.2L8.8 14.933a1 1 0 0 1-1.6 0L2.45 8.6a1 1 0 0 1 0-1.2z"/>
+		</svg>
+		<svg id="image4" viewBox="0 0 16 16"  fill="gray" class="images">
+			<path d="M11.5 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+  			<path d="M8 9a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0zm7 0a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+  			<path d="M5.602 14.153c.5-.758 1.224-1.98 1.83-3.498.187-.467.949-.467 1.136 0a19.816 19.816 0 0 0 1.83 3.498c.231.35-.02.847-.438.847H6.04c-.419 0-.67-.497-.438-.847z"/>
+  			<path d="M7 7h2v4H7V7z"/>
+		</svg>
+		<svg id="image5" viewBox="0 0 16 16"  fill="gray" class="images">
+			<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+		</svg>
+		<svg id="image6" viewBox="0 0 16 16"  fill="gray" class="images">
+			<path fill-rule="evenodd" d="M14.53 10.53a7 7 0 0 1-9.058-9.058A7.003 7.003 0 0 0 8 15a7.002 7.002 0 0 0 6.53-4.47z"/>
+		</svg>
+		<svg id="image7" viewBox="0 0 16 16"  fill="gray" class="images">
+			<path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/>
+ 			<path fill-rule="evenodd" d="M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+		</svg>
+
+		<div id="card"class="card">
+			<div id="text">Apple</div>
+		</div>
+
+		<div id ="timeBar"></div>
+	</div>
+	<div id="result"class="mainPage">
+		<div id="quiz">請問 第一張圖中的文字顏色是?</div>
+		<span id="answer1" class="answer"> 藍色 <div id="sample1" class="sample"></div></span>
+		<span id="answer2" class="answer"> 藍色 <div id="sample2" class="sample"></div></span>
+		<span id="answer3" class="answer"> 藍色 <div id="sample3" class="sample"></div></span>
+		<span id="answer4" class="answer"> 藍色 <div id="sample4" class="sample"></div></span>
+	</div>
+	<div id="popPage"class="mainPage">
+		<div id="pop">gg</div>
+		<div id="container">
+			<div id="replay" class="answer">Replay</div>
+			<div id="next" class="answer">Next</div>
+		</div>
+	</div>
+</body>
+<script>
+	// 函數工廠
+	var $$ = function(selector){
+        var elements = document.querySelectorAll(selector);
+        return{
+            elements,
+            html(newHTML){
+                this.elements.forEach(function(ele){
+                    ele.innerHTML = newHTML;
+                })
+                return this;
+            },
+            css(newCSS){
+                this.elements.forEach(function(ele){
+                    Object.assign(ele.style,newCSS);
+                })
+                return this;
+            },
+            on(event,handler){
+                this.elements.forEach(function(ele){
+                    ele.addEventListener(event,handler);
+                })
+                return this;
+            },
+            remove(event,handler){
+                this.elements.forEach(function(ele){
+                    ele.removeEventListener(event,handler);
+                })
+                return this;
+            },
+            addClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.add(className);
+                })
+                return this;
+            },
+            removeClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.remove(className);
+                })
+                return this;
+            },
+            toggleClass(className){
+                this.elements.forEach(function(ele){
+                    ele.classList.toggle(className);
+                })
+                return this;
+            },
+			hide(){
+                this.elements.forEach(function(ele){
+                    ele.style.display = 'none';
+                })
+                return this;
+            },
+            show(){
+                this.elements.forEach(function(ele){
+                    ele.style.display = 'flex';
+                })
+                return this;
+            }
+    }}
+
+	
+		
+	let level = 1
+	let currentLevel = 1
+	let colorLib = [ ['Indigo Dye','304A63'],['Persian Green','2A9D8F'],['Asparagus','8AB17D'],['Orange Yellow Crayola','E9C46A'],['Sandy Brown','F4A261'],['Burnt Sienna','E76F51'],['Indian Red','CC6060'],['Space Cadet','2E3959'],['Sugar Plum','875875']]
+	let color = []
+	let imageSeq = 0
+	// let imageNames = ['Spade','Heart','Dimond','Club','Star','Moon','Sun']
+	let imageNames = ['黑桃','愛心','方塊','梅花','星星','月亮','太陽']
+	let quizLib = ['圖的外邊線是什麼顏色?','圖的底色是什麼顏色?','圖中文字顏色是什麼顏色?','圖中圖形的顏色是什麼顏色?','圖中圖形的形狀是什麼?','圖中文字是什麼?']
+	let text = ''
+	let time = 2
+	let ifStart = false
+	let timeBarWidth = 300
+	let answerArr1 = []
+	let num = 0
+	let quizLv = 1
+	// 闖關模式的[等級,時間]
+	let arcadeModeVal = [[1,3],[1,2],[1,1],[2,3],[2,2],[2,1],[3,3],[3,2],[3,1]]
+	let arcadeModeLevel = 0
+	let arcadeModeScore = 0
+	let arcadeModeBest = 0
+
+	// 時間條
+	let timer = function(){
+			if(ifStart && timeBarWidth>0){
+				timeBarWidth -= 300/(time*10)
+				$$('#timeBar').css({width: `${timeBarWidth}px`})
+			} else if(ifStart && currentLevel != level){
+				currentLevel ++
+				startGame()
+			} else {
+				ifStart = false
+				clearInterval(myTimer)
+				goResult()
+			}
+		}
+	let myTimer
+	let startTimer = function(){
+		myTimer = setInterval('timer()', 100);
+	}
+	// 陣列洗牌
+	let shuffleArr = function(arr){
+		for(i=0;i<arr.length;i++){
+			let temp
+			let j = Math.floor(Math.random()*arr.length)
+			temp = arr[i]
+			arr[i] = arr[j]
+			arr[j] = temp
+		}
+		return arr
+	}
+	// 初始化
+	let init = function(){
+		currentLevel = 1
+		text = ''
+		color = []
+		image = []
+		num = 0
+		quizLv = 1
+		answerArr1 = []
+		timeBarWidth = 300
+		arcadeModeLevel = 0
+		arcadeModeScore = 0
+		$$('.mainPage').hide()
+		$$('#setting').show()
+		$$('.images').hide()
+		$$('#quiz').html('')
+		$$('.answer').css({color:'black'})
+		$$('#next').hide()
+		$$('#replay').show()
+		$$('#record').html(`Best score: ${arcadeModeBest}`)
+		$$('#pop').css({backgroundColor:'white'})
+		for(i=0;i<4;i++){
+			$$(`#answer${i+1}`).css({backgroundColor:'white'})
+		}
+		let [...sampleColor] = colorLib
+		shuffleArr(sampleColor) 
+		for(i=0;i<4;i++){
+			$$(`#sample${i+1}`).css({backgroundColor: `#${sampleColor[i][1]}`})
+		}
+	}
+	init()
+
+	// 闖關模式
+	let setArcadeMode = function(){
+		text = ''
+		color = []
+		image = []
+		num = 0
+		quizLv = 1
+		answerArr1 = []
+		currentLevel = 1
+		timeBarWidth = 300
+		$$('.mainPage').hide()
+		$$('#main').show()
+		$$('.images').hide()
+		$$('#quiz').html('')
+		$$('#next').show()
+		$$('#replay').hide()
+		$$('.answer').css({color:'black'})
+		for(i=0;i<4;i++){
+			$$(`#answer${i+1}`).css({backgroundColor:'white'})
+		}
+		level = arcadeModeVal[arcadeModeLevel][0]
+		time = arcadeModeVal[arcadeModeLevel][1]
+		arcadeModeLevel<arcadeModeVal.length-1 ? arcadeModeLevel++ : '' 
+		console.log(`Level: ${level}, Time: ${time}`)
+	}
+
+	let startGame = function(){
+		timeBarWidth = 300
+		$$('#timeBar').css({width: `${timeBarWidth}px`})
+		createQuestion()
+		setCard()
+		ifStart = true
+		$$('.mainPage').hide()
+		$$('#main').show()
+	}
+
+	// setting頁按鈕功能
+	$$('#start').on('click',function(){
+		arcadeModeLevel = 0
+		setArcadeMode()
+		startGame()
+		startTimer()
+	})
+	$$('#setLevel1').on('click',function(){
+		level = 1
+		startGame()
+		startTimer()
+	})
+	$$('#setLevel2').on('click',function(){
+		level = 2
+		startGame()
+		startTimer()
+	})
+	$$('#setLevel3').on('click',function(){
+		level = 3
+		startGame()
+		startTimer()
+	})
+	$$('#replay').on('click',function(){
+		init()
+	})	
+	$$('#next').on('click',function(){
+		setArcadeMode()
+		startGame()
+		startTimer()
+	})	
+
+	// 產生題目
+	let createQuestion = function(){
+		[...color] = colorLib
+		// 顏色庫洗牌
+		shuffleArr(color)
+		// 隨機圖形
+		imageSeq = Math.floor(Math.random()*7)
+		text = imageNames[Math.floor(Math.random()*imageNames.length)]
+		// 產生答案陣列
+		// 答案: 邊線顏色,背景色,文字顏色,底圖顏色,底圖,文字,  
+		for(i=0;i<4;i++){
+			answerArr1.push([color[i][0],color[i][1]])
+		}
+		answerArr1.push(imageNames[imageSeq])
+		answerArr1.push(text)
+
+		console.log(`邊線:${color[0][0]}, 背景:${color[1][0]}, 字顏色:${color[2][0]}, 圖顏色: ${color[3][0]}, 底圖形狀: ${imageNames[imageSeq]}, 文字: ${text}`)
+	}
+	// 繪製題目卡片
+	let setCard = function(){
+		$$('.card').css({border:`10px solid #${color[0][1]}`}).css({backgroundColor:`#${color[1][1]}`})
+		$$('#text').css({color:`#${color[2][1]}`}).html(text)
+		document.querySelector(`#image${imageSeq+1}`).setAttribute('fill',`#${color[3][1]}`)
+		$$('.images').hide()
+		$$(`#image${imageSeq+1}`).show()
+	}
+	// 開啟問答頁
+	let goResult = function(){
+		$$('.mainPage').hide()
+		$$('#result').show()
+		setQuiz()
+	}
+	// 問答頁
+	let setQuiz = function(){
+		num = Math.floor(Math.random()*quizLib.length)
+		quizLv = Math.ceil(Math.random()*level)
+
+		console.log(answerArr1)
+
+		let quizText = '請問 第' + quizLv + '張' + quizLib[num]
+		// 設定問答要問第幾張圖卡的問題***********
+
+		$$('#quiz').html(quizText)
+		if(num<4){
+			let [...quizAns] = answerArr1
+			
+			for(i=0;i<4;i++){
+				// 底色太黑 字改成白色
+				if(quizAns[i+(quizLv-1)*6][1]=='304A63'||quizAns[i+(quizLv-1)*6][1]=='2E3959'||quizAns[i+(quizLv-1)*6][1]=='875875') $$(`#answer${i+1}`).css({color:'white'})
+				$$(`#answer${i+1}`).html(quizAns[i+(quizLv-1)*6][0])
+			}
+			for(i=0;i<4;i++){
+				$$(`#answer${i+1}`).css({backgroundColor:`#${quizAns[i+(quizLv-1)*6][1]}`})
+			}
+		} else {
+			let quizAns = []
+			answerArr1[4+(quizLv-1)*6] != answerArr1[5+(quizLv-1)*6] ? quizAns.push(answerArr1[4+(quizLv-1)*6],answerArr1[5+(quizLv-1)*6]) : quizAns.push(answerArr1[4+(quizLv-1)*6])
+			for(i in imageNames){
+				quizAns.indexOf(imageNames[i])<0 ? quizAns.push(imageNames[i]) : ''
+			}
+			quizAns.length = 4
+			shuffleArr(quizAns)
+			for(i=0;i<4;i++){
+				$$(`#answer${i+1}`).html(quizAns[i])
+			}
+		}
+	}
+	// 對答案
+	for(i=0;i<4;i++){
+		$$(`#answer${i+1}`).on('click',function(){
+			let ans = this.innerHTML
+			let id = +(this.getAttribute('id')).slice(5)
+			if(num<4){
+				if(ans == answerArr1[num + (quizLv-1)*6 ][0]){
+					if(arcadeModeLevel>0){
+						arcadeModeScore += 100
+						arcadeModeBest < arcadeModeScore ? arcadeModeBest = arcadeModeScore : ''
+						$$('#pop').html(`CONGRATULATIONS!<br>score: ${arcadeModeScore}   Best score: ${arcadeModeBest}`)
+					}  else {
+						$$('#pop').html('Good JOB!')
+					}
+				} else {
+					$$('#pop').css({backgroundColor:'#E08787'})
+					if(arcadeModeLevel>0){
+						$$('#pop').html(`WRONG ANSWER<br>score: ${arcadeModeScore}   Best score: ${arcadeModeBest}`)
+						$$('#next').hide()
+						$$('#replay').show()
+					} else {
+						$$('#pop').html('WRONG ANSWER')
+					}
+				}
+			} else {
+				if(ans == answerArr1[num + (quizLv-1)*6 ]){
+					if(arcadeModeLevel>0){
+						arcadeModeScore += 100
+						arcadeModeBest < arcadeModeScore ? arcadeModeBest = arcadeModeScore : ''
+						$$('#pop').html(`CONGRATULATIONS!<br>score: ${arcadeModeScore}   Best score: ${arcadeModeBest}`)
+					}  else {
+						$$('#pop').html('Good JOB!')
+					}
+				} else {
+					$$('#pop').css({backgroundColor:'#E08787'})
+					if(arcadeModeLevel>0){
+						$$('#pop').html(`WRONG ANSWER<br>score: ${arcadeModeScore}   Best score: ${arcadeModeBest}`)
+						$$('#next').hide()
+						$$('#replay').show()
+					} else {
+						$$('#pop').html('WRONG ANSWER')
+					}
+				}
+			}
+			$$('.mainPage').hide()
+			$$('#popPage').show()
+		})
+	}
+
+	
+	
+	
+</script>
+</html>
