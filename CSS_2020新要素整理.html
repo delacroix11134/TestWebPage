@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 2020 New feature</title>
+</head>
+<body>
+    <style>
+        * {
+    		box-sizing: border-box;
+    		margin: 0;
+    		line-height: 1.5;
+    		letter-spacing: 0.1em;
+    	}
+    	body {
+    		margin: 0;
+    		background: #f0f0f0;
+
+    	}
+        .box{
+            width: 60%;
+            margin: 50px auto;
+        }
+    </style>
+    <div class="box">
+        
+        <!-- 基本使用 -->
+        <p class="defaultText">這是預設文字 This is default text.</p>
+        <br>
+        <p class="fontFaceText">這是使用font-face的文字 This is text using @font-face. </p>
+
+        <style>
+            @font-face {
+                /* font-family和src是必要的參數 */
+                /* 自定義名稱，在css中指定字型會以這個名稱為準 */
+                font-family: noto ;
+                /* 定義複數個路徑，瀏覽器會從上到下尋找路徑是否有指定的字型，中間用逗點隔開 */
+                src: url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+            }
+            .fontFaceText{
+                /* 指定使用font-face */
+                font-family: noto, sans-serif;
+            }
+        </style>
+
+
+
+
+    </div>
+</body>
+</html>
