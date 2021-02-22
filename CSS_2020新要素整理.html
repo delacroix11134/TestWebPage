@@ -33,14 +33,11 @@
 
         <style>
             @font-face {
-                /* font-family和src是必要的參數 */
-                /* 自定義名稱，在css中指定字型會以這個名稱為準 */
                 font-family: noto ;
-                /* 定義複數個路徑，瀏覽器會從上到下尋找路徑是否有指定的字型，中間用逗點隔開 */
-                src: url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+                src: local(Noto Sans),
+                url(https://github.com/delacroix11134/TestWebPage/blob/master/fonts/NotoSansTC-Regular.otf);
             }
             .fontFaceText{
-                /* 指定使用font-face */
                 font-family: noto, sans-serif;
             }
         </style>
