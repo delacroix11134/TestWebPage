@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>問答功能</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap" rel="stylesheet">
+</head>
+<style>
+    * {
+    		box-sizing: border-box;
+    		margin: 0;
+    		line-height: 1.5;
+    		letter-spacing: 0.1em;
+    	}
+    	body {
+            width: 100%;
+            font-family: 'Noto Sans TC', sans-serif;
+            text-align: center;
+    		margin: 0;
+    		background: #f0f0f0;
+            overflow: hidden;
+        }
+        main{
+            background-image: url(pic/QA_BG.jpeg);
+            background-size: cover;
+            background-position: center center;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+        }
+        #setting{
+            font-family: sans-serif;
+            width: 80%;
+            margin: 0 auto; 
+        }
+        #show{
+            width: 80%;
+            margin: 0 auto; 
+            display: none;
+        }
+        .title{
+            width: 380px;
+        }
+        .question{
+            margin: 10px;
+            width: 500px;
+            height: 60px;
+        }
+        .answer{
+            margin: 10px 0;
+            width: 300px;
+        }
+        .percent{
+            margin: 10px 0;
+            width: 60px;
+        }
+        .display_title{
+            line-height: 1.2;
+            margin-bottom: 10px;
+            font-size: 100px;
+        }
+        .display_question{
+            font-size: 60px;
+            width: 100%;
+            line-height: 1.2;
+            position: relative;
+            bottom: 20px;
+        }
+        .container_answers{
+            width: 100%;
+            position: relative;
+            left: -50px;
+        }
+        .display_answer{
+            background-color: rgba(255, 255, 255, 0.9);
+            font-family: 'Noto Sans TC', sans-serif;
+            color: rgb(91,47,18);
+            border: 4px solid rgb(32, 13, 10);
+            font-size: 55px;
+            line-height: calc(100% + 5px);
+            text-align: start;
+            border-radius: 15px;
+            width: 75%;
+            min-height: 90px;
+            margin: 7px ;
+            padding: 10px 20px;
+            box-shadow: 1px 3px 6px 0px rgba(0,0,0,0.3);
+        }
+        .display_answer:hover{
+            background-color: rgba(32, 13, 10, 0.9);
+            color: white;
+        }
+        .display_percent{
+            font-family: 'Noto Sans TC', sans-serif;
+            color: rgb(91,47,18);
+            position: fixed;
+            font-size: 60px;
+            height: 60px;
+            line-height: 60px;
+            margin: 10px;
+            /* visibility: hidden; */
+        }
+        #back{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            border: none;
+            background-color: transparent;
+            /* color: white; */
+        }
+        @media (max-width: 1025px){
+            .display_title{
+                margin-bottom: 10px;
+                font-size: 70px;
+            }
+            .display_question{
+                font-size: 50px;
+                bottom: 20px;
+            }
+            .display_answer{
+                font-size: 40px;
+                width: 90%;
+                min-height: 90px;
+                margin: 7px ;
+            }
+            .display_percent{
+                font-size: 40px;
+                letter-spacing: 0;
+            }
+	    }
+</style>
+<body>
+    <main>
+        <div id="setting">
+            <span>標題</span>
+            <input type="text" id="title" class="title" placeholder="請輸入標題" value=""><br>
+            <span>題目</span>
+            <input type="text" id="question1" class="question" placeholder="請輸入題目" value=""><br>
+            <span>答案1</span>
+            <input type="text" id="answer1" class="answer" placeholder="請輸入答案1" value="">
+            <input type="text" id="percent1"class="percent" placeholder="0"value=""><span> %</span><br>
+            <span>答案2</span>
+            <input type="text" id="answer2" class="answer" placeholder="請輸入答案2" value="">
+            <input type="text" id="percent2"class="percent" placeholder="0"value=""><span> %</span><br>
+            <span>答案3</span>
+            <input type="text" id="answer3" class="answer" placeholder="請輸入答案3" value="">
+            <input type="text" id="percent3"class="percent" placeholder="0" value=""><span> %</span><br>
+            <span>答案4</span>
+            <input type="text" id="answer4" class="answer" placeholder="請輸入答案4" value="">
+            <input type="text" id="percent4"class="percent" placeholder="0" value=""><span> %</span><br>
+            <span>答案5</span>
+            <input type="text" id="answer5" class="answer" placeholder="請輸入答案5" value="">
+            <input type="text" id="percent5"class="percent" placeholder="0" value=""><span> %</span><br>
+            <button id="submit">提交</button>
+        </div>
+        
+        <div id="show">
+            <div id="display_title"class="display_title">【鄉民大調查】</div>
+            <div id="display_question1"class="display_question">這裡是題目</div>
+            <div class="container_answers">
+                <button id="display_answer1"class="display_answer">A</button><span id="display_percent1"class="display_percent"></span><br>
+                <button id="display_answer2"class="display_answer">B</button><span id="display_percent2"class="display_percent"></span><br>
+                <button id="display_answer3"class="display_answer">C</button><span id="display_percent3"class="display_percent"></span><br>
+                <button id="display_answer4"class="display_answer">D</button><span id="display_percent4"class="display_percent"></span><br>
+                <button id="display_answer5"class="display_answer">E</button><span id="display_percent5"class="display_percent"></span><br>
+            </div>
+            <button id="back">回上頁</button>
+        </div>
+    </main>
+</body>
+<script>
+    let setting = document.getElementById("setting")
+    let show = document.getElementById("show")
+    let submit = document.getElementById("submit")
+    let question1 = document.getElementById("question1").value
+    let title = document.getElementById("title").value
+    let display_question1 = document.getElementById("display_question1")
+ 
+    submit.addEventListener("click",function(){
+
+        setting.style.display = "none"
+        show.style.display = "block"
+        question1 = document.getElementById("question1").value
+        question1 ? display_question1.innerHTML = question1 : ""
+        title = document.getElementById("title").value
+        title ? display_title.innerHTML = title : ""
+        document.querySelectorAll(".display_percent").forEach(function(item,index){
+
+            item.innerHTML = document.getElementById(`percent${index+1}`).value + " %"
+
+        })
+
+    })
+
+    document.querySelectorAll(".display_answer").forEach(function(item,index){
+
+        item.addEventListener("click",function(){
+
+            if(document.getElementById(`answer${index+1}`).value.length>15){
+                this.style.fontSize = "45px"
+            }
+
+            this.innerHTML = document.getElementById(`answer${index+1}`).value
+            // document.getElementById(`display_percent${index+1}`).style.visibility = "visible"
+
+        })
+    })
+
+    document.getElementById("back").addEventListener("click",function(){
+        setting.style.display = "block"
+        show.style.display = "none"
+        var arr = ["A","B","C","D","E"]
+        document.querySelectorAll(".display_answer").forEach(function(item,index){
+            
+            item.style.fontSize = "55px"
+            item.innerHTML = arr[index]
+        
+        })
+    })
+
+    
+
+   
+</script>
+</html>
