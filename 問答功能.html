@@ -194,7 +194,7 @@
         title ? display_title.innerHTML = title : ""
         document.querySelectorAll(".display_percent").forEach(function(item,index){
 
-            item.innerHTML = document.getElementById(`percent${index+1}`).value + " %"
+            document.getElementById(`percent${index+1}`).value ? item.innerHTML = document.getElementById(`percent${index+1}`).value + " %" : item.innerHTML = "0%"
 
         })
 
