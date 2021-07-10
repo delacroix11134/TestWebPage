@@ -13,7 +13,8 @@
     		box-sizing: border-box;
     		margin: 0;
     		line-height: 1.5;
-    		letter-spacing: 0.1em;
+    		letter-spacing: 0.02em;
+            cursor: url(pic/cursor.png),none;
     	}
     	body {
             width: 100%;
@@ -72,7 +73,7 @@
             width: 100%;
             line-height: 1.2;
             position: relative;
-            bottom: 20px;
+            bottom: 10px;
         }
         .container_answers{
             width: 100%;
@@ -85,7 +86,7 @@
             color: rgb(91,47,18);
             border: 4px solid rgb(32, 13, 10);
             font-size: 55px;
-            line-height: calc(100% + 5px);
+            line-height: 100%;
             text-align: start;
             border-radius: 15px;
             width: 75%;
@@ -106,6 +107,9 @@
             height: 60px;
             line-height: 60px;
             margin: 10px;
+            width: 180px;
+            letter-spacing: 0;
+            text-align: right;
             /* visibility: hidden; */
         }
         #back{
@@ -146,19 +150,19 @@
             <input type="text" id="question1" class="question" placeholder="請輸入題目" value=""><br>
             <span>答案1</span>
             <input type="text" id="answer1" class="answer" placeholder="請輸入答案1" value="">
-            <input type="text" id="percent1"class="percent" placeholder="0"value=""><span> %</span><br>
+            <input type="text" id="percent1"class="percent" placeholder="0"value=""><span>%</span><br>
             <span>答案2</span>
             <input type="text" id="answer2" class="answer" placeholder="請輸入答案2" value="">
-            <input type="text" id="percent2"class="percent" placeholder="0"value=""><span> %</span><br>
+            <input type="text" id="percent2"class="percent" placeholder="0"value=""><span>%</span><br>
             <span>答案3</span>
             <input type="text" id="answer3" class="answer" placeholder="請輸入答案3" value="">
-            <input type="text" id="percent3"class="percent" placeholder="0" value=""><span> %</span><br>
+            <input type="text" id="percent3"class="percent" placeholder="0" value=""><span>%</span><br>
             <span>答案4</span>
             <input type="text" id="answer4" class="answer" placeholder="請輸入答案4" value="">
-            <input type="text" id="percent4"class="percent" placeholder="0" value=""><span> %</span><br>
+            <input type="text" id="percent4"class="percent" placeholder="0" value=""><span>%</span><br>
             <span>答案5</span>
             <input type="text" id="answer5" class="answer" placeholder="請輸入答案5" value="">
-            <input type="text" id="percent5"class="percent" placeholder="0" value=""><span> %</span><br>
+            <input type="text" id="percent5"class="percent" placeholder="0" value=""><span>%</span><br>
             <button id="submit">提交</button>
         </div>
         
