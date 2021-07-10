@@ -14,7 +14,7 @@
     		margin: 0;
     		line-height: 1.5;
     		letter-spacing: 0.02em;
-            cursor: url(pic/cursor.png),none;
+            cursor: url(pic/cursor.png),auto;
     	}
     	body {
             width: 100%;
@@ -113,6 +113,7 @@
             /* visibility: hidden; */
         }
         #back{
+            color:rgba(0, 0, 0, 0.2);
             position: absolute;
             right: 0;
             bottom: 0;
@@ -170,11 +171,11 @@
             <div id="display_title"class="display_title">【鄉民大調查】</div>
             <div id="display_question1"class="display_question">這裡是題目</div>
             <div class="container_answers">
-                <button id="display_answer1"class="display_answer">A</button><span id="display_percent1"class="display_percent"></span><br>
-                <button id="display_answer2"class="display_answer">B</button><span id="display_percent2"class="display_percent"></span><br>
-                <button id="display_answer3"class="display_answer">C</button><span id="display_percent3"class="display_percent"></span><br>
-                <button id="display_answer4"class="display_answer">D</button><span id="display_percent4"class="display_percent"></span><br>
-                <button id="display_answer5"class="display_answer">E</button><span id="display_percent5"class="display_percent"></span><br>
+                <button id="display_answer1"class="display_answer">1</button><span id="display_percent1"class="display_percent"></span><br>
+                <button id="display_answer2"class="display_answer">2</button><span id="display_percent2"class="display_percent"></span><br>
+                <button id="display_answer3"class="display_answer">3</button><span id="display_percent3"class="display_percent"></span><br>
+                <button id="display_answer4"class="display_answer">4</button><span id="display_percent4"class="display_percent"></span><br>
+                <button id="display_answer5"class="display_answer">5</button><span id="display_percent5"class="display_percent"></span><br>
             </div>
             <button id="back">回上頁</button>
         </div>
@@ -221,7 +222,7 @@
     document.getElementById("back").addEventListener("click",function(){
         setting.style.display = "block"
         show.style.display = "none"
-        var arr = ["A","B","C","D","E"]
+        var arr = ["1","2","3","4","5"]
         document.querySelectorAll(".display_answer").forEach(function(item,index){
             
             item.style.fontSize = "55px"
