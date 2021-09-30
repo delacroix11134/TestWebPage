@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>巴吉記帳</title>
+</head>
+
+<style>
+    :root{
+        --barVictor: 0%;
+        --barIkea: 0%;
+        --mainWidth: 60%;
+    }
+    *{
+        box-sizing: border-box;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    body{
+        width: 100%;
+        position: relative;
+        overflow: scroll;
+    }
+    main{
+        width: 100%;
+    }
+    
+
+    /* 預算 */
+    .container_budget{
+        width: var(--mainWidth);
+        margin: 10px auto;
+        display: flex;
+        justify-content: end;
+    }
+    .hide{
+        display: none;
+        visibility: hidden;
+    }
+
+    /* input box */
+    #inputBox{
+        width: var(--mainWidth);
+        display: flex;
+        justify-content: center;
+        margin: 10px auto;
+        flex-wrap: wrap;
+    }
+    .input_child{
+        margin: 5px 5px;
+        padding: 0 10px;
+        height: 40px;
+        border-radius: 5px;
+        border: none;
+        background-color: rgb(245, 245, 245);
+    }
+    .input_child:focus{
+        background-color: rgb(235, 235, 235);
+        outline: none;
+    }
+    #prise{
+        width: 90px;
+    }
+    #info{
+        flex: 1;
+    }
+
+    /* bar */
+    .container_bar{
+        width: var(--mainWidth);
+        margin: 10px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .bar_out{
+        width: 100%;
+        margin: 5px auto;
+    }
+    .container_bar img{
+        width: 24px;
+        height: 24px;
+    }
+    .bar_back{
+        background-color: rgb(245, 245, 245);
+        display: inline-block;
+        height: 24px;
+        width: calc(100% - 40px);
+        border-radius: 12px;
+        margin-left: 10px;
+        overflow: hidden;
+        position: relative;
+    }
+    .bar{
+        height: 24px;
+        border-radius: 12px;
+        transition: ease-in-out 0.5s;
+    }
+    .bar_victor{
+        width: var(--barVictor);
+        background-color: #4e76e4;
+    }
+    .bar_ikea{
+        width: var(--barIkea);
+        background-color: #f64c7f;
+    }
+    .number{
+        width: 100%;
+        height: 24px;
+        line-height: 24px;
+        position: absolute;
+        top: 0;
+        color: black;
+        text-align: center;
+    }
+    .bar_type{
+        width: 100%;
+        margin-left: 0;
+        display: flex;
+
+    }
+    .bar_type .bar{
+        border-radius: 0;
+        text-align: center;
+        line-height: 24px;
+        font-size: 12px;
+        width: 0%;
+        color: transparent;
+        cursor: pointer;
+    }
+    .bar_type .bar:hover{
+        color: black;
+    }
+
+    /* 分類bar的顏色設定 */
+    .bar_banana{
+        background-color: #fc4b4e;
+    }
+    .bar_hamburger{
+        background-color: #004eb1;
+    }
+    .bar_cart{
+        background-color: #ffdc00;
+    }
+    .bar_house{
+        background-color: #ff583e;
+    }
+    .bar_money{
+        background-color: #7584f2;
+    }
+    .bar_pug{
+        background-color: #ff8e00;
+    }
+    .bar_suitcase{
+        background-color: #19cffc;
+    }
+    .bar_train{
+        background-color: #008ff9;
+    }
+    .bar_play{
+        background-color: #ff475a;
+    }
+    .bar_other{
+        background-color: #19e54c;
+    }
+
+    /* show item */
+
+    #container_show{
+        width: var(--mainWidth);
+        margin: 10px auto;
+    }
+    .item_show{
+        border-bottom: 1px solid rgb(235, 235, 235);
+        width: 100%;
+        height: 40px;
+        margin: 10px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .item_show:last-child{
+        border-bottom: none;
+    }
+    .item_show :nth-child(n){
+        display:  inline-block;
+        margin: 0 10px;
+    }
+    .item_show_date{
+        width: 60px;
+        text-align: center;
+    }
+    .item_show img{
+        width: 24px;
+        height: 24px;
+    }
+    .item_show_type{
+        width: 60px;
+    }
+    .item_show_prise{
+        width: 80px;
+    }
+    .item_show_info{
+        flex: 1;
+    }
+    .del{
+        color: white;
+        font-weight: bold;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: rgb(248, 61, 61);
+        border: none;
+    }
+
+    /* 結算按鈕 */
+    .container_count{
+        width: var(--mainWidth);
+        margin: 10px auto;
+    }
+    .checkBox{
+        text-align: center;
+        margin: 10px auto;
+    }
+    .count{
+        width: 50%;
+        display: block;
+        margin: 10px auto;
+    }
+    .count_delete{
+        width: 50%;
+        display: block;
+        margin: 10px auto;
+    }
+
+    /* 結算結果 */
+    .container_talk{
+        width: var(--mainWidth);
+        display: flex;
+        margin: 0 auto;
+    }
+    .image_talk{
+        width: 40px;
+        height: 40px;
+    }
+    .box_talk{
+        margin-left: 15px; 
+        padding: 10px 20px;
+        background-color: rgb(245, 245, 245);
+        border-radius: 20px;
+        flex: 1;
+    }
+
+    /* 紀錄 */
+    .bg_record{
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(245, 245, 245);
+    }
+    .container_record{
+        width: var(--mainWidth);
+        margin: 0 auto;
+        margin-top: 60px;
+        position: relative;
+    }
+    .exit_record{
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: -50px;
+        right: 0;
+        background-color: rgb(235, 235, 235);
+        border-radius: 0;
+        font-size: 20px;
+    }
+    .list_record{
+        margin: 5px 5px;
+        padding: 0 10px;
+        height: 40px;
+        border-radius: 5px;
+        border: none;
+        background-color: rgb(235, 235, 235);
+    }
+    .selected{
+        background-color: rgb(220, 220, 220);
+    }
+    .content_record{
+        height: 150px;
+        padding: 10px;
+        background-color: rgb(235, 235, 235);
+    }
+    @media(max-width: 500px){
+        :root{
+            --mainWidth: 90%;
+        }
+    }
+
+</style>
+
+<body>
+    <main>
+
+        <div class="container_budget">
+            
+            <!-- 觀看紀錄 -->
+            
+            <button class="btn_record input_child">過去紀錄</button>
+            <div class="bg_record hide">
+                <div class="container_record">
+                    <button class="exit_record input_child">X</button>
+                    <div class="container_record_content"></div>
+                </div>
+            </div>
+
+            <!-- 設定預算 -->
+            <div class="checkBoxBudget hide">
+                <input inputmode="numeric" type="text" id="budget" class="input_child" placeholder="請輸入預算金額">
+                <button id="enter_budget"class="input_child">確定</button>
+                <button id="cancel_budget"class="input_child">取消</button>
+            </div>
+            <button id="setting_budget"class="input_child">設定預算/人</button>
+        </div>
+
+        <div id="inputBox">
+
+            <input inputmode="numeric" type="text" name="prise" id="prise" class="input_child"placeholder="請輸入金額">
+
+            <select name="type" id="type"class="input_child">
+                <option class="option_type" value="banana">食材</option>
+                <option class="option_type" value="hamburger">外食</option>
+                <option class="option_type" value="cart">購物</option>
+                <option class="option_type" value="house">住家用</option>
+                <option class="option_type" value="money">繳費</option>
+                <option class="option_type" value="pug">巴吉</option>
+                <option class="option_type" value="suitcase">旅遊</option>
+                <option class="option_type" value="train">交通</option>
+                <option class="option_type" value="play">娛樂</option>
+                <option class="option_type" value="other">其他</option>
+            </select>
+
+            <select name="pay" id="pay"class="input_child">
+                <option class="option_type" value="man">大俠付</option>
+                <option class="option_type" value="woman">怡嘉付</option>
+                <option class="option_type" value="aa">AA制</option>
+            </select>
+
+            <input type="text"name="info" id="info"class="input_child"placeholder="請輸入用途">
+
+            <button id="enter_cost"class="input_child">完成</button>
+
+        </div>
+
+        <div class="container_bar">
+            
+            <div class="bar_out">
+                <img src="Icons/man.png" alt="">
+
+                <div class="bar_back bar_victor_back">
+                    <div class="bar_victor bar"></div>
+                    <div class="number_victor number"></div>
+                </div>
+            </div>
+
+            <div class="bar_out">
+                <img src="Icons/woman.png" alt="">
+
+                <div class="bar_back bar_ikea_back">
+                    <div class="bar_ikea bar"></div>
+                    <div class="number_ikea number"></div>
+                </div>
+            </div>
+
+            <div class="bar_out">
+                <div class="bar_type bar_back">
+                    <div class="bar_banana bar"></div>
+                    <div class="bar_hamburger bar"></div>
+                    <div class="bar_cart bar"></div>
+                    <div class="bar_house bar"></div>
+                    <div class="bar_money bar"></div>
+                    <div class="bar_pug bar"></div>
+                    <div class="bar_suitcase bar"></div>
+                    <div class="bar_train bar"></div>
+                    <div class="bar_play bar"></div>
+                    <div class="bar_other bar"></div>
+                </div>
+            </div>
+
+        </div>
+        <div id="container_show">
+            
+        </div>
+
+        <!-- 巴吉說話 -->
+        <div class="container_talk">
+            <img src="Icons/pug_big.png" alt="" class="image_talk">
+            <div class="box_talk"></div>
+        </div>
+
+        <!-- 結算按鈕 -->
+        <div class="container_count">
+            <div class="checkBox hide">
+                是否確定結算?
+                <button class="count_yes input_child">確定</button>
+                <button class="count_cancel input_child">取消</button>
+            </div>
+            <button class="count input_child">結算</button>
+            <button class="count_delete input_child hide">重新開始記帳</button>
+        </div>
+
+        
+    </main>
+
+
+</body>
+
+<!-- 載入firebase和firestore的資料庫 -->
+
+<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-firestore.js"></script>
+
+<script type="module">
+    
+    // Your web app's Firebase configuration
+    // 這裡是firebase用的apikey等等資料，公開沒關係，但是要可能要寫安全性規則來保護資料(還沒看到那邊)
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA8i2iG1_9_9QugOf31tVkmj26YBF6jCFU",
+      authDomain: "test-21fb2.firebaseapp.com",
+      databaseURL: "https://test-21fb2-default-rtdb.firebaseio.com",
+      projectId: "test-21fb2",
+      storageBucket: "test-21fb2.appspot.com",
+      messagingSenderId: "1094276502101",
+      appId: "1:1094276502101:web:1577e2f17d3fe53d5f7adc",
+      measurementId: "G-WDREX0ZZXT"
+    };
+
+
+    // 初始化firebase，引入上面的api
+
+    firebase.initializeApp(firebaseConfig)
+
+    const db = firebase.firestore()
+
+    var cost = db.collection('cost')
+    var budgetDb = db.collection('budget')
+    var record = db.collection('record')
+
+
+    // 設定本月預算
+    var victorPay = 0
+    var ikeaPay = 0
+    var total = 0
+    var mounthlyBudget = 0
+
+
+    // 設定各種類型的花費金額
+    var bananaPay = 0
+    var hamburgerPay = 0
+    var cartPay = 0
+    var housePay = 0
+    var moneyPay = 0
+    var pugPay = 0
+    var suitcasePay = 0
+    var trainPay = 0
+    var playPay = 0
+    var otherPay = 0
+
+    var fromYear = 0
+    var fromMonth = 0
+    var fromDate = 0
+    var fromDay = 0
+
+
+    // 設定開始時間的資料
+    var setFromDate = function(){
+        
+        cost.orderBy('timeStamp','asc').limit(1).get().then((docs)=>{
+            docs.forEach((doc)=>{
+
+                fromYear = doc.data().year
+                fromMonth = doc.data().month
+                fromDate = doc.data().date
+                fromDay = doc.data().day
+
+                console.log('from date setted')
+            })
+        })
+    }
+    
+
+    // 取得DB的預算資料並設定長度
+    var getBudgetAndSetBar = function(){
+
+        // 取得總預算
+        budgetDb.doc('budget').get().then( doc=>{
+
+            // .then()要return要傳下去的東西,下一個then才接的到(其實這裡不用2個then,只是測試用的)
+            return doc
+
+        }).then( doc =>{
+
+            var budgetData = (doc.data().budget)*1
+            setBarLength(budgetData)
+            mounthlyBudget = budgetData
+            return doc
+
+        })
+
+    }
+
+    // 設定bar的長度變數
+    var setBarLength = function(budgetData){
+
+        // 把總金額除總預算
+        var barVictor = (victorPay/budgetData*100).toFixed(1)
+        var barIkea = (ikeaPay/budgetData*100).toFixed(1)
+
+        // 設定CSS變數
+        document.documentElement.style.setProperty('--barVictor',`${barVictor}%`)
+        document.documentElement.style.setProperty('--barIkea',`${barIkea}%`)
+
+        // 顯示在bar上面的數字
+        document.querySelector('.number_victor').innerHTML = `${victorPay} / ${budgetData}`
+        document.querySelector('.number_ikea').innerHTML = `${ikeaPay} / ${budgetData}`
+
+    }
+
+
+    // 花費種類的物件
+    var optionType = {}
+
+    var getType = function(){
+
+        // 取得花費種類
+
+        document.querySelectorAll('.option_type').forEach((element)=>{
+
+            var key = element.value
+            var value = element.innerHTML
+
+            optionType[key] = value
+            
+        })
+    
+    }
+
+    getType()
+
+
+    // 設定各種類花費
+    var setTypeCost = function(type,cost){
+
+        switch(type){
+            case 'banana':
+                bananaPay += cost
+                break
+            case 'hamburger':
+                hamburgerPay += cost
+                break
+            case 'cart':
+                cartPay += cost
+                break
+            case 'house':
+                housePay += cost
+                break
+            case 'money':
+                moneyPay += cost
+                break
+            case 'pug':
+                pugPay += cost
+                break
+            case 'suitcase':
+                suitcasePay += cost
+                break
+            case 'train':
+                trainPay += cost
+                break
+            case 'play':
+                playPay += cost
+                break
+            case 'other':
+                otherPay += cost
+                break
+        }
+    }
+
+
+    // 設定花費種類bar
+    var setTypeBar = function(){
+
+        document.querySelector('.bar_banana').style.width = `${(bananaPay/total*100).toFixed(2)}%`
+        document.querySelector('.bar_hamburger').style.width = `${(hamburgerPay/total*100).toFixed(2)}%`
+        document.querySelector('.bar_cart').style.width = `${(cartPay/total*100).toFixed(2)}%`
+        document.querySelector('.bar_house').style.width = `${(housePay/total*100).toFixed(2)}%`
+        document.querySelector('.bar_money').style.width = `${(moneyPay/total*100).toFixed(2)}%`
+        document.querySelector('.bar_pug').style.width = `${(pugPay/total*100).toFixed()}%`
+        document.querySelector('.bar_suitcase').style.width = `${(suitcasePay/total*100).toFixed(2)}%`
+        document.querySelector('.bar_train').style.width = `${(trainPay/total*100).toFixed(2)}%`
+        document.querySelector('.bar_play').style.width = `${(playPay/total*100).toFixed(2)}%`
+        document.querySelector('.bar_other').style.width = `${(otherPay/total*100).toFixed(2)}%`
+
+        document.querySelector('.bar_banana').innerHTML = `${optionType.banana} ${bananaPay}元`
+        document.querySelector('.bar_hamburger').innerHTML = `${optionType.hamburger} ${hamburgerPay}元`
+        document.querySelector('.bar_cart').innerHTML = `${optionType.cart} ${cartPay}元`
+        document.querySelector('.bar_house').innerHTML = `${optionType.house} ${housePay}元`
+        document.querySelector('.bar_money').innerHTML = `${optionType.money} ${moneyPay}元`
+        document.querySelector('.bar_pug').innerHTML = `${optionType.pug} ${pugPay}元`
+        document.querySelector('.bar_suitcase').innerHTML = `${optionType.suitcase} ${suitcasePay}元`
+        document.querySelector('.bar_train').innerHTML = `${optionType.train} ${trainPay}元`
+        document.querySelector('.bar_play').innerHTML = `${optionType.play} ${playPay}元`
+        document.querySelector('.bar_other').innerHTML = `${optionType.other} ${otherPay}元`
+
+    }
+
+    
+    var getTime = function(){
+    
+        // 取得時間戳和日期等等
+
+        var stamp = Date.now()
+        var date = new Date(stamp)
+        var day 
+
+        switch(date.getDay()){
+            case 0:
+                day = '日'
+                break;
+            case 1:
+                day = '一'
+                break;
+            case 2:
+                day = '二'
+                break;
+            case 3:
+                day = '三'
+                break;
+            case 4:
+                day = '四'
+                break;
+            case 5:
+                day = '五'
+                break;
+            case 6:
+                day = '六'
+                break;
+            default:
+                day = ''
+        }
+        
+        return {
+            'timeStamp': stamp.toString(),
+            'year': date.getFullYear(),
+            'month': date.getMonth()+1,
+            'date': date.getDate(),
+            'day': day,
+        }   
+    }
+
+
+    // 新增支出的資料到db
+    var setDoc = function(prise, type, info, pay){
+
+        var time = getTime()
+        
+        // 這裡doc的名字必須是字串，不然會報錯
+        cost.doc(time.timeStamp).set({
+
+            // 資料
+            'prise': prise,
+            'type': type,
+            'info': info,
+            'pay': pay,
+            
+            // 日期
+            'timeStamp': time.timeStamp*1,
+            'year': time.year,
+            'month': time.month,
+            'date': time.date,
+            'day': time.day,
+        
+        }).then(()=>{
+
+            console.log('data added')
+
+        })
+    }
+
+
+    // 檢查DOM元素是否存在用的array
+    var docId = []
+
+    var createDomElement = function(doc){
+
+        // 生成DOM元素的函式
+
+        docId.push(doc.id)
+
+        var node = document.createElement('div')
+        var nodeDate = document.createElement('div')
+        var nodePrise = document.createElement('div')
+        var nodeType = document.createElement('div')
+        var nodeInfo = document.createElement('div')
+        var img = document.createElement("img")
+        var imgPay = document.createElement('img')
+        var button = document.createElement("button")
+
+        node.setAttribute('class','item_show')
+        node.setAttribute('data-timeStamp', doc.id)
+        nodeDate.setAttribute('class','item_show_date')
+        nodePrise.setAttribute('class','item_show_prise')
+        nodeType.setAttribute('class','item_show_type')
+        nodeInfo.setAttribute('class','item_show_info')
+        img.setAttribute('src',`Icons/${doc.data().type}.png`)
+        imgPay.setAttribute('src',`Icons/${doc.data().pay}.png`)
+
+        button.setAttribute('class','del')
+        button.setAttribute('data-docId',doc.id)
+        button.innerHTML = '–'
+
+        nodeDate.innerHTML = `${doc.data().month}/${doc.data().date} (${doc.data().day})` 
+        nodePrise.innerHTML = `${doc.data().prise} 元`
+        nodeInfo.innerHTML = doc.data().info
+        nodeType.innerHTML = optionType[doc.data().type]
+
+        node.appendChild(nodeDate)
+        node.appendChild(img)
+        node.appendChild(imgPay)
+        // node.appendChild(nodeType)
+        node.appendChild(nodePrise)
+        node.appendChild(nodeInfo)
+        node.appendChild(button)
+
+        document.getElementById('container_show').appendChild(node)
+
+        // 設定這個刪除按鈕的功能
+        setDelButton(doc.id)
+    }
+
+
+    // 及時監聽DB的資料變化
+    var getDb = function(){
+        
+        cost.onSnapshot( docs => {
+
+            // 清空資料重算
+            total = 0
+            ikeaPay = 0
+            victorPay = 0
+            bananaPay = 0
+            hamburgerPay = 0
+            cartPay = 0
+            housePay = 0
+            moneyPay = 0
+            pugPay = 0
+            suitcasePay = 0
+            trainPay = 0
+            playPay = 0
+            otherPay = 0
+            
+
+            docs.forEach( doc => {
+
+                // 要檢查是否已經寫過
+                docId.indexOf(doc.id) == -1 ? createDomElement(doc) : ''
+
+                // 加總所有的錢
+                total += doc.data().prise*1
+
+                // 加總誰付的錢
+                if(doc.data().pay == 'man'){
+                    victorPay += doc.data().prise*1
+                } else if(doc.data().pay == 'woman'){
+                    ikeaPay += doc.data().prise*1
+                } else {
+                    victorPay += doc.data().prise/2
+                    ikeaPay += doc.data().prise/2
+                }
+
+                // 加總各類型的錢
+                setTypeCost( doc.data().type, doc.data().prise*1 )
+                
+            } )
+
+            console.log('1')
+            getBudgetAndSetBar()
+            setTypeBar()
+            fromDate == 0 ? setFromDate() : ''
+            puggyTalk()
+
+        } )
+
+    }
+
+    getDb()
+    
+    
+    // 按鈕功能
+    document.getElementById('enter_cost').addEventListener('click',()=>{
+        var prise = document.getElementById('prise').value
+        var type = document.getElementById('type').value
+        var info = document.getElementById('info').value
+        var pay = document.getElementById('pay').value
+
+        // console.log({'prise':prise,'type':type,'info':info,})
+
+        setDoc(prise,type,info,pay)
+    })
+
+
+    // 刪除功能
+    var setDelButton = function(id){
+
+        // querySelector的選擇器裡面的id必須要是字串，所以加上""才會有效
+        document.querySelector(`button[data-docId="${id}"]`).addEventListener('click', ()=>{
+                
+                cost.doc(id).delete().then(()=>{console.log('data deleted')})
+                document.querySelector(`div[data-timestamp="${id}"]`).remove()
+
+            })
+    }
+
+
+    // 設定預算功能
+    document.getElementById('setting_budget').addEventListener('click',()=>{
+
+        document.querySelector('.checkBoxBudget').classList.remove('hide')
+        document.getElementById('setting_budget').classList.add('hide')
+
+    })
+
+    document.getElementById('cancel_budget').addEventListener('click',()=>{
+
+        // 按鈕的出現和消失
+        document.getElementById('setting_budget').classList.remove('hide')
+        document.querySelector('.checkBoxBudget').classList.add('hide')
+
+    })
+
+    document.getElementById('enter_budget').addEventListener('click',()=>{
+
+        document.getElementById('setting_budget').classList.remove('hide')
+        document.querySelector('.checkBoxBudget').classList.add('hide')
+
+        var number = document.getElementById('budget').value
+
+        var time = getTime()
+
+        // 設定預算到db
+        budgetDb.doc('budget').set({
+
+            'budget': number,
+
+        }).then(()=>console.log('budget setted')).catch((error)=>console.error(error))
+
+        getBudgetAndSetBar()
+
+    })
+
+
+    // 結算功能
+    document.querySelector('.count').addEventListener('click',()=>{
+
+        if( total != 0 ){
+            document.querySelector('.checkBox').classList.remove('hide')
+            document.querySelector('.count').classList.add('hide')
+        } else {
+
+            document.querySelector('.box_talk').innerHTML = '汪汪！沒有紀錄不能結算喔'
+
+        }
+    
+    })
+
+    document.querySelector('.count_cancel').addEventListener('click',()=>{
+
+        document.querySelector('.checkBox').classList.add('hide')
+        document.querySelector('.count').classList.remove('hide')
+
+    })
+
+    // 結算&清除&紀錄
+
+    document.querySelector('.count_yes').addEventListener('click',()=>{
+
+        document.querySelector('.checkBox').classList.add('hide')
+        document.querySelector('.count_delete').classList.remove('hide')
+
+        var time = getTime()
+
+        // 巴吉講話
+        puggyCount()
+        
+        // 紀錄資料到record
+        record.doc(time.timeStamp).set({
+
+            'budget': mounthlyBudget,
+            'total': total,
+            'ikeaPay': ikeaPay,
+            'victorPay': victorPay,
+            // 支出種類
+            'bananaPay' : bananaPay,
+            'hamburgerPay' : hamburgerPay,
+            'cartPay' : cartPay,
+            'housePay' : housePay,
+            'moneyPay' : moneyPay,
+            'pugPay' : pugPay,
+            'suitcasePay' : suitcasePay,
+            'trainPay' : trainPay,
+            'playPay' : playPay,
+            'otherPay' : otherPay,
+            // 日期
+            'timestamp': time.timeStamp,
+            'year': time.year,
+            'month': time.month,
+            'date': time.date,
+            'day': time.day,
+            'fromYear': fromYear,
+            'fromMonth': fromMonth,
+            'fromDate': fromDate,
+            'fromDay': fromDay,
+
+        })
+
+    })
+
+    // 移除DB資料
+    document.querySelector('.count_delete').addEventListener('click',()=>{
+
+        document.querySelector('.count').classList.remove('hide')
+        document.querySelector('.count_delete').classList.add('hide')
+
+        // 移除db cost的資料
+        cost.get().then((docs)=>{
+
+            docs.forEach((doc)=>{
+
+                cost.doc(doc.id).delete()
+
+            })
+
+        }).then(()=>{
+
+            // 重新取得紀錄的DB資料
+            getRecordDB()
+
+        }).then(()=>{
+
+            window.setTimeout(function(){
+
+                // 移除DOM元素
+            document.querySelectorAll('.item_show').forEach((item)=>{ item.remove(); console.log('dom delete') })
+
+            // 清空既存DOM元素的表
+            docId.length = 0
+
+            // 把bar歸零
+            document.querySelectorAll('.bar_type .bar').forEach((element)=>{
+                element.style.width = "0%"
+            })
+
+            console.log('2')
+
+            },100)
+
+            
+
+        })
+
+    })
+
+
+
+
+    // 巴吉碎碎念
+    var puggyTalk = function(){
+        
+        var box = document.querySelector('.box_talk')
+        var time = getTime()
+        var total = victorPay + ikeaPay
+
+        box.innerHTML = '汪汪！'
+
+        // 先把預算get下來
+        budgetDb.doc('budget').get().then((doc)=>{
+
+            mounthlyBudget = doc.data().budget*1
+
+            if( total > mounthlyBudget && total < mounthlyBudget + 500){
+                box.innerHTML += '本月預算已支出一半'
+            } else if ( total > mounthlyBudget*2 ){
+                box.innerHTML += '本月已超支預算囉&#x1F613;'
+            } else if(total == 0){
+                box.innerHTML += '這裡還沒有紀錄，趕快來記帳吧！'
+            }
+        })
+    }
+
+    // 巴吉結算
+    var puggyCount = function(){
+
+        var box = document.querySelector('.box_talk')
+        var balance = victorPay - ikeaPay
+        var total = victorPay + ikeaPay
+
+        box.innerHTML = '本月結算:<br>'
+
+        if( balance > 0 ){
+            box.innerHTML += `怡嘉要給大俠 ${Math.abs(balance)/2}元。`
+        } else if( balance < 0 ){
+            box.innerHTML += `大俠要給怡嘉 ${Math.abs(balance)/2}元。`
+        } else {
+            box.innerHTML += '兩個人的花費剛好一樣，不用算錢'
+        }
+
+        if( total > mounthlyBudget * 2 ){
+            box.innerHTML += `這個月預算爆了 ${total - mounthlyBudget*2}元噢`
+        } else {
+            box.innerHTML += `這個月花費在預算內，請繼續保持&#x1F609;`
+        }
+    }
+
+
+    // 紀錄按鈕
+    document.querySelector('.btn_record').addEventListener('click',()=>{
+        
+        document.querySelector('.bg_record').classList.remove('hide')
+
+    })
+
+
+    var getRecordDB = function(){
+
+        // 刪除舊的紀錄
+        document.querySelectorAll('.list_record').forEach((element)=>{element.remove()})
+
+        // 取下紀錄DB中的資料,並生成DOM元素
+        record.get().then((docs)=>{
+            
+            docs.forEach((doc)=>{
+
+                createRecordLists(doc)
+                createRecordContent(doc)
+                return doc
+
+            })
+        })
+    }
+    getRecordDB()
+
+
+    // 生成紀錄的list
+    var createRecordLists = function(doc){
+
+        // 生成按鈕
+        var node = document.createElement('button')
+        node.setAttribute('class',`list_record`)
+        node.setAttribute('data-timestamp',`${doc.data().timestamp}`)
+        node.innerHTML = `${doc.data().fromYear}/${doc.data().fromMonth}/${doc.data().fromDate}~ ${doc.data().year}/${doc.data().month}/${doc.data().date}`
+
+        var child = document.querySelector('.container_record_content')
+        document.querySelector('.container_record').insertBefore(node , child)
+
+        // 附加按鈕功能 ####
+        document.querySelector(`.list_record[data-timestamp="${doc.data().timestamp}"]`).addEventListener('click',()=>{
+
+            document.querySelectorAll('.content_record').forEach( element => { element.classList.add('hide') })
+            document.querySelectorAll('.list_record').forEach( element => { element.classList.remove('selected') })
+            document.querySelector(`.content_record[data-timestamp="${doc.data().timestamp}"]`).classList.remove('hide')
+            document.querySelector(`.list_record[data-timestamp="${doc.data().timestamp}"]`).classList.add('selected')
+        
+        })
+
+    }
+
+    var createRecordContent = function(doc){
+
+        var data = doc.data()
+        var node = document.createElement('div')
+        node.setAttribute('class','input_child content_record hide')
+        node.setAttribute('data-timeStamp',`${data.timestamp}`)
+
+        node.innerHTML = `本月預算 ${data.budget*2}<br>總支出 ${data.total}<br>怡嘉支出 ${data.ikeaPay}<br>大俠支出 ${data.victorPay}`
+
+        document.querySelector('.container_record_content').appendChild(node)
+
+    }
+
+
+    // 離開紀錄按鈕
+    document.querySelector('.exit_record').addEventListener('click',()=>{
+        document.querySelector('.bg_record').classList.add('hide')
+    })
+
+    
+    
+
+  </script>
+
+</html>
