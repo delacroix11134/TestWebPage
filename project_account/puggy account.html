@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>巴吉記帳</title>
 </head>
 
@@ -187,10 +187,10 @@
     }
     .item_show :nth-child(n){
         display:  inline-block;
-        margin: 0 10px;
+        margin: 0 5px;
     }
     .item_show_date{
-        width: 60px;
+        width: 50px;
         text-align: center;
     }
     .item_show img{
@@ -292,13 +292,29 @@
         background-color: rgb(220, 220, 220);
     }
     .content_record{
-        height: 150px;
+        height: auto;
         padding: 10px;
         background-color: rgb(235, 235, 235);
+        position: relative;
     }
+    .delete_content_record{
+        width: 70%;
+        font-size: 12px;
+        background-color: rgb(248, 61, 61);
+        border-radius: 5px;
+        margin: 5px auto;
+        margin-top: 15px;
+        text-align: center;
+        padding: 5px;
+        cursor: pointer;
+    }
+
     @media(max-width: 500px){
         :root{
             --mainWidth: 90%;
+        }
+        .item_show_prise{
+            width: 60px;
         }
     }
 
@@ -1086,8 +1102,22 @@
         node.setAttribute('class','input_child content_record hide')
         node.setAttribute('data-timeStamp',`${data.timestamp}`)
 
+        var exit = document.createElement('div')
+        exit.setAttribute('class','delete_content_record')
+        exit.setAttribute('data-timeStamp',`${data.timestamp}`)
+        exit.innerHTML = '刪除記錄'
+
+        exit.addEventListener('click',()=>{
+
+            record.doc(`${data.timestamp}`).delete().then(()=>{console.log('record deleted')})
+            document.querySelector(`.content_record[data-timestamp="${data.timestamp}"]`).remove()
+            document.querySelector(`.list_record[data-timestamp="${data.timestamp}"]`).remove()
+
+        })
+
         node.innerHTML = `本月預算 ${data.budget*2}<br>總支出 ${data.total}<br>怡嘉支出 ${data.ikeaPay}<br>大俠支出 ${data.victorPay}`
 
+        node.appendChild(exit)
         document.querySelector('.container_record_content').appendChild(node)
 
     }
