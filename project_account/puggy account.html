@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="Icons/pug_big.png">
     <title>巴吉記帳</title>
 </head>
 
@@ -190,7 +191,7 @@
         margin: 0 5px;
     }
     .item_show_date{
-        width: 50px;
+        width: 90px;
         text-align: center;
     }
     .item_show img{
@@ -227,6 +228,7 @@
     }
     .count{
         width: 50%;
+        border-radius: 20px;
         display: block;
         margin: 10px auto;
     }
@@ -313,8 +315,14 @@
         :root{
             --mainWidth: 90%;
         }
+        #prise{
+            flex: 1;
+        }
         .item_show_prise{
             width: 60px;
+        }
+        .item_show_date{
+            width: 50px;
         }
     }
 
@@ -827,6 +835,10 @@
         // console.log({'prise':prise,'type':type,'info':info,})
 
         setDoc(prise,type,info,pay)
+
+        document.getElementById('prise').value = ''
+        document.getElementById('info').value = ''
+
     })
 
 
@@ -848,6 +860,7 @@
 
         document.querySelector('.checkBoxBudget').classList.remove('hide')
         document.getElementById('setting_budget').classList.add('hide')
+        document.querySelector('.btn_record').classList.add('hide')
 
     })
 
@@ -856,6 +869,7 @@
         // 按鈕的出現和消失
         document.getElementById('setting_budget').classList.remove('hide')
         document.querySelector('.checkBoxBudget').classList.add('hide')
+        document.querySelector('.btn_record').classList.remove('hide')
 
     })
 
@@ -863,6 +877,7 @@
 
         document.getElementById('setting_budget').classList.remove('hide')
         document.querySelector('.checkBoxBudget').classList.add('hide')
+        document.querySelector('.btn_record').classList.remove('hide')
 
         var number = document.getElementById('budget').value
 
@@ -1068,7 +1083,7 @@
             })
         })
     }
-    getRecordDB()
+    getRecordDB() 
 
 
     // 生成紀錄的list
@@ -1115,7 +1130,7 @@
 
         })
 
-        node.innerHTML = `本月預算 ${data.budget*2}<br>總支出 ${data.total}<br>怡嘉支出 ${data.ikeaPay}<br>大俠支出 ${data.victorPay}`
+        node.innerHTML = `本月預算 ${data.budget*2}<br>總支出 ${data.total}<br>怡嘉支出 ${data.ikeaPay}<br>大俠支出 ${data.victorPay}<br>`
 
         node.appendChild(exit)
         document.querySelector('.container_record_content').appendChild(node)
