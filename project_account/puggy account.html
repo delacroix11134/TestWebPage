@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="shortcut icon" href="Icons/pug_big.png">
+    
+    <!-- 這行用來在apple手機上，拉出捷徑時的icon -->
     <link rel="apple-touch-icon" href="Icons/apple-touch-icon.png">
     <title>巴吉記帳</title>
 </head>
@@ -72,7 +74,7 @@
     /* bar */
     .container_bar{
         width: var(--mainWidth);
-        margin: 10px auto;
+        margin: 20px auto;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -189,7 +191,6 @@
     }
     .item_show :nth-child(n){
         display:  inline-block;
-        margin: 0 5px;
     }
     .item_show_date{
         width: 90px;
@@ -198,15 +199,19 @@
     .item_show img{
         width: 24px;
         height: 24px;
+        margin: 0 5px;
     }
     .item_show_type{
         width: 60px;
     }
     .item_show_prise{
-        width: 80px;
+        width: 40px;
+        text-align: end;
+        margin-left: 20px;
     }
     .item_show_info{
         flex: 1;
+        margin-left: 40px;
     }
     .del{
         color: white;
@@ -216,6 +221,7 @@
         border-radius: 50%;
         background-color: rgb(248, 61, 61);
         border: none;
+        text-align: center;
     }
 
     /* 結算按鈕 */
@@ -312,6 +318,42 @@
         cursor: pointer;
     }
 
+    /* 數字鍵盤 */
+    .container-numbers{
+        width: 90vw;
+        height: auto;
+        display: none;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    .key-number{
+        color: rgb(100, 100, 100);
+        font-weight: bold;
+        text-align: center;
+        font-size: 50px;
+        line-height: 20vw;
+        width: 27vw;
+        height: 20vw;
+        border-radius: 10px;
+        margin: 5px;
+        background-color: rgb(245, 245, 245);
+    }
+    .key-number:last-child{
+        font-size: 20px;
+        line-height: 50px;
+        height: 50px;
+        flex: 1;
+    }
+    .key-number:hover{
+        background-color: rgb(225, 225, 225);
+    }
+    .icon-del{
+        width: 40px;
+        position: relative;
+        top: -5px;
+    }
+
     @media(max-width: 500px){
         :root{
             --mainWidth: 90%;
@@ -319,11 +361,21 @@
         #prise{
             flex: 1;
         }
+        #enter_cost{
+            display: none;
+        }
         .item_show_prise{
-            width: 60px;
+            margin-left: 10px;
+        }
+        .item_show_info{
+            margin-left: 20px;
         }
         .item_show_date{
             width: 50px;
+            font-size: 14px;
+        }
+        .container-numbers{
+        display: flex;
         }
     }
 
@@ -380,6 +432,22 @@
 
             <button id="enter_cost"class="input_child">完成</button>
 
+            <div class="container-numbers">
+                <div class="key-number"data-num="1">1</div>
+                <div class="key-number"data-num="2">2</div>
+                <div class="key-number"data-num="3">3</div>
+                <div class="key-number"data-num="4">4</div>
+                <div class="key-number"data-num="5">5</div>
+                <div class="key-number"data-num="6">6</div>
+                <div class="key-number"data-num="7">7</div>
+                <div class="key-number"data-num="8">8</div>
+                <div class="key-number"data-num="9">9</div>
+                <div class="key-number"data-num=".">.</div>
+                <div class="key-number"data-num="0">0</div>
+                <div id="del_enter_cost"class="key-number"><img class="icon-del"src="Icons/Del.png" alt=""></div>
+                <div id="key_enter_cost"class="key-number">完成記帳</div>
+            </div>
+
         </div>
 
         <div class="container_bar">
@@ -419,7 +487,7 @@
 
         </div>
         <div id="container_show">
-            
+            <div class="first hide"></div>
         </div>
 
         <!-- 巴吉說話 -->
@@ -750,7 +818,7 @@
         button.innerHTML = '–'
 
         nodeDate.innerHTML = `${doc.data().month}/${doc.data().date} (${doc.data().day})` 
-        nodePrise.innerHTML = `${doc.data().prise} 元`
+        nodePrise.innerHTML = `${doc.data().prise}`
         nodeInfo.innerHTML = doc.data().info
         nodeType.innerHTML = optionType[doc.data().type]
 
@@ -762,7 +830,7 @@
         node.appendChild(nodeInfo)
         node.appendChild(button)
 
-        document.getElementById('container_show').appendChild(node)
+        document.getElementById('container_show').insertBefore(node,document.querySelector('.first').nextSibling)
 
         // 設定這個刪除按鈕的功能
         setDelButton(doc.id)
@@ -772,7 +840,7 @@
     // 及時監聽DB的資料變化
     var getDb = function(){
         
-        cost.onSnapshot( docs => {
+        cost.orderBy('timeStamp','asc').onSnapshot( docs => {
 
             // 清空資料重算
             total = 0
@@ -824,23 +892,69 @@
     }
 
     getDb()
+
+
+    // 小鍵盤功能
+    // 數字鍵功能
+    document.querySelectorAll('.key-number').forEach( element => {
+
+        var data = element.getAttribute('data-num')
+        
+        if(data){
+            element.addEventListener('click',()=>{
+
+                document.getElementById('prise').value += data
+
+            })
+        }
+        
+    })
+
+    // 刪除鍵功能
+    document.getElementById('del_enter_cost').addEventListener('click',()=>{
+
+        document.getElementById('prise').value = document.getElementById('prise').value.slice(0,-1)
+
+    })
+
     
     
-    // 按鈕功能
-    document.getElementById('enter_cost').addEventListener('click',()=>{
+    // 輸入功能
+
+    var enterCost = function(){
+
         var prise = document.getElementById('prise').value
         var type = document.getElementById('type').value
         var info = document.getElementById('info').value
         var pay = document.getElementById('pay').value
 
-        // console.log({'prise':prise,'type':type,'info':info,})
+        if(prise){
 
-        setDoc(prise,type,info,pay)
+            setDoc(prise,type,info,pay)
 
-        document.getElementById('prise').value = ''
-        document.getElementById('info').value = ''
+            document.getElementById('prise').value = ''
+            document.getElementById('info').value = ''
+
+        } else {
+
+            document.querySelector('.box_talk').innerHTML += '你還沒輸入金額拉'
+
+        }
+
+    }
+
+    document.getElementById('enter_cost').addEventListener('click',()=>{
+        
+        enterCost()
 
     })
+
+    document.querySelector('#key_enter_cost').addEventListener('click',()=>{
+
+        enterCost()
+
+    })
+    
 
 
     // 刪除功能
