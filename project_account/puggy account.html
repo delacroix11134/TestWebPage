@@ -20,6 +20,7 @@
         --barVictor: 0%;
         --barIkea: 0%;
         --mainWidth: 60%;
+        --colorMain: #ffaa0b;
     }
     *{
         box-sizing: border-box;
@@ -36,17 +37,89 @@
     main{
         width: 100%;
     }
+
+    /* 登入頁 */
+    .container-login{
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        background-color: rgb(245, 245, 245);
+        z-index: 2;
+        display: flex;
+        align-content: center;
+        flex-wrap: wrap;
+    }
+    .input-login{
+        width: 60%;
+        padding: 0 20px;
+        margin: 5px auto;
+        display: block;
+        border: none;
+        height: 30px;
+        border-radius: 15px;
+    }
+    .input-login:focus{
+        border: 1px solid rgb(190, 190, 190);
+        background-color: white;
+        outline: none;
+    }
+    .input-login:active{
+        background-color: white;
+    }
+    .btn-login{
+        color: white;
+        font-size: medium;
+        font-weight: bold;
+        width: 60%;
+        margin: 5px auto;
+        display: block;
+        border: none;
+        height: 40px;
+        border-radius: 20px;
+        background-color: var(--colorMain);
+    }
+    .error-login{
+        color: rgb(223, 65, 96);
+        width: 60%;
+        margin: 0 auto;
+        position: relative;
+        left: 20px;
+    }
+
     
+    /* 分頁 */
+    .container-toggle{
+        width: var(--mainWidth);
+        height: auto;
+        margin: 20px auto;
+        display: flex;
+        justify-content: space-around;
+    }
+    .toggle{
+        height: 40px;
+        line-height: 40px;
+        border-radius: 20px;
+        width: 20%;
+        color: rgb(180, 180, 180);
+        font-size: 16px;
+        text-align: center;
+    }
+    .toggle-checked{
+        color: white;
+        font-weight: 900;
+        background-color: var(--colorMain);
+    }
 
     /* 預算 */
-    .container_budget{
+    .container-setting{
         width: var(--mainWidth);
         margin: 10px auto;
         display: flex;
         justify-content: end;
     }
     .hide{
-        display: none;
+        display: none !important;
         visibility: hidden;
     }
 
@@ -80,7 +153,7 @@
     /* bar */
     .container_bar{
         width: var(--mainWidth);
-        margin: 20px auto;
+        margin: 0px auto;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -88,25 +161,27 @@
     }
     .bar_out{
         width: 100%;
-        margin: 5px auto;
+        margin: 2px auto;
     }
     .container_bar img{
-        width: 24px;
-        height: 24px;
+        width: 16px;
+        height: 16px;
     }
     .bar_back{
         background-color: rgb(245, 245, 245);
         display: inline-block;
-        height: 24px;
-        width: calc(100% - 40px);
-        border-radius: 12px;
-        margin-left: 10px;
+        height: 16px;
+        width: calc(100% - 30px);
+        border-radius: 8px;
+        margin-left: 5px;
         overflow: hidden;
         position: relative;
     }
     .bar{
-        height: 24px;
-        border-radius: 12px;
+        font-size: 12px;
+        line-height: 16px;
+        height: 16px;
+        border-radius: 8px;
         transition: ease-in-out 0.5s;
     }
     .bar_victor{
@@ -119,8 +194,8 @@
     }
     .number{
         width: 100%;
-        height: 24px;
-        line-height: 24px;
+        font-size: 12px;
+        line-height: 16px;
         position: absolute;
         top: 0;
         color: black;
@@ -240,7 +315,9 @@
         margin: 10px auto;
     }
     .count{
-        width: 50%;
+        width: 100%;
+        color: white;
+        background-color: var(--colorMain);
         border-radius: 20px;
         display: block;
         margin: 10px auto;
@@ -337,15 +414,17 @@
         color: rgb(100, 100, 100);
         font-weight: bold;
         text-align: center;
-        font-size: 50px;
-        line-height: 20vw;
+        font-size: 40px;
+        line-height: 15vw;
         width: 27vw;
-        height: 20vw;
+        height: 15vw;
         border-radius: 10px;
         margin: 5px;
         background-color: rgb(245, 245, 245);
     }
     .key-number:last-child{
+        background-color: var(--colorMain);
+        color: white;
         font-size: 20px;
         line-height: 50px;
         height: 50px;
@@ -390,7 +469,27 @@
 <body>
     <main>
 
-        <div class="container_budget">
+        <!-- 登入頁 -->
+        <div class="container-login">
+
+            <div class="error-login"></div>
+            <input class="mail-login input-login" type="text" value="" placeholder="請輸入電子信箱">
+            <input class="password-login input-login" type="password" value="" placeholder="請輸入密碼">
+            <button class="btn-login">登入</button>
+
+        </div>
+
+
+        <!-- 分頁 -->
+        <div class="container-toggle">
+            <div class="toggle-record toggle">紀錄</div>
+            <div class="toggle-input toggle toggle-checked">記帳</div>
+            <div class="toggle-setting toggle">設定</div>
+        </div>
+
+
+        <!-- 設定頁 -->
+        <div class="container-setting hide">
             
             <!-- 觀看紀錄 -->
             
@@ -411,6 +510,47 @@
             <button id="setting_budget"class="input_child">設定預算/人</button>
         </div>
 
+
+        <!-- 各種條bar -->
+        <div class="container_bar">
+            
+            <div class="bar_out">
+                <img src="Icons/man.png" alt="">
+
+                <div class="bar_back bar_victor_back">
+                    <div class="bar_victor bar"></div>
+                    <div class="number_victor number"></div>
+                </div>
+            </div>
+
+            <div class="bar_out">
+                <img src="Icons/woman.png" alt="">
+
+                <div class="bar_back bar_ikea_back">
+                    <div class="bar_ikea bar"></div>
+                    <div class="number_ikea number"></div>
+                </div>
+            </div>
+
+            <div class="bar_out">
+                <div class="bar_type bar_back">
+                    <div class="bar_banana bar"></div>
+                    <div class="bar_hamburger bar"></div>
+                    <div class="bar_cart bar"></div>
+                    <div class="bar_house bar"></div>
+                    <div class="bar_money bar"></div>
+                    <div class="bar_pug bar"></div>
+                    <div class="bar_suitcase bar"></div>
+                    <div class="bar_train bar"></div>
+                    <div class="bar_play bar"></div>
+                    <div class="bar_other bar"></div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- 輸入 -->
         <div id="inputBox">
 
             <input inputmode="numeric" type="text" name="prise" id="prise" class="input_child"placeholder="請輸入金額">
@@ -456,42 +596,8 @@
 
         </div>
 
-        <div class="container_bar">
-            
-            <div class="bar_out">
-                <img src="Icons/man.png" alt="">
-
-                <div class="bar_back bar_victor_back">
-                    <div class="bar_victor bar"></div>
-                    <div class="number_victor number"></div>
-                </div>
-            </div>
-
-            <div class="bar_out">
-                <img src="Icons/woman.png" alt="">
-
-                <div class="bar_back bar_ikea_back">
-                    <div class="bar_ikea bar"></div>
-                    <div class="number_ikea number"></div>
-                </div>
-            </div>
-
-            <div class="bar_out">
-                <div class="bar_type bar_back">
-                    <div class="bar_banana bar"></div>
-                    <div class="bar_hamburger bar"></div>
-                    <div class="bar_cart bar"></div>
-                    <div class="bar_house bar"></div>
-                    <div class="bar_money bar"></div>
-                    <div class="bar_pug bar"></div>
-                    <div class="bar_suitcase bar"></div>
-                    <div class="bar_train bar"></div>
-                    <div class="bar_play bar"></div>
-                    <div class="bar_other bar"></div>
-                </div>
-            </div>
-
-        </div>
+        
+        <!-- 購買物件 -->
         <div id="container_show">
             <div class="first hide"></div>
         </div>
@@ -503,7 +609,7 @@
         </div>
 
         <!-- 結算按鈕 -->
-        <div class="container_count">
+        <div class="container_count hide">
             <div class="checkBox hide">
                 是否確定結算?
                 <button class="count_yes input_child">確定</button>
@@ -520,14 +626,15 @@
 </body>
 
 <!-- 載入firebase和firestore的資料庫 -->
-
 <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+
 
 <script type="module">
     
     // Your web app's Firebase configuration
-    // 這裡是firebase用的apikey等等資料，公開沒關係，但是要可能要寫安全性規則來保護資料(還沒看到那邊)
+    // 這裡是firebase用的apikey等等資料，公開沒關係，但是要可能要寫安全性規則來保護資料
 
     const firebaseConfig = {
       apiKey: "AIzaSyA8i2iG1_9_9QugOf31tVkmj26YBF6jCFU",
@@ -575,6 +682,91 @@
     var fromMonth = 0
     var fromDate = 0
     var fromDay = 0
+
+
+    // 登入
+    document.querySelector('.btn-login').addEventListener('click',()=>{
+
+        let mail = document.querySelector('.mail-login').value
+        let password = document.querySelector('.password-login').value
+
+        if( mail && password){
+
+            firebase.auth().signInWithEmailAndPassword(mail,password).then( userData => {
+                
+                let user = userData.user
+                document.querySelector('.container-login').classList.add('hide')
+
+                // 寫入cookie
+                document.cookie = `id=${mail}; password=${password}; expires=${30*24*60*60*1000}; SameSite=Strict; `
+                
+                // 在登入後才開始抓取DB
+                getDb()
+
+            }).catch( error => {
+
+                let errCode = error.code
+                let err = error.message
+                document.querySelector('.error-login').innerHTML = err
+
+            })
+
+        } else {
+
+            document.querySelector('.error-login').innerHTML = '請輸入正確的信箱及密碼'
+
+        }
+    })
+
+
+    // 自動登入
+    var autoLogin = function(){
+
+        let mail = getCookie('id')
+        let password = getCookie('password')
+
+        if( mail && password ){
+
+            firebase.auth().signInWithEmailAndPassword(mail,password).then( userData => {
+                
+                let user = userData.user
+                document.querySelector('.container-login').classList.add('hide')
+                
+                // 在登入後才開始抓取DB
+                getDb()
+
+            }).then(()=>{
+                
+                // 把首頁的紀錄關掉
+                document.querySelector('#container_show').classList.add('hide')
+
+            })
+        } else {
+
+            console.log('can not auto login')
+
+        }
+    }
+    autoLogin()
+
+
+    // cookie取值的函數
+    function getCookie(name){
+
+        var cookies = document.cookie;
+        var list = cookies.split("; ");// 解析出名/值對列表
+
+        for(var i =0; i < list.length; i++){
+            
+            var arr = list[i].split("=");// 解析出名和值
+
+            if(arr[0]== name) return decodeURIComponent(arr[1]);// 對cookie值解碼
+
+        }
+
+        return "";
+
+    }
 
 
     // 設定開始時間的資料
@@ -887,7 +1079,6 @@
                 
             } )
 
-            console.log('1')
             getBudgetAndSetBar()
             setTypeBar()
             fromDate == 0 ? setFromDate() : ''
@@ -897,7 +1088,6 @@
 
     }
 
-    getDb()
 
 
     // 小鍵盤功能
@@ -940,6 +1130,8 @@
 
             document.getElementById('prise').value = ''
             document.getElementById('info').value = ''
+
+            setTimeout(function(){document.querySelector('.box_talk').innerHTML += `已記錄${info}花了${prise}元`},100)
 
         } else {
 
@@ -1265,6 +1457,52 @@
     })
 
     
+
+    // 分頁按鈕
+    document.querySelector('.toggle-setting').addEventListener('click',()=>{
+
+        document.querySelector('.toggle-setting').classList.add('toggle-checked')
+        document.querySelector('.toggle-record').classList.remove('toggle-checked')
+        document.querySelector('.toggle-input').classList.remove('toggle-checked')
+
+        document.querySelector('.container-setting').classList.remove('hide')
+        document.querySelector('.container_bar').classList.add('hide')
+        document.querySelector('#container_show').classList.add('hide')
+        document.querySelector('.container_talk').classList.add('hide')
+        document.querySelector('.container_count').classList.add('hide')
+        document.querySelector('#inputBox').classList.add('hide')
+
+    })
+
+    document.querySelector('.toggle-input').addEventListener('click',()=>{
+
+        document.querySelector('.toggle-setting').classList.remove('toggle-checked')
+        document.querySelector('.toggle-record').classList.remove('toggle-checked')
+        document.querySelector('.toggle-input').classList.add('toggle-checked')
+
+        document.querySelector('.container-setting').classList.add('hide')
+        document.querySelector('.container_bar').classList.remove('hide')
+        document.querySelector('#container_show').classList.add('hide')
+        document.querySelector('.container_talk').classList.remove('hide')
+        document.querySelector('.container_count').classList.add('hide')
+        document.querySelector('#inputBox').classList.remove('hide')
+
+    })
+
+    document.querySelector('.toggle-record').addEventListener('click',()=>{
+
+        document.querySelector('.toggle-setting').classList.remove('toggle-checked')
+        document.querySelector('.toggle-record').classList.add('toggle-checked')
+        document.querySelector('.toggle-input').classList.remove('toggle-checked')
+
+        document.querySelector('.container-setting').classList.add('hide')
+        document.querySelector('.container_bar').classList.remove('hide')
+        document.querySelector('#container_show').classList.remove('hide')
+        document.querySelector('.container_talk').classList.remove('hide')
+        document.querySelector('.container_count').classList.remove('hide')
+        document.querySelector('#inputBox').classList.add('hide')
+
+    })
     
 
   </script>
