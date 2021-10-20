@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="shortcut icon" href="Icons/pug_big.png">
+    <link rel="manifest" href="manifest.json">
 
     <!-- 在手機瀏覽器顯示全螢幕 -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -46,7 +47,7 @@
         height: 100vh;
         position: fixed;
         top: 0;
-        background-color: rgb(245, 245, 245);
+        background-color: #ffaa0b;
         z-index: 2;
         display: flex;
         align-content: center;
@@ -70,7 +71,7 @@
         background-color: white;
     }
     .btn-login{
-        color: white;
+        color: #ffaa0b;
         font-size: medium;
         font-weight: bold;
         width: 60%;
@@ -79,7 +80,7 @@
         border: none;
         height: 40px;
         border-radius: 20px;
-        background-color: var(--colorMain);
+        background-color: white;
     }
     .error-login{
         color: rgb(223, 65, 96);
@@ -215,7 +216,6 @@
         line-height: 16px;
         position: absolute;
         top: 0;
-        color: black;
         text-align: center;
     }
     .bar_type{
@@ -440,10 +440,10 @@
         color: rgb(165 165 165);
         font-weight: bold;
         text-align: center;
-        font-size: 40px;
-        line-height: 15vw;
-        width: 30%;
-        height: 15vw;
+        font-size: 30px;
+        line-height: 40px;
+        width: 21%;
+        height: 40px;
         border-radius: 15px;
         margin: 5px;
         background-color: rgb(245, 245, 245);
@@ -459,12 +459,12 @@
         font-size: 20px;
         line-height: 50px;
         height: 50px;
-        flex: 1;
+    }
+    #del_enter_cost{
+        width: calc(42% + 10px);
     }
     .icon-del{
         width: 40px;
-        position: relative;
-        top: -5px;
     }
 
     @media(max-width: 500px){
@@ -506,8 +506,8 @@
     }
     @media(min-height: 800px){
         .key-number {
-            height: 25vw;
-            line-height: 25vw;
+            height: 70px;
+            line-height: 70px;
         }
     }
 
@@ -642,7 +642,7 @@
                 <div class="key-number"data-num="7">7</div>
                 <div class="key-number"data-num="8">8</div>
                 <div class="key-number"data-num="9">9</div>
-                <div class="key-number"data-num=".">.</div>
+                <!-- <div class="key-number"data-num=".">.</div> -->
                 <div class="key-number"data-num="0">0</div>
                 <div id="del_enter_cost"class="key-number"><img class="icon-del"src="Icons/Del.png" alt=""></div>
                 <div id="key_enter_cost"class="key-number">完成記帳</div>
