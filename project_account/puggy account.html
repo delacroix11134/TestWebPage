@@ -7,8 +7,8 @@
     <link rel="shortcut icon" href="Icons/pug_big.png">
 
     <!-- 在手機瀏覽器顯示全螢幕 -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <!-- 這行用來在apple手機上，拉出捷徑時的icon -->
     <link rel="apple-touch-icon" href="Icons/apple-touch-icon.png">
@@ -31,8 +31,10 @@
         width: 100%;
         position: relative;
         overflow: scroll;
+        background-color: #ffaa0b;
         /* 禁止雙擊螢幕縮放 */
         touch-action: manipulation;
+        transition: ease-in-out 0.3s;
     }
     main{
         width: 100%;
@@ -92,7 +94,7 @@
     .container-toggle{
         width: var(--mainWidth);
         height: auto;
-        margin: 20px auto;
+        margin: 15px auto;
         display: flex;
         justify-content: space-around;
     }
@@ -101,23 +103,28 @@
         line-height: 40px;
         border-radius: 20px;
         width: 20%;
-        color: rgb(180, 180, 180);
+        color: #ffe8a6;
         font-size: 16px;
         text-align: center;
+        font-weight: 900;
     }
     .toggle-checked{
-        color: white;
-        font-weight: 900;
-        background-color: var(--colorMain);
+        color: var(--colorMain);
+        background-color: white;
     }
 
-    /* 預算 */
+    /* 設定頁 */
     .container-setting{
         width: var(--mainWidth);
         margin: 10px auto;
         display: flex;
-        justify-content: end;
+        justify-content: start;
+        flex-wrap: wrap;
     }
+    .container-setting > .input_child{
+        width: 100%;
+    }
+
     .hide{
         display: none !important;
         visibility: hidden;
@@ -128,21 +135,30 @@
         width: var(--mainWidth);
         display: flex;
         justify-content: center;
-        margin: 10px auto;
-        flex-wrap: wrap;
+        margin: 0 auto;
+        height: auto;
+        padding: 20px 0;
     }
     .input_child{
+        color: rgb(165 ,165, 165);
+        text-align: center;
         margin: 5px 5px;
         padding: 0 10px;
         height: 40px;
-        border-radius: 5px;
+        border-radius: 15px;
         border: none;
         background-color: rgb(245, 245, 245);
+        /* 去除ios的自帶樣式 */
+        -webkit-appearance: none;
     }
     .input_child:focus{
-        background-color: rgb(235, 235, 235);
+        background-color: #ffecb5;
         outline: none;
     }
+    .input_child::placeholder{
+        color: rgb(180, 180, 180);
+    }
+
     #prise{
         width: 90px;
     }
@@ -193,6 +209,7 @@
         background-color: #f64c7f;
     }
     .number{
+        color: white;
         width: 100%;
         font-size: 12px;
         line-height: 16px;
@@ -255,8 +272,11 @@
     /* show item */
 
     #container_show{
-        width: var(--mainWidth);
-        margin: 10px auto;
+        margin-top: 10px;
+        background-color: white;
+        width: 100%;
+        padding: 15px 6%;
+        border-radius: 50px 50px 0 0;
     }
     .item_show{
         border-bottom: 1px solid rgb(235, 235, 235);
@@ -275,6 +295,7 @@
     }
     .item_show_date{
         width: 90px;
+        line-height: 15px;
         text-align: center;
     }
     .item_show img{
@@ -316,11 +337,13 @@
     }
     .count{
         width: 100%;
-        color: white;
-        background-color: var(--colorMain);
-        border-radius: 20px;
+        color: var(--colorMain);
+        background-color: white;
+        border-radius: 15px;
         display: block;
         margin: 10px auto;
+        font-size: 18px;
+        font-weight: bold;
     }
     .count_delete{
         width: 50%;
@@ -332,15 +355,18 @@
     .container_talk{
         width: var(--mainWidth);
         display: flex;
-        margin: 0 auto;
+        margin: 10px auto;
     }
     .image_talk{
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
     }
     .box_talk{
+        color: #ff8e00;
+        font-weight: bold;
+        line-height: 25px;
         margin-left: 15px; 
-        padding: 10px 20px;
+        padding: 5px 15px;
         background-color: rgb(245, 245, 245);
         border-radius: 20px;
         flex: 1;
@@ -411,27 +437,29 @@
         justify-content: center;
     }
     .key-number{
-        color: rgb(100, 100, 100);
+        color: rgb(165 165 165);
         font-weight: bold;
         text-align: center;
         font-size: 40px;
         line-height: 15vw;
-        width: 27vw;
+        width: 30%;
         height: 15vw;
-        border-radius: 10px;
+        border-radius: 15px;
         margin: 5px;
         background-color: rgb(245, 245, 245);
     }
+    .key-number:active, .key-number:hover{
+        background-color: #ffecb5;
+        color: #ffaa0b;
+    }
     .key-number:last-child{
+        width: calc(90% + 20px);
         background-color: var(--colorMain);
         color: white;
         font-size: 20px;
         line-height: 50px;
         height: 50px;
         flex: 1;
-    }
-    .key-number:hover{
-        background-color: rgb(225, 225, 225);
     }
     .icon-del{
         width: 40px;
@@ -449,6 +477,19 @@
         #enter_cost{
             display: none;
         }
+        #inputBox{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            height: auto;
+            padding: 20px;
+            flex-wrap: wrap;
+            background-color: white;
+            border-radius: 50px 50px 0 0;
+            position: fixed;
+            bottom: 0;
+        }
         .item_show_prise{
             margin-left: 10px;
         }
@@ -461,6 +502,12 @@
         }
         .container-numbers{
         display: flex;
+        }
+    }
+    @media(min-height: 800px){
+        .key-number {
+            height: 25vw;
+            line-height: 25vw;
         }
     }
 
@@ -550,6 +597,13 @@
         </div>
 
 
+        <!-- 巴吉說話 -->
+        <div class="container_talk">
+            <img src="Icons/pug_big.png" alt="" class="image_talk">
+            <div class="box_talk"></div>
+        </div>
+
+
         <!-- 輸入 -->
         <div id="inputBox">
 
@@ -596,17 +650,6 @@
 
         </div>
 
-        
-        <!-- 購買物件 -->
-        <div id="container_show">
-            <div class="first hide"></div>
-        </div>
-
-        <!-- 巴吉說話 -->
-        <div class="container_talk">
-            <img src="Icons/pug_big.png" alt="" class="image_talk">
-            <div class="box_talk"></div>
-        </div>
 
         <!-- 結算按鈕 -->
         <div class="container_count hide">
@@ -617,6 +660,12 @@
             </div>
             <button class="count input_child">結算</button>
             <button class="count_delete input_child hide">重新開始記帳</button>
+        </div>
+
+        
+        <!-- 購買物件 -->
+        <div id="container_show">
+            <div class="first hide"></div>
         </div>
 
         
@@ -632,6 +681,7 @@
 
 
 <script type="module">
+
     
     // Your web app's Firebase configuration
     // 這裡是firebase用的apikey等等資料，公開沒關係，但是要可能要寫安全性規則來保護資料
@@ -698,10 +748,16 @@
                 document.querySelector('.container-login').classList.add('hide')
 
                 // 寫入cookie
-                document.cookie = `id=${mail}; password=${password}; expires=${30*24*60*60*1000}; SameSite=Strict; `
+                document.cookie = `id=${mail}; expires=Tue, 19 Jan 2038 03:14:07 GMT; SameSite=Lax;`
+                document.cookie = `password=${password}; expires=Tue, 19 Jan 2038 03:14:07 GMT; SameSite=Lax;`
                 
                 // 在登入後才開始抓取DB
                 getDb()
+
+            }).then(()=>{
+
+                // 把首頁的紀錄關掉
+                document.querySelector('#container_show').classList.add('hide')
 
             }).catch( error => {
 
@@ -1498,7 +1554,7 @@
         document.querySelector('.container-setting').classList.add('hide')
         document.querySelector('.container_bar').classList.remove('hide')
         document.querySelector('#container_show').classList.remove('hide')
-        document.querySelector('.container_talk').classList.remove('hide')
+        document.querySelector('.container_talk').classList.add('hide')
         document.querySelector('.container_count').classList.remove('hide')
         document.querySelector('#inputBox').classList.add('hide')
 
