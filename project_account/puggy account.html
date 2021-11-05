@@ -149,7 +149,7 @@
         padding: 20px 0;
     }
     .input_child{
-        color: rgb(165 ,165, 165);
+        color: rgb(165, 165, 165);
         text-align: center;
         margin: 5px 5px;
         padding: 0 10px;
@@ -281,6 +281,7 @@
         margin-top: 10px;
         background-color: white;
         width: 100%;
+        min-height: calc(100vh - 200px);
         padding: 15px 6%;
         border-radius: 50px 50px 0 0;
     }
@@ -1317,6 +1318,7 @@
 
         document.querySelector('.checkBox').classList.add('hide')
         document.querySelector('.count_delete').classList.remove('hide')
+        document.querySelector('.container_talk').classList.remove('hide')
 
         var time = getTime()
 
