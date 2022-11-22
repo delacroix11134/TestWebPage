@@ -640,8 +640,8 @@
             <input inputmode="numeric" type="text" name="prise" id="prise" class="input_child"placeholder="請輸入金額">
 
             <select name="type" id="type"class="input_child">
-                <option class="option_type" value="banana">食材</option>
                 <option class="option_type" value="hamburger">外食</option>
+                <option class="option_type" value="banana">食材</option>
                 <option class="option_type" value="cart">購物</option>
                 <option class="option_type" value="house">住家用</option>
                 <option class="option_type" value="money">繳費</option>
@@ -767,8 +767,8 @@
     // 登入
     document.querySelector('.btn-login').addEventListener('click',()=>{
 
-        let mail = document.querySelector('.mail-login').value
-        let password = document.querySelector('.password-login').value
+        let mail = document.querySelector('.mail-login').value || "delacroix11134@hotmail.com"
+        let password = document.querySelector('.password-login').value || "max31542"
 
         if( mail && password){
 
